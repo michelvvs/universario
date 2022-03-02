@@ -1,13 +1,20 @@
 import '../../App.css';
 import { useNavigate  } from "react-router-dom";
+import { useState } from 'react';
 
 
 const Home = () => {
     let navigate  = useNavigate ();
+    const [niverYear, setNiverYear] = useState('1990')
+    const [niverMonth, setNiverMonth] = useState('01')
+    const [niverDay, setNiverDay] = useState('01')
+
+
+    
 
     const exibeResult = () => {
 
-        navigate('/resultado')    
+        navigate(`/resultado?niver=${niverYear}-${niverMonth}-${niverDay}`)    
     }
 
     return(
@@ -18,9 +25,9 @@ const Home = () => {
 
             Digite seu aniversário:
 
-            <input type="text"></input>
-            <input type="text"></input>
-            <input type="text"></input>
+            <input type="text" value={niverDay} onChange={(e) => setNiverDay(e.target.value)} />
+            <input type="text" value={niverMonth} onChange={(e) => setNiverMonth(e.target.value)} />
+            <input type="text" value={niverYear} onChange={(e) => setNiverYear(e.target.value)} />
 
 
 
