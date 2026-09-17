@@ -5,11 +5,8 @@ import { BirthDataPayload } from '@/types/universario';
 import {
   ChevronLeft,
   ChevronRight,
-  Pause,
-  Play,
   X,
-  Radio,
-  Tv,
+  Sparkles,
 } from 'lucide-react';
 import SlideIntro from './slides/SlideIntro';
 import SlideMoonAstronomy from './slides/SlideMoonAstronomy';
@@ -26,12 +23,10 @@ interface StoryViewerProps {
   onClose: () => void;
 }
 
-const SLIDE_DURATION_MS = 7000; // 7.0s per story slide
+const SLIDE_DURATION_MS = 7000; // 7.0s per story reading indicator
 
 export default function StoryViewer({ data, onClose }: StoryViewerProps) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
-  const [isManualPaused, setIsManualPaused] = useState<boolean>(false);
-  const [isHolding, setIsHolding] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
 
   const activeSlideRef = useRef<HTMLDivElement>(null);
@@ -50,15 +45,14 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
   ];
 
   const totalSlides = slides.length;
-  const isPaused = isManualPaused || isHolding;
+  const isTimeComplete = progress >= 100;
+  const showPrev = currentSlideIndex > 0;
+  const showNext = currentSlideIndex < totalSlides - 1;
 
   const goToNextSlide = useCallback(() => {
     if (currentSlideIndex < totalSlides - 1) {
       setCurrentSlideIndex((prev) => prev + 1);
       setProgress(0);
-    } else {
-      setIsManualPaused(true);
-      setProgress(100);
     }
   }, [currentSlideIndex, totalSlides]);
 
@@ -66,41 +60,34 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
     if (currentSlideIndex > 0) {
       setCurrentSlideIndex((prev) => prev - 1);
       setProgress(0);
-    } else {
-      setProgress(0);
     }
   }, [currentSlideIndex]);
 
-  // Story progress timer
+  // Story progress timer - fills up to 100% and stays, waiting for user to advance manually
   useEffect(() => {
-    if (isPaused) return;
-
+    setProgress(0);
     const intervalMs = 50;
     const increment = (intervalMs / SLIDE_DURATION_MS) * 100;
 
     const timer = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
-          goToNextSlide();
-          return 0;
+          return 100;
         }
-        return prev + increment;
+        return Math.min(100, prev + increment);
       });
     }, intervalMs);
 
     return () => clearInterval(timer);
-  }, [isPaused, goToNextSlide]);
+  }, [currentSlideIndex]);
 
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.code === 'Space') {
         goToNextSlide();
       } else if (e.key === 'ArrowLeft') {
         goToPrevSlide();
-      } else if (e.key === ' ' || e.code === 'Space') {
-        e.preventDefault();
-        setIsManualPaused((prev) => !prev);
       } else if (e.key === 'Escape') {
         onClose();
       }
@@ -109,10 +96,6 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [goToNextSlide, goToPrevSlide, onClose]);
-
-  const togglePause = () => {
-    setIsManualPaused((prev) => !prev);
-  };
 
   return (
     <div
@@ -131,45 +114,49 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
       {/* 80s Cassette Walkman Audio Player */}
       <RetroAudioPlayer
         music={data.music}
-        isStoryPaused={isPaused}
-        onToggleStoryPause={togglePause}
+        isStoryPaused={false}
         year={data.year}
       />
 
-      {/* Desktop Quick Navigation Arrows */}
+      {/* Main Stories Frame Container with Floating Navigations */}
       <div
+        className="story-container-wrapper"
         style={{
+          position: 'relative',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '16px',
           width: '100%',
-          maxWidth: '600px',
+          maxWidth: '560px',
         }}
       >
-        <button
-          type="button"
-          onClick={goToPrevSlide}
-          disabled={currentSlideIndex === 0}
-          aria-label="Slide anterior"
-          style={{
-            display: 'none',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '46px',
-            height: '46px',
-            borderRadius: '12px',
-            background: '#16082f',
-            border: '2px solid #00f0ff',
-            color: currentSlideIndex === 0 ? '#475569' : '#ffffff',
-            boxShadow: currentSlideIndex === 0 ? 'none' : '3px 3px 0px #ff2a85',
-            cursor: currentSlideIndex === 0 ? 'default' : 'pointer',
-            transition: 'all 0.15s',
-          }}
-          className="desktop-nav-btn"
-        >
-          <ChevronLeft size={24} color={currentSlideIndex === 0 ? '#475569' : '#00f0ff'} />
-        </button>
+        {/* Floating Previous Navigation Button (Shown ONLY from 2nd slide onwards) */}
+        {showPrev && (
+          <button
+            type="button"
+            onClick={goToPrevSlide}
+            aria-label="Story anterior"
+            title="Voltar ao story anterior"
+            className="story-floating-nav-btn story-nav-prev"
+            style={{
+              zIndex: 50,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '46px',
+              height: '46px',
+              borderRadius: '50%',
+              background: '#16082f',
+              border: '2.5px solid #00f0ff',
+              color: '#ffffff',
+              boxShadow: '3px 3px 0px #ff2a85, 0 0 12px rgba(0, 240, 255, 0.4)',
+              cursor: 'pointer',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            <ChevronLeft size={28} color="#00f0ff" />
+          </button>
+        )}
 
         {/* 9:16 Instagram Story Frame with CRT & Film Grain Overlays */}
         <div className="story-wrapper crt-overlay film-grain">
@@ -194,7 +181,7 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
             })}
           </div>
 
-          {/* Top Story Header / Profile info & VHS OSD Timecode */}
+          {/* Top Story Header / Profile info & Close Button (No Play/Pause) */}
           <div className="story-header">
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <div className="story-avatar">📼</div>
@@ -208,66 +195,8 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
               </div>
             </div>
 
-            {/* Header Control Buttons */}
+            {/* Header Right Action: Close Button */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              {isPaused ? (
-                <span
-                  style={{
-                    padding: '2px 8px',
-                    borderRadius: '6px',
-                    background: '#ff2a85',
-                    border: '1px solid #ffffff',
-                    color: '#ffffff',
-                    fontFamily: 'var(--font-crt)',
-                    fontSize: '0.85rem',
-                    letterSpacing: '1px',
-                    boxShadow: '0 0 6px #ff2a85',
-                  }}
-                >
-                  PAUSED ❚❚
-                </span>
-              ) : (
-                <span
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    fontFamily: 'var(--font-crt)',
-                    fontSize: '0.85rem',
-                    color: '#00f0ff',
-                    textShadow: '0 0 4px #00f0ff',
-                  }}
-                >
-                  PLAY ►
-                </span>
-              )}
-
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  togglePause();
-                }}
-                aria-label={isPaused ? 'Continuar reprodução' : 'Pausar stories'}
-                title={isPaused ? 'Clique para continuar' : 'Clique para pausar'}
-                style={{
-                  background: isPaused ? '#ff2a85' : '#16082f',
-                  border: '2px solid #00f0ff',
-                  borderRadius: '10px',
-                  width: '34px',
-                  height: '34px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#ffffff',
-                  cursor: 'pointer',
-                  boxShadow: '2px 2px 0px #ff2a85',
-                  transition: 'all 0.15s ease',
-                }}
-              >
-                {isPaused ? <Play size={15} color="#ffffff" style={{ marginLeft: '2px' }} /> : <Pause size={15} color="#00f0ff" />}
-              </button>
-
               <button
                 type="button"
                 onClick={(e) => {
@@ -275,6 +204,7 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
                   onClose();
                 }}
                 aria-label="Fechar e escolher nova data"
+                title="Fechar retrospectiva"
                 style={{
                   background: '#16082f',
                   border: '2px solid #ffde59',
@@ -289,56 +219,95 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
                   boxShadow: '2px 2px 0px #ff2a85',
                 }}
               >
-                <X size={16} />
+                <X size={18} />
               </button>
             </div>
           </div>
 
           {/* Interactive Touch Tap Areas */}
-          <div
-            className="story-touch-left"
-            onClick={(e) => {
-              e.stopPropagation();
-              goToPrevSlide();
-            }}
-          />
+          {showPrev && (
+            <div
+              className="story-touch-left"
+              onClick={(e) => {
+                e.stopPropagation();
+                goToPrevSlide();
+              }}
+              title="Toque para voltar"
+            />
+          )}
           <div
             className="story-touch-right"
             onClick={(e) => {
               e.stopPropagation();
               goToNextSlide();
             }}
+            title="Toque para avançar"
           />
 
           {/* Active Visible Slide DOM Container */}
           <div ref={activeSlideRef} style={{ width: '100%', height: '100%' }}>
             {(slides[currentSlideIndex] || slides[0]).component}
           </div>
+
+          {/* Prompt when reading time finishes, reminding to click next */}
+          {isTimeComplete && showNext && (
+            <button
+              type="button"
+              onClick={goToNextSlide}
+              className="story-next-prompt-pill animate-pulse-glow"
+              style={{
+                position: 'absolute',
+                bottom: '22px',
+                right: '16px',
+                zIndex: 45,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                background: '#ff2a85',
+                border: '2px solid #ffffff',
+                borderRadius: '999px',
+                padding: '6px 14px',
+                color: '#ffffff',
+                fontFamily: 'var(--font-80s)',
+                fontSize: '0.74rem',
+                letterSpacing: '0.5px',
+                boxShadow: '0 0 14px rgba(255, 42, 133, 0.9), 2px 2px 0px #00f0ff',
+                cursor: 'pointer',
+              }}
+            >
+              <span>PRÓXIMO STORY</span>
+              <ChevronRight size={14} color="#ffffff" />
+            </button>
+          )}
         </div>
 
-        <button
-          type="button"
-          onClick={goToNextSlide}
-          disabled={currentSlideIndex === totalSlides - 1}
-          aria-label="Próximo slide"
-          style={{
-            display: 'none',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '46px',
-            height: '46px',
-            borderRadius: '12px',
-            background: '#16082f',
-            border: '2px solid #ff2a85',
-            color: currentSlideIndex === totalSlides - 1 ? '#475569' : '#ffffff',
-            boxShadow: currentSlideIndex === totalSlides - 1 ? 'none' : '3px 3px 0px #00f0ff',
-            cursor: currentSlideIndex === totalSlides - 1 ? 'default' : 'pointer',
-            transition: 'all 0.15s',
-          }}
-          className="desktop-nav-btn"
-        >
-          <ChevronRight size={24} color={currentSlideIndex === totalSlides - 1 ? '#475569' : '#ff2a85'} />
-        </button>
+        {/* Floating Next Navigation Button */}
+        {showNext && (
+          <button
+            type="button"
+            onClick={goToNextSlide}
+            aria-label="Próximo story"
+            title="Avançar para o próximo story"
+            className={`story-floating-nav-btn story-nav-next ${isTimeComplete ? 'pulse-ready' : ''}`}
+            style={{
+              zIndex: 50,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '46px',
+              height: '46px',
+              borderRadius: '50%',
+              background: '#16082f',
+              border: '2.5px solid #ff2a85',
+              color: '#ffffff',
+              boxShadow: '3px 3px 0px #00f0ff, 0 0 12px rgba(255, 42, 133, 0.4)',
+              cursor: 'pointer',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            <ChevronRight size={28} color="#ff2a85" />
+          </button>
+        )}
       </div>
 
       {/* Export Controls for PNG / ZIP */}
@@ -346,8 +315,8 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
         currentSlideElement={activeSlideRef.current}
         allSlideElements={hiddenSlideRefs.current.filter((el): el is HTMLDivElement => el !== null)}
         formattedDate={data.formattedDate}
-        onPause={() => setIsManualPaused(true)}
-        onResume={() => setIsManualPaused(false)}
+        onPause={() => {}}
+        onResume={() => {}}
       />
 
       {/* Hidden 1080x1920 Story Canvas Elements for High-Res Batch Export */}
@@ -378,9 +347,65 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
       </div>
 
       <style jsx>{`
+        /* Desktop Positioning: Beside Story Frame */
         @media (min-width: 640px) {
-          .desktop-nav-btn {
-            display: flex !important;
+          .story-nav-prev {
+            position: relative;
+            margin-right: 18px;
+          }
+          .story-nav-next {
+            position: relative;
+            margin-left: 18px;
+          }
+        }
+
+        /* Mobile / Smaller Screens: Floating slightly outside the story boundaries */
+        @media (max-width: 639px) {
+          .story-nav-prev {
+            position: absolute !important;
+            top: 50% !important;
+            left: -10px !important;
+            transform: translateY(-50%) !important;
+            width: 42px !important;
+            height: 42px !important;
+          }
+          .story-nav-next {
+            position: absolute !important;
+            top: 50% !important;
+            right: -10px !important;
+            transform: translateY(-50%) !important;
+            width: 42px !important;
+            height: 42px !important;
+          }
+        }
+
+        .pulse-ready {
+          animation: pulseBorder 1.2s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseBorder {
+          0% {
+            transform: scale(1);
+            box-shadow: 3px 3px 0px #00f0ff, 0 0 10px rgba(255, 42, 133, 0.4);
+          }
+          100% {
+            transform: scale(1.1);
+            box-shadow: 3px 3px 0px #00f0ff, 0 0 22px rgba(255, 42, 133, 0.9);
+          }
+        }
+
+        .animate-pulse-glow {
+          animation: pulseGlowBtn 1.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGlowBtn {
+          0% {
+            transform: scale(1);
+            box-shadow: 0 0 10px rgba(255, 42, 133, 0.7), 2px 2px 0px #00f0ff;
+          }
+          100% {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 42, 133, 1), 2px 2px 0px #00f0ff;
           }
         }
       `}</style>

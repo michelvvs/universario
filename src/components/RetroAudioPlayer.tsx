@@ -17,7 +17,7 @@ import {
 
 interface RetroAudioPlayerProps {
   music: MusicData;
-  isStoryPaused: boolean;
+  isStoryPaused?: boolean;
   onToggleStoryPause?: () => void;
   year?: number;
 }
