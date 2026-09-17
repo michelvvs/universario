@@ -19,6 +19,7 @@ import SlidePopCulture from './slides/SlidePopCulture';
 import SlideCosmicStats from './slides/SlideCosmicStats';
 import SlideSummaryCard from './slides/SlideSummaryCard';
 import ExportControls from './ExportControls';
+import RetroAudioPlayer from './RetroAudioPlayer';
 
 interface StoryViewerProps {
   data: BirthDataPayload;
@@ -127,6 +128,14 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
         zIndex: 10,
       }}
     >
+      {/* 80s Cassette Walkman Audio Player */}
+      <RetroAudioPlayer
+        music={data.music}
+        isStoryPaused={isPaused}
+        onToggleStoryPause={togglePause}
+        year={data.year}
+      />
+
       {/* Desktop Quick Navigation Arrows */}
       <div
         style={{

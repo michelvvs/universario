@@ -7,6 +7,9 @@ export interface MusicTrack {
   position?: number;
   chartContext?: string;
   coverUrl?: string;
+  youtubeVideoId?: string;
+  youtubeUrl?: string;
+  audioPreviewUrl?: string;
 }
 
 export interface MusicCategoryRanking {

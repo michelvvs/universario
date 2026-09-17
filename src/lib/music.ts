@@ -598,20 +598,25 @@ export function getMusicForDate(year: number, month: number): MusicData {
   };
 }
 
-import { fetchMusicCoverUrl } from './music-cover';
+import { fetchMusicMedia } from './music-cover';
 
 export async function enrichMusicWithCovers(music: MusicData): Promise<MusicData> {
   const tasks: Array<Promise<void>> = [];
 
   const enrichTrack = async (track: MusicTrack) => {
-    if (!track.coverUrl) {
-      try {
-        const cover = await fetchMusicCoverUrl(track.title, track.artist);
-        if (cover) {
-          track.coverUrl = cover;
-        }
-      } catch {}
-    }
+    try {
+      const media = await fetchMusicMedia(track.title, track.artist);
+      if (media.coverUrl && !track.coverUrl) {
+        track.coverUrl = media.coverUrl;
+      }
+      if (media.youtubeVideoId && !track.youtubeVideoId) {
+        track.youtubeVideoId = media.youtubeVideoId;
+        track.youtubeUrl = media.youtubeUrl || `https://www.youtube.com/watch?v=${media.youtubeVideoId}`;
+      }
+      if (media.audioPreviewUrl && !track.audioPreviewUrl) {
+        track.audioPreviewUrl = media.audioPreviewUrl;
+      }
+    } catch {}
   };
 
   // Enrich global top 1, brazil radio top 1, brazil sales top 1
@@ -635,16 +640,23 @@ export async function enrichMusicWithCovers(music: MusicData): Promise<MusicData
 
   await Promise.all(tasks);
 
-  // Sync covers across instances
-  if (music.billboardTop5?.[0]?.coverUrl && music.globalTopTrack) {
-    music.globalTopTrack.coverUrl = music.billboardTop5[0].coverUrl;
-  }
-  if (music.brazilRadioTop5?.[0]?.coverUrl && music.brazilTopTrack) {
-    music.brazilTopTrack.coverUrl = music.brazilRadioTop5[0].coverUrl;
-  }
-  if (music.brazilSalesTop5?.[0]?.coverUrl && music.brazilSalesTrack) {
-    music.brazilSalesTrack.coverUrl = music.brazilSalesTop5[0].coverUrl;
-  }
+  // Sync media across instances
+  const syncMedia = (source?: MusicTrack, target?: MusicTrack) => {
+    if (!source || !target) return;
+    if (source.coverUrl && !target.coverUrl) target.coverUrl = source.coverUrl;
+    if (source.youtubeVideoId && !target.youtubeVideoId) target.youtubeVideoId = source.youtubeVideoId;
+    if (source.youtubeUrl && !target.youtubeUrl) target.youtubeUrl = source.youtubeUrl;
+    if (source.audioPreviewUrl && !target.audioPreviewUrl) target.audioPreviewUrl = source.audioPreviewUrl;
+  };
+
+  syncMedia(music.billboardTop5?.[0], music.globalTopTrack);
+  syncMedia(music.globalTopTrack, music.billboardTop5?.[0]);
+
+  syncMedia(music.brazilRadioTop5?.[0], music.brazilTopTrack);
+  syncMedia(music.brazilTopTrack, music.brazilRadioTop5?.[0]);
+
+  syncMedia(music.brazilSalesTop5?.[0], music.brazilSalesTrack);
+  syncMedia(music.brazilSalesTrack, music.brazilSalesTop5?.[0]);
 
   return music;
 }

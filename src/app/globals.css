@@ -470,3 +470,17 @@ body {
     transform: translateY(0) scale(1);
   }
 }
+
+.animate-bounce-slow {
+  animation: bounceSlow 2.2s infinite ease-in-out;
+}
+
+@keyframes bounceSlow {
+  0%, 100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -8px);
+  }
+}
+
