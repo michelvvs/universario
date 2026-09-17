@@ -1,69 +1,336 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
 
-export default function Home() {
+import React, { useState } from 'react';
+import confetti from 'canvas-confetti';
+import DateInputForm from '@/components/DateInputForm';
+import LoadingTimeline from '@/components/LoadingTimeline';
+import StoryViewer from '@/components/StoryViewer';
+import { BirthDataPayload, LoadingStep } from '@/types/universario';
+import { Sparkles, Disc3, Tv, Flame, Radio } from 'lucide-react';
+
+const LOADING_STEPS: LoadingStep[] = [
+  {
+    id: 'astronomy',
+    label: 'Calculando fase da lua e coordenadas estelares',
+    sublabel: 'Determinando luminosidade, constelação e mapa celeste...',
+    icon: '🌕',
+    status: 'pending',
+  },
+  {
+    id: 'music',
+    label: 'Sintonizando paradas de sucesso (Rádios, Vendas & Billboard)',
+    sublabel: 'Rebobinando fitas cassete e resgatando LPs #1...',
+    icon: '📼',
+    status: 'pending',
+  },
+  {
+    id: 'news',
+    label: 'Consultando manchetes e jornais históricos',
+    sublabel: 'Acessando arquivos de notícias do Brasil e do mundo...',
+    icon: '📰',
+    status: 'pending',
+  },
+  {
+    id: 'popculture',
+    label: 'Reunindo cinema, novelas e cultura pop da época',
+    sublabel: 'Localizando filmes em cartaz e nostalgia 80s...',
+    icon: '🎬',
+    status: 'pending',
+  },
+  {
+    id: 'rendering',
+    label: 'Gravando seus Stories retrô em 9:16 HD',
+    sublabel: 'Aplicando scanlines CRT, vinil giratório e estética Memphis...',
+    icon: '✨',
+    status: 'pending',
+  },
+];
+
+export default function HomePage() {
+  const [viewState, setViewState] = useState<'idle' | 'loading' | 'stories'>('idle');
+  const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
+  const [birthData, setBirthData] = useState<BirthDataPayload | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleFetchBirthData = async (date: string, name?: string) => {
+    setViewState('loading');
+    setCurrentStepIndex(0);
+    setErrorMessage(null);
+
+    const stepInterval = 450;
+    let currentStep = 0;
+
+    const stepTimer = setInterval(() => {
+      currentStep++;
+      if (currentStep < LOADING_STEPS.length) {
+        setCurrentStepIndex(currentStep);
+      } else {
+        clearInterval(stepTimer);
+      }
+    }, stepInterval);
+
+    try {
+      const response = await fetch('/api/birth-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ date, name }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Erro ao resgatar dados históricos.');
+      }
+
+      const data: BirthDataPayload = await response.json();
+
+      const remainingTime = Math.max(200, (LOADING_STEPS.length - currentStep) * stepInterval);
+      setTimeout(() => {
+        clearInterval(stepTimer);
+        setCurrentStepIndex(LOADING_STEPS.length - 1);
+
+        setTimeout(() => {
+          setBirthData(data);
+          setViewState('stories');
+
+          // Celebration Confetti 80s Neon Colors
+          try {
+            confetti({
+              particleCount: 100,
+              spread: 80,
+              origin: { y: 0.6 },
+              colors: ['#ff2a85', '#00f0ff', '#ffde59', '#7928ca', '#26ffdf'],
+            });
+          } catch {}
+        }, 300);
+      }, remainingTime);
+    } catch (err: unknown) {
+      clearInterval(stepTimer);
+      setViewState('idle');
+      const error = err as Error;
+      setErrorMessage(error.message || 'Houve um imprevisto ao buscar os dados. Tente novamente.');
+    }
+  };
+
+  const handleCloseStories = () => {
+    setViewState('idle');
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
+    <main style={{ minHeight: '100vh', position: 'relative', width: '100%', overflowX: 'hidden' }}>
+      {/* 80s Synthwave Grid & Memphis Background */}
+      <div className="memphis-bg" />
+
+      {/* Floating Memphis Geometric Accents */}
+      <div
+        className="animate-float-1"
+        style={{
+          position: 'fixed',
+          top: '12%',
+          left: '6%',
+          width: '32px',
+          height: '32px',
+          border: '4px solid #00f0ff',
+          borderRadius: '6px',
+          pointerEvents: 'none',
+          zIndex: 0,
+          opacity: 0.6,
+        }}
+      />
+      <div
+        className="animate-float-2"
+        style={{
+          position: 'fixed',
+          top: '25%',
+          right: '8%',
+          width: '0',
+          height: '0',
+          borderLeft: '20px solid transparent',
+          borderRight: '20px solid transparent',
+          borderBottom: '36px solid #ffde59',
+          pointerEvents: 'none',
+          zIndex: 0,
+          opacity: 0.7,
+        }}
+      />
+      <div
+        className="animate-float-1"
+        style={{
+          position: 'fixed',
+          bottom: '20%',
+          left: '8%',
+          width: '40px',
+          height: '40px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, #ff2a85 40%, transparent 42%)',
+          backgroundSize: '12px 12px',
+          pointerEvents: 'none',
+          zIndex: 0,
+          opacity: 0.6,
+        }}
+      />
+      <div
+        className="animate-float-2"
+        style={{
+          position: 'fixed',
+          bottom: '15%',
+          right: '7%',
+          color: '#26ffdf',
+          fontSize: '2rem',
+          fontFamily: 'var(--font-80s)',
+          pointerEvents: 'none',
+          zIndex: 0,
+          opacity: 0.6,
+        }}
+      >
+        ✦ 〰
+      </div>
+
+      {/* Main Content Container */}
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 1,
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}
+      >
+        {/* Retro Header Topbar */}
+        <header
+          style={{
+            padding: '20px 24px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            maxWidth: '1100px',
+            margin: '0 auto',
+            width: '100%',
+          }}
+        >
+          <div
+            onClick={() => setViewState('idle')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              cursor: 'pointer',
+              userSelect: 'none',
+            }}
+          >
+            <div
+              style={{
+                width: '42px',
+                height: '42px',
+                borderRadius: '12px',
+                background: '#ff2a85',
+                border: '2px solid #ffffff',
+                boxShadow: '3px 3px 0px #00f0ff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '1.4rem',
+              }}
+            >
+              📼
+            </div>
+            <div>
+              <span
+                style={{
+                  fontSize: '1.6rem',
+                  fontWeight: 800,
+                  fontFamily: 'var(--font-80s)',
+                  color: '#ffffff',
+                }}
+                className="text-chromatic"
+              >
+                UNIVERSÁRIO
+              </span>
+              <div
+                style={{
+                  fontFamily: 'var(--font-crt)',
+                  fontSize: '0.9rem',
+                  color: '#00f0ff',
+                  letterSpacing: '1px',
+                  lineHeight: 1,
+                }}
+              >
+                RETRO EDITION • 1980s
+              </div>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span className="vhs-rec">
+              <span className="vhs-rec-dot" />
+              <span>REC 80s</span>
+            </span>
+          </div>
+        </header>
+
+        {/* Dynamic Body Content */}
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px 16px',
+          }}
+        >
+          {viewState === 'idle' && (
+            <div style={{ width: '100%' }}>
+              {errorMessage && (
+                <div
+                  style={{
+                    maxWidth: '520px',
+                    margin: '0 auto 16px auto',
+                    padding: '12px 16px',
+                    borderRadius: '12px',
+                    background: 'rgba(255, 42, 133, 0.25)',
+                    border: '2px solid #ff2a85',
+                    color: '#ffffff',
+                    fontFamily: 'var(--font-80s)',
+                    fontSize: '0.95rem',
+                    textAlign: 'center',
+                    boxShadow: '4px 4px 0px #00f0ff',
+                  }}
+                >
+                  ⚠ {errorMessage}
+                </div>
+              )}
+              <DateInputForm onSubmit={handleFetchBirthData} isLoading={false} />
+            </div>
+          )}
+
+          {viewState === 'loading' && (
+            <LoadingTimeline steps={LOADING_STEPS} currentStepIndex={currentStepIndex} />
+          )}
+
+          {viewState === 'stories' && birthData && (
+            <StoryViewer data={birthData} onClose={handleCloseStories} />
+          )}
+        </div>
+
+        {/* Retro 80s Footer */}
+        <footer
+          style={{
+            padding: '20px 20px',
+            textAlign: 'center',
+            color: 'var(--text-muted)',
+            fontSize: '0.82rem',
+            borderTop: '1px dashed rgba(255, 255, 255, 0.15)',
+            background: 'rgba(9, 3, 20, 0.8)',
+          }}
+        >
+          <div style={{ fontFamily: 'var(--font-crt)', fontSize: '1rem', color: '#ffde59', marginBottom: '4px' }}>
+            ★ UNIVERSÁRIO 80s • MEMPHIS RETRO ENGINE ★
+          </div>
           <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+            Paradas Nacionais & Internacionais, Astronomia & Arquivos Históricos em 9:16
           </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+        </footer>
+      </div>
+    </main>
   );
 }
