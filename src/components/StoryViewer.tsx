@@ -69,7 +69,7 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
     setIsChannelSwitching(true);
     const timer = setTimeout(() => {
       setIsChannelSwitching(false);
-    }, 450);
+    }, 750);
     return () => clearTimeout(timer);
   }, [currentSlideIndex]);
 
