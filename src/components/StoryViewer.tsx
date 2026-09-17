@@ -28,6 +28,7 @@ const SLIDE_DURATION_MS = 7000; // 7.0s per story reading indicator
 export default function StoryViewer({ data, onClose }: StoryViewerProps) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
   const [progress, setProgress] = useState<number>(0);
+  const [isChannelSwitching, setIsChannelSwitching] = useState<boolean>(true);
 
   const activeSlideRef = useRef<HTMLDivElement>(null);
   const hiddenSlideRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -61,6 +62,15 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
       setCurrentSlideIndex((prev) => prev - 1);
       setProgress(0);
     }
+  }, [currentSlideIndex]);
+
+  // Trigger TV Channel Switch Static & Beam flash on slide change
+  useEffect(() => {
+    setIsChannelSwitching(true);
+    const timer = setTimeout(() => {
+      setIsChannelSwitching(false);
+    }, 450);
+    return () => clearTimeout(timer);
   }, [currentSlideIndex]);
 
   // Story progress timer - fills up to 100% and stays, waiting for user to advance manually
@@ -160,6 +170,19 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
 
         {/* 9:16 Instagram Story Frame with CRT & Film Grain Overlays */}
         <div className="story-wrapper crt-overlay film-grain">
+          {/* TV Channel Switch CRT Static Noise Overlay */}
+          {isChannelSwitching && <div className="tv-static-burst" />}
+
+          {/* TV Channel Switch Horizontal Electron Beam Flash */}
+          {isChannelSwitching && <div className="tv-beam-line" />}
+
+          {/* Retro Phosphor-Green Channel OSD (e.g. CH 01, CH 02) */}
+          {isChannelSwitching && (
+            <div className="tv-channel-hud">
+              CH {String(currentSlideIndex + 1).padStart(2, '0')}
+            </div>
+          )}
+
           {/* Top Progress Bars (Instagram Stories Segmented) */}
           <div className="story-progress-container">
             {slides.map((_, idx) => {
@@ -244,8 +267,13 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
             title="Toque para avançar"
           />
 
-          {/* Active Visible Slide DOM Container */}
-          <div ref={activeSlideRef} style={{ width: '100%', height: '100%' }}>
+          {/* Active Visible Slide DOM Container with TV Channel Snap-in Transition */}
+          <div
+            key={currentSlideIndex}
+            ref={activeSlideRef}
+            className="slide-channel-enter"
+            style={{ width: '100%', height: '100%' }}
+          >
             {(slides[currentSlideIndex] || slides[0]).component}
           </div>
 

@@ -122,19 +122,118 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Chromatic Aberration Text */
-.text-chromatic {
+/* =========================================================
+   BADLY TUNED CRT TV GLITCH & SCANLINE ANIMATION ON TITLES
+   ========================================================= */
+
+@keyframes crtTvGlitch {
+  0%, 14%, 100% {
+    text-shadow: -2.5px 0 0 rgba(0, 240, 255, 0.85), 2.5px 0 0 rgba(255, 42, 133, 0.85);
+    transform: translate(0, 0) skew(0deg);
+    filter: none;
+  }
+  15% {
+    text-shadow: -4px -1px 0 #00f0ff, 4px 1px 0 #ff2a85, 0 0 10px rgba(255, 222, 89, 0.9);
+    transform: translate(-3px, 1px) skew(-3deg);
+  }
+  17% {
+    text-shadow: 3.5px 1px 0 #00f0ff, -3.5px -1px 0 #ff2a85;
+    transform: translate(2px, -1px) skew(2deg);
+  }
+  19% {
+    text-shadow: -2.5px 0 0 rgba(0, 240, 255, 0.85), 2.5px 0 0 rgba(255, 42, 133, 0.85);
+    transform: translate(0, 0) skew(0deg);
+  }
+  48% {
+    text-shadow: -2.5px 0 0 rgba(0, 240, 255, 0.85), 2.5px 0 0 rgba(255, 42, 133, 0.85);
+    transform: translate(0, 0) skew(0deg);
+  }
+  49% {
+    text-shadow: -6px 0 0 #00f0ff, 6px 0 0 #ff2a85, 0 0 14px #ff2a85;
+    transform: translate(4px, 0) skew(4deg);
+    filter: drop-shadow(0 0 6px #00f0ff);
+  }
+  51% {
+    text-shadow: 2px 0 0 #ffde59, -3px 0 0 #00f0ff;
+    transform: translate(-2px, 0) skew(-2deg);
+  }
+  53% {
+    text-shadow: -2.5px 0 0 rgba(0, 240, 255, 0.85), 2.5px 0 0 rgba(255, 42, 133, 0.85);
+    transform: translate(0, 0) skew(0deg);
+    filter: none;
+  }
+  78% {
+    text-shadow: -2.5px 0 0 rgba(0, 240, 255, 0.85), 2.5px 0 0 rgba(255, 42, 133, 0.85);
+    transform: translate(0, 0) skew(0deg);
+  }
+  79% {
+    text-shadow: -3px 2px 0 #ffde59, 3px -1px 0 #00f0ff;
+    transform: translate(-1.5px, 2px) skew(-1.5deg);
+  }
+  81% {
+    text-shadow: -2.5px 0 0 rgba(0, 240, 255, 0.85), 2.5px 0 0 rgba(255, 42, 133, 0.85);
+    transform: translate(0, 0) skew(0deg);
+  }
+}
+
+/* Horizontal scanline slice beam on glitch titles */
+@keyframes titleScanlineSweep {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(220%);
+    opacity: 0;
+  }
+}
+
+/* Chromatic Aberration Text with Badly Tuned TV Glitch */
+.text-chromatic,
+.title-glitch {
+  position: relative;
   text-shadow: -2.5px 0 0 rgba(0, 240, 255, 0.85), 2.5px 0 0 rgba(255, 42, 133, 0.85);
   font-family: var(--font-80s);
   letter-spacing: 0.5px;
+  animation: crtTvGlitch 3.8s infinite ease-in-out;
+  display: inline-block;
+  will-change: transform, text-shadow;
+}
+
+.text-chromatic::after,
+.title-glitch::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  animation: titleScanlineSweep 2.2s linear infinite;
 }
 
 .text-chromatic-cyan {
   text-shadow: -2px 0 0 rgba(255, 222, 89, 0.8), 2px 0 0 rgba(0, 240, 255, 0.9);
+  animation: crtTvGlitch 4.2s infinite ease-in-out 0.5s;
+  display: inline-block;
 }
 
 .text-chromatic-pink {
   text-shadow: -2px 0 0 rgba(0, 240, 255, 0.9), 2px 0 0 rgba(255, 42, 133, 0.9);
+  animation: crtTvGlitch 3.5s infinite ease-in-out 1s;
+  display: inline-block;
 }
 
 /* VHS OSD Elements */
@@ -534,4 +633,139 @@ body {
 .sound-bar-anim-2 { animation: soundBarDance2 0.58s ease-in-out infinite alternate 0.12s !important; }
 .sound-bar-anim-3 { animation: soundBarDance3 0.82s ease-in-out infinite alternate 0.22s !important; }
 .sound-bar-anim-4 { animation: soundBarDance4 0.62s ease-in-out infinite alternate 0.16s !important; }
+
+/* =========================================================
+   80s TV CHANNEL SWITCH TRANSITION & ANALOG CRT STATIC BURST
+   ========================================================= */
+
+/* Slide Channel Switch Enter Animation */
+.slide-content-enter,
+.slide-channel-enter {
+  animation: tvChannelSnapIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity, filter;
+}
+
+@keyframes tvChannelSnapIn {
+  0% {
+    opacity: 0.1;
+    transform: scale(1.03) translateY(-10px);
+    filter: brightness(2.2) contrast(1.6) saturate(1.8) hue-rotate(15deg);
+  }
+  30% {
+    opacity: 0.7;
+    transform: scale(0.99) translateY(4px);
+    filter: brightness(1.4) contrast(1.2) hue-rotate(-10deg);
+  }
+  70% {
+    opacity: 0.95;
+    transform: scale(1.005) translateY(-1px);
+    filter: brightness(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: none;
+  }
+}
+
+/* TV Static Noise Burst Overlay on Channel Switch */
+.tv-static-burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 48;
+  opacity: 0.45;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-size: 150px 150px;
+  animation: staticNoiseFlicker 0.28s steps(4) forwards;
+}
+
+@keyframes staticNoiseFlicker {
+  0% {
+    opacity: 0.75;
+    background-position: 0 0;
+    transform: scale(1.1);
+  }
+  25% {
+    opacity: 0.6;
+    background-position: 40px -30px;
+  }
+  50% {
+    opacity: 0.4;
+    background-position: -20px 50px;
+  }
+  75% {
+    opacity: 0.2;
+    background-position: 10px 10px;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+/* Horizontal TV Electron Beam Collapse Line */
+.tv-beam-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 3px;
+  background: #ffffff;
+  box-shadow: 0 0 15px #00f0ff, 0 0 30px #ff2a85;
+  z-index: 49;
+  pointer-events: none;
+  animation: tvBeamFlash 0.25s ease-out forwards;
+}
+
+@keyframes tvBeamFlash {
+  0% {
+    opacity: 1;
+    transform: translateY(-50%) scaleY(8) scaleX(1);
+  }
+  40% {
+    opacity: 0.8;
+    transform: translateY(-50%) scaleY(0.5) scaleX(0.9);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50%) scaleY(0) scaleX(0);
+  }
+}
+
+/* Retro Phosphor-Green Channel OSD (On-Screen Display) */
+.tv-channel-hud {
+  position: absolute;
+  top: 52px;
+  right: 18px;
+  z-index: 45;
+  background: rgba(0, 0, 0, 0.85);
+  border: 1.5px solid #00ff66;
+  border-radius: 6px;
+  padding: 3px 9px;
+  color: #00ff66;
+  font-family: var(--font-crt);
+  font-size: 1.05rem;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 8px #00ff66;
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
+  pointer-events: none;
+  animation: channelHudFade 1.6s ease-out forwards;
+}
+
+@keyframes channelHudFade {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
 
