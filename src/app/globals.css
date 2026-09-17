@@ -437,18 +437,18 @@ body {
 /* Memphis Story Progress Bars */
 .story-progress-container {
   position: absolute;
-  top: 14px;
-  left: 14px;
-  right: 14px;
+  top: 10px;
+  left: 12px;
+  right: 12px;
   display: flex;
-  gap: 5px;
-  z-index: 40;
+  gap: 4px;
+  z-index: 45;
 }
 
 .story-progress-bar {
   flex: 1;
-  height: 5px;
-  background: rgba(17, 17, 17, 0.25);
+  height: 4.5px;
+  background: rgba(17, 17, 17, 0.2);
   border: 1px solid #111111;
   border-radius: 3px;
   overflow: hidden;
@@ -457,64 +457,70 @@ body {
 
 .story-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #ff2a85, #ffe600, #00d2ff);
+  background: #ff2a85;
   border-radius: 2px;
   width: 0%;
   transition: width 0.05s linear;
 }
 
-/* Story Header */
-.story-header {
+/* Story Header Capsule Pill */
+.story-header-pill {
   position: absolute;
-  top: 26px;
-  left: 14px;
-  right: 14px;
+  top: 20px;
+  left: 12px;
+  right: 12px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  z-index: 40;
+  justifyContent: space-between;
+  z-index: 45;
+  background: #ffffff;
+  border: 2.5px solid #111111;
+  box-shadow: 2.5px 2.5px 0px #111111;
+  border-radius: 14px;
+  padding: 4px 8px 4px 6px;
 }
 
 .story-avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
   background: #ffe600;
-  border: 2.5px solid #111111;
-  box-shadow: 2.5px 2.5px 0px #111111;
+  border: 2px solid #111111;
+  box-shadow: 1.5px 1.5px 0px #111111;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
+  justifyContent: center;
+  font-size: 1.1rem;
 }
 
 .story-user-info {
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+  margin-left: 8px;
 }
 
 .story-user-name {
   font-weight: 900;
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   color: #111111;
-  text-shadow: 1px 1px 0px #ffe600;
   font-family: var(--font-80s);
   letter-spacing: 0.5px;
+  line-height: 1.1;
 }
 
 .story-user-date {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: #ff2a85;
   font-family: var(--font-crt);
   font-weight: 700;
   letter-spacing: 0.5px;
+  line-height: 1;
 }
 
 /* Touch Tap Zones for Story Navigation */
 .story-touch-left {
   position: absolute;
-  top: 70px;
+  top: 75px;
   bottom: 80px;
   left: 0;
   width: 32%;
@@ -524,7 +530,7 @@ body {
 
 .story-touch-right {
   position: absolute;
-  top: 70px;
+  top: 75px;
   bottom: 80px;
   right: 0;
   width: 68%;
@@ -533,7 +539,7 @@ body {
 }
 
 /* =========================================================
-   MEMPHIS CANVAS SLIDE THEMES (COLLAGE BACKGROUNDS)
+   MEMPHIS CANVAS SLIDE THEMES (CLEAN & HIGH CONTRAST)
    ========================================================= */
 
 .slide-memphis-canvas {
@@ -542,92 +548,52 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 72px 18px 26px 18px;
+  justifyContent: space-between;
+  padding: 82px 16px 20px 16px;
   overflow: hidden;
-  background: #ffffff;
+  background-color: #faf7ee;
+  background-image: 
+    radial-gradient(#111111 1px, transparent 1px),
+    linear-gradient(to bottom, #ffffff 0%, #faf7ee 100%);
+  background-size: 22px 22px, 100% 100%;
+  color: #111111;
 }
 
-/* Slide 1: Memphis Pink & Yellow Splash */
+/* Specific theme subtle accent touches */
 .slide-theme-intro {
-  background: 
-    radial-gradient(circle at 10% 20%, #ffe600 0%, #ffe600 28%, transparent 29%),
-    radial-gradient(circle at 90% 15%, #ff2a85 0%, #ff2a85 30%, transparent 31%),
-    radial-gradient(circle at 85% 85%, #00d2ff 0%, #00d2ff 25%, transparent 26%),
-    radial-gradient(circle at 15% 80%, #9b51e0 0%, #9b51e0 24%, transparent 25%),
-    #fffdf7;
+  background-color: #fffdf5;
 }
 
-/* Slide 2: Memphis Celestial Turquoise & Yellow */
 .slide-theme-moon {
-  background: 
-    radial-gradient(circle at 50% 18%, #ffe600 0%, #ffe600 22%, transparent 23%),
-    radial-gradient(circle at 90% 85%, #ff2a85 0%, #ff2a85 32%, transparent 33%),
-    radial-gradient(circle at 10% 75%, #00d2ff 0%, #00d2ff 28%, transparent 29%),
-    #fffdf7;
+  background-color: #f6faff;
 }
 
-/* Slide 3: Memphis Radio Hot Pink & Mint */
 .slide-theme-radio {
-  background: 
-    radial-gradient(circle at 15% 15%, #ff2a85 0%, #ff2a85 32%, transparent 33%),
-    radial-gradient(circle at 85% 25%, #00d2ff 0%, #00d2ff 26%, transparent 27%),
-    radial-gradient(circle at 50% 88%, #ffe600 0%, #ffe600 30%, transparent 31%),
-    #fffdf7;
+  background-color: #fff7fa;
 }
 
-/* Slide 4: Memphis Sales Sunshine Yellow & Purple */
 .slide-theme-sales {
-  background: 
-    radial-gradient(circle at 85% 15%, #ffe600 0%, #ffe600 35%, transparent 36%),
-    radial-gradient(circle at 15% 25%, #9b51e0 0%, #9b51e0 26%, transparent 27%),
-    radial-gradient(circle at 85% 80%, #ff2a85 0%, #ff2a85 28%, transparent 29%),
-    #fffdf7;
+  background-color: #fffdf5;
 }
 
-/* Slide 5: Memphis Billboard Electric Cyan & Pink */
 .slide-theme-billboard {
-  background: 
-    radial-gradient(circle at 15% 15%, #00d2ff 0%, #00d2ff 35%, transparent 36%),
-    radial-gradient(circle at 85% 20%, #ff2a85 0%, #ff2a85 28%, transparent 29%),
-    radial-gradient(circle at 50% 85%, #ffe600 0%, #ffe600 30%, transparent 31%),
-    #fffdf7;
+  background-color: #f5fcff;
 }
 
-/* Slide 6: Memphis Newspaper Vintage Cream & Lilac */
 .slide-theme-news {
-  background: 
-    radial-gradient(circle at 85% 15%, #9b51e0 0%, #9b51e0 30%, transparent 31%),
-    radial-gradient(circle at 15% 30%, #ffe600 0%, #ffe600 25%, transparent 26%),
-    radial-gradient(circle at 80% 85%, #00d2ff 0%, #00d2ff 28%, transparent 29%),
-    #fffdf7;
+  background-color: #faf8f5;
 }
 
-/* Slide 7: Memphis Pop Culture Neon Marquee */
 .slide-theme-pop {
-  background: 
-    radial-gradient(circle at 15% 15%, #ff2a85 0%, #ff2a85 30%, transparent 31%),
-    radial-gradient(circle at 85% 25%, #ffe600 0%, #ffe600 28%, transparent 29%),
-    radial-gradient(circle at 20% 85%, #00d2ff 0%, #00d2ff 30%, transparent 31%),
-    #fffdf7;
+  background-color: #fff8f8;
 }
 
-/* Slide 8: Memphis Cosmic Stats Arcade */
 .slide-theme-stats {
-  background: 
-    radial-gradient(circle at 85% 15%, #00d2ff 0%, #00d2ff 32%, transparent 33%),
-    radial-gradient(circle at 15% 25%, #ff2a85 0%, #ff2a85 26%, transparent 27%),
-    radial-gradient(circle at 50% 85%, #ffe600 0%, #ffe600 32%, transparent 33%),
-    #fffdf7;
+  background-color: #f7fbff;
 }
 
-/* Slide 9: Memphis VIP Mixtape Festival */
 .slide-theme-summary {
-  background: 
-    radial-gradient(circle at 50% 12%, #ffe600 0%, #ffe600 32%, transparent 33%),
-    radial-gradient(circle at 88% 80%, #ff2a85 0%, #ff2a85 30%, transparent 31%),
-    radial-gradient(circle at 12% 80%, #00d2ff 0%, #00d2ff 30%, transparent 31%),
-    #fffdf7;
+  background-color: #fffdf5;
 }
 
 /* =========================================================
@@ -839,24 +805,21 @@ body {
   height: 200%;
   pointer-events: none;
   z-index: 99998;
-  opacity: 0.058;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grainNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grainNoise)'/%3E%3C/svg%3E");
-  background-size: 160px 160px;
-  animation: animatedGrainNoise 0.5s steps(8) infinite;
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grainNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grainNoise)' fill='%23000000'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+  animation: animatedGrainNoise 0.35s steps(6) infinite;
   will-change: transform;
 }
 
 @keyframes animatedGrainNoise {
   0% { transform: translate(0, 0); }
-  10% { transform: translate(-2%, -3%); }
-  20% { transform: translate(-4%, 2%); }
-  30% { transform: translate(3%, -4%); }
-  40% { transform: translate(-2%, 5%); }
-  50% { transform: translate(-5%, -2%); }
-  60% { transform: translate(4%, 3%); }
-  70% { transform: translate(2%, -5%); }
-  80% { transform: translate(-3%, 4%); }
-  90% { transform: translate(5%, -1%); }
+  16% { transform: translate(-3%, -4%); }
+  33% { transform: translate(4%, -2%); }
+  50% { transform: translate(-4%, 3%); }
+  66% { transform: translate(2%, 4%); }
+  83% { transform: translate(-2%, -3%); }
   100% { transform: translate(0, 0); }
 }
 
@@ -869,10 +832,12 @@ body {
   height: 200%;
   pointer-events: none;
   z-index: 42;
-  opacity: 0.045;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grainNoiseInner'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grainNoiseInner)'/%3E%3C/svg%3E");
-  background-size: 140px 140px;
-  animation: animatedGrainNoise 0.45s steps(8) infinite;
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grainNoiseInner'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grainNoiseInner)' fill='%23000000'/%3E%3C/svg%3E");
+  background-size: 130px 130px;
+  animation: animatedGrainNoise 0.35s steps(6) infinite;
   will-change: transform;
 }
+
 

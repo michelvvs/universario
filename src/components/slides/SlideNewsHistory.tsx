@@ -60,7 +60,7 @@ export default function SlideNewsHistory({ data }: SlideProps) {
             fontWeight: 900,
             fontFamily: 'var(--font-80s)',
             lineHeight: 1.1,
-            marginBottom: '2px',
+            marginBottom: '4px',
             color: '#111111',
             textShadow: '2.5px 2.5px 0px #ffe600',
           }}
@@ -69,9 +69,22 @@ export default function SlideNewsHistory({ data }: SlideProps) {
           O MUNDO EM {year}
         </h2>
 
-        <p style={{ fontSize: '0.78rem', fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px' }}>
-          FATOS HISTÓRICOS QUE ESTAVAM NAS PRIMEIRAS PÁGINAS
-        </p>
+        <div
+          style={{
+            display: 'inline-block',
+            padding: '2px 10px',
+            borderRadius: '6px',
+            background: '#ffffff',
+            border: '1.5px solid #111111',
+            boxShadow: '2px 2px 0px #111111',
+            fontSize: '0.74rem',
+            fontFamily: 'var(--font-80s)',
+            color: '#ff2a85',
+            letterSpacing: '0.5px',
+          }}
+        >
+          FATOS HISTÓRICOS NAS PRIMEIRAS PÁGINAS
+        </div>
       </div>
 
       {/* Memphis Newspaper Clippings with Washi Tapes */}

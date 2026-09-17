@@ -106,7 +106,7 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
             fontWeight: 900,
             fontFamily: 'var(--font-80s)',
             lineHeight: 1.1,
-            marginBottom: '1px',
+            marginBottom: '3px',
             color: '#111111',
             textShadow: `2.5px 2.5px 0px ${config.accentColor}`,
           }}
@@ -115,9 +115,22 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
           TOP 5 • {config.categoryName.toUpperCase()}
         </h2>
 
-        <p style={{ fontSize: '0.78rem', fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px' }}>
+        <div
+          style={{
+            display: 'inline-block',
+            padding: '2px 10px',
+            borderRadius: '6px',
+            background: '#ffffff',
+            border: '1.5px solid #111111',
+            boxShadow: '2px 2px 0px #111111',
+            fontSize: '0.74rem',
+            fontFamily: 'var(--font-80s)',
+            color: '#ff2a85',
+            letterSpacing: '0.5px',
+          }}
+        >
           {config.subtitle.toUpperCase()} ({data.monthName.toUpperCase()} DE {data.year})
-        </p>
+        </div>
       </div>
 
       {/* Central Spinning Vinyl with Real Album Cover & Dancing Equalizer Bars */}

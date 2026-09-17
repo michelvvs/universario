@@ -204,13 +204,13 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
             })}
           </div>
 
-          {/* Top Story Header / Profile info & Close Button (No Play/Pause) */}
-          <div className="story-header">
+          {/* Top Story Header / Profile info & Close Button in Solid High-Contrast Pill */}
+          <div className="story-header-pill">
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <div className="story-avatar">📼</div>
               <div className="story-user-info">
                 <span className="story-user-name">
-                  {data.name || 'Universário 80s'}
+                  {data.name || 'Universário'}
                 </span>
                 <span className="story-user-date">
                   {data.dayOfMonth} {data.monthName.toUpperCase()} {data.year}
@@ -219,7 +219,7 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
             </div>
 
             {/* Header Right Action: Close Button */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               <button
                 type="button"
                 onClick={(e) => {
@@ -229,20 +229,20 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
                 aria-label="Fechar e escolher nova data"
                 title="Fechar retrospectiva"
                 style={{
-                  background: '#ffffff',
-                  border: '2.5px solid #111111',
-                  borderRadius: '10px',
-                  width: '34px',
-                  height: '34px',
+                  background: '#ffe600',
+                  border: '2px solid #111111',
+                  borderRadius: '8px',
+                  width: '30px',
+                  height: '30px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: '#111111',
                   cursor: 'pointer',
-                  boxShadow: '2.5px 2.5px 0px #ff2a85',
+                  boxShadow: '1.5px 1.5px 0px #111111',
                 }}
               >
-                <X size={18} color="#111111" />
+                <X size={16} color="#111111" />
               </button>
             </div>
           </div>

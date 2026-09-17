@@ -53,7 +53,7 @@ export default function SlidePopCulture({ data }: SlideProps) {
             fontWeight: 900,
             fontFamily: 'var(--font-80s)',
             lineHeight: 1.1,
-            marginBottom: '2px',
+            marginBottom: '4px',
             color: '#111111',
             textShadow: '2.5px 2.5px 0px #00d2ff',
           }}
@@ -62,9 +62,22 @@ export default function SlidePopCulture({ data }: SlideProps) {
           CULTURA POP & CINEMA
         </h2>
 
-        <p style={{ fontSize: '0.78rem', fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px' }}>
-          O QUE DOMINAVA AS TELAS E LOCADORAS EM {year}
-        </p>
+        <div
+          style={{
+            display: 'inline-block',
+            padding: '2px 10px',
+            borderRadius: '6px',
+            background: '#ffffff',
+            border: '1.5px solid #111111',
+            boxShadow: '2px 2px 0px #111111',
+            fontSize: '0.74rem',
+            fontFamily: 'var(--font-80s)',
+            color: '#ff2a85',
+            letterSpacing: '0.5px',
+          }}
+        >
+          O QUE DOMINAVA AS TELAS EM {year}
+        </div>
       </div>
 
       {/* Memphis Cards */}

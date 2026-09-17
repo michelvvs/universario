@@ -124,7 +124,7 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
             fontWeight: 900,
             fontFamily: 'var(--font-80s)',
             lineHeight: 1.1,
-            marginBottom: '2px',
+            marginBottom: '4px',
             color: '#111111',
             textShadow: '2.5px 2.5px 0px #00d2ff',
           }}
@@ -133,9 +133,22 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
           {astronomy.moonPhaseName.toUpperCase()}
         </h2>
 
-        <p style={{ fontSize: '0.82rem', fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px' }}>
+        <div
+          style={{
+            display: 'inline-block',
+            padding: '2px 10px',
+            borderRadius: '6px',
+            background: '#ffffff',
+            border: '1.5px solid #111111',
+            boxShadow: '2px 2px 0px #111111',
+            fontSize: '0.76rem',
+            fontFamily: 'var(--font-80s)',
+            color: '#ff2a85',
+            letterSpacing: '0.5px',
+          }}
+        >
           ILUMINAÇÃO: {astronomy.moonIlluminationPercent}% • IDADE: {astronomy.moonAgeDays} DIAS
-        </p>
+        </div>
       </div>
 
       {/* Moon Center with Memphis 80s Frame */}
