@@ -214,21 +214,25 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
           </div>
         </div>
 
-        {/* Dynamic Equalizer Bars */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '3.5px', height: '42px' }}>
-          {[45, 90, 60, 100, 75, 95, 50, 85, 65, 90, 45, 80].map((h, i) => (
-            <div
-              key={i}
-              style={{
-                width: '3.5px',
-                height: `${h}%`,
-                background: i % 2 === 0 ? config.primaryColor : '#00f0ff',
-                borderRadius: '2px',
-                boxShadow: i % 2 === 0 ? `0 0 4px ${config.primaryColor}` : '0 0 4px #00f0ff',
-                animation: `pulseGlow ${1 + (i % 4) * 0.3}s ease-in-out infinite alternate`,
-              }}
-            />
-          ))}
+        {/* Dynamic Equalizer Dancing Bars */}
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '3.5px', height: '44px' }}>
+          {[45, 90, 60, 100, 75, 95, 50, 85, 65, 90, 45, 80].map((h, i) => {
+            const animClass = `sound-bar-anim-${(i % 4) + 1}`;
+            return (
+              <div
+                key={i}
+                className={animClass}
+                style={{
+                  width: '3.5px',
+                  height: `${h}%`,
+                  background: i % 2 === 0 ? config.primaryColor : '#00f0ff',
+                  borderRadius: '2px',
+                  boxShadow: i % 2 === 0 ? `0 0 6px ${config.primaryColor}` : '0 0 6px #00f0ff',
+                  transition: 'height 0.1s ease',
+                }}
+              />
+            );
+          })}
         </div>
       </div>
 

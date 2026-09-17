@@ -286,21 +286,25 @@ export default function SlideMusicHits({ data }: SlideProps) {
           </div>
         </div>
 
-        {/* Dynamic Equalizer Bars in 80s Neon Colors */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '3px', height: '38px' }}>
-          {[40, 85, 55, 100, 70, 95, 45, 90, 60, 80, 45, 75].map((h, i) => (
-            <div
-              key={i}
-              style={{
-                width: '3.5px',
-                height: `${h}%`,
-                background: i % 2 === 0 ? '#ff2a85' : '#00f0ff',
-                borderRadius: '2px',
-                boxShadow: i % 2 === 0 ? '0 0 4px #ff2a85' : '0 0 4px #00f0ff',
-                animation: `pulseGlow ${1 + (i % 4) * 0.3}s ease-in-out infinite alternate`,
-              }}
-            />
-          ))}
+        {/* Dynamic Equalizer Dancing Bars in 80s Neon Colors */}
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '3px', height: '40px' }}>
+          {[40, 85, 55, 100, 70, 95, 45, 90, 60, 80, 45, 75].map((h, i) => {
+            const animClass = `sound-bar-anim-${(i % 4) + 1}`;
+            return (
+              <div
+                key={i}
+                className={animClass}
+                style={{
+                  width: '3.5px',
+                  height: `${h}%`,
+                  background: i % 2 === 0 ? '#ff2a85' : '#00f0ff',
+                  borderRadius: '2px',
+                  boxShadow: i % 2 === 0 ? '0 0 6px #ff2a85' : '0 0 6px #00f0ff',
+                  transition: 'height 0.1s ease',
+                }}
+              />
+            );
+          })}
         </div>
       </div>
 
