@@ -37,7 +37,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        <div className="animated-grain-overlay" aria-hidden="true" />
+        {children}
+      </body>
     </html>
   );
 }
