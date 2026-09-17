@@ -176,24 +176,6 @@ body {
   }
 }
 
-/* Horizontal scanline slice beam on glitch titles */
-@keyframes titleScanlineSweep {
-  0% {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.8;
-  }
-  80% {
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(220%);
-    opacity: 0;
-  }
-}
-
 /* Chromatic Aberration Text with Badly Tuned TV Glitch */
 .text-chromatic,
 .title-glitch {
@@ -204,24 +186,6 @@ body {
   animation: crtTvGlitch 3.8s infinite ease-in-out;
   display: inline-block;
   will-change: transform, text-shadow;
-}
-
-.text-chromatic::after,
-.title-glitch::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(255, 255, 255, 0.22) 50%,
-    transparent 100%
-  );
-  pointer-events: none;
-  animation: titleScanlineSweep 2.2s linear infinite;
 }
 
 .text-chromatic-cyan {
