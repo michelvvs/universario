@@ -2,7 +2,14 @@
 
 import React from 'react';
 import { BirthDataPayload } from '@/types/universario';
-import { Sparkles, Award, Moon, Music, Film, CheckCircle, Zap } from 'lucide-react';
+import { Award, Music, Film, Zap, Star, Sparkles } from 'lucide-react';
+import {
+  MemphisSquiggle,
+  MemphisZigzag,
+  MemphisTrianglePattern,
+  MemphisCrosshatch,
+  MemphisCoil,
+} from '@/components/MemphisDoodles';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -13,77 +20,97 @@ export default function SlideSummaryCard({ data }: SlideProps) {
 
   return (
     <div
-      style={{
-        position: 'relative',
-        height: '100%',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        padding: '70px 20px 24px 20px',
-        background: 'radial-gradient(circle at 50% 20%, #290847 0%, #130626 70%, #06010d 100%)',
-        color: '#ffffff',
-        overflow: 'hidden',
-      }}
-      className="slide-content-enter"
+      className="slide-memphis-canvas slide-theme-summary slide-content-enter"
+      style={{ color: '#111111' }}
     >
-      {/* Decorative Washi Tape on top */}
-      <div className="tape-strip" style={{ top: '6px', left: '30%' }} />
+      {/* Decorative Memphis Washi Tape on top */}
+      <div className="tape-strip" style={{ top: '8px', left: '26%' }} />
+      <div className="tape-strip tape-strip-cyan" style={{ bottom: '12px', right: '16%' }} />
+
+      {/* Floating Memphis Geometric Accents */}
+      <div style={{ position: 'absolute', top: '14px', right: '16px', zIndex: 1 }}>
+        <MemphisTrianglePattern size={44} fillColor="#00d2ff" borderColor="#111111" />
+      </div>
+      <div style={{ position: 'absolute', top: '78px', left: '10px', zIndex: 1 }}>
+        <MemphisCrosshatch size={32} color="#111111" />
+      </div>
+      <div style={{ position: 'absolute', bottom: '60px', left: '12px', zIndex: 1 }}>
+        <MemphisCoil width={42} height={16} color="#ff2a85" />
+      </div>
+      <div style={{ position: 'absolute', bottom: '130px', right: '12px', zIndex: 1 }}>
+        <MemphisZigzag width={46} height={16} color="#111111" />
+      </div>
 
       {/* Top Header */}
-      <div style={{ textAlign: 'center', zIndex: 2 }}>
+      <div style={{ textAlign: 'center', zIndex: 2, marginTop: '2px' }}>
         <div
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px',
-            padding: '3px 12px',
-            borderRadius: '6px',
-            background: '#ffde59',
-            border: '1.5px solid #0d061c',
-            boxShadow: '3px 3px 0px #ff2a85',
-            fontSize: '0.74rem',
+            padding: '4px 14px',
+            borderRadius: '8px',
+            background: '#ffe600',
+            border: '2.5px solid #111111',
+            boxShadow: '3px 3px 0px #111111',
+            fontSize: '0.76rem',
             fontFamily: 'var(--font-80s)',
             letterSpacing: '0.5px',
-            color: '#0d061c',
-            marginBottom: '6px',
+            color: '#111111',
+            marginBottom: '4px',
           }}
         >
-          <Award size={12} />
-          <span>PASSAPORTE CÓSMICO VIP • 80s</span>
+          <Award size={14} color="#111111" />
+          <span>PASSAPORTE CÓSMICO VIP • MEMPHIS 80s</span>
         </div>
 
         <h2
           style={{
-            fontSize: '2.2rem',
+            fontSize: '2.3rem',
             fontWeight: 900,
             fontFamily: 'var(--font-80s)',
-            lineHeight: 1.1,
-            marginBottom: '2px',
-            color: '#ffffff',
+            lineHeight: 1.05,
+            color: '#111111',
+            marginTop: '2px',
           }}
           className="text-chromatic"
         >
           {displayName.toUpperCase()}
         </h2>
 
-        <p style={{ fontSize: '0.85rem', fontFamily: 'var(--font-crt)', color: '#00f0ff', letterSpacing: '0.5px' }}>
+        <div
+          style={{
+            display: 'inline-block',
+            background: '#ff2a85',
+            color: '#ffffff',
+            border: '2px solid #111111',
+            borderRadius: '6px',
+            padding: '2px 10px',
+            fontSize: '0.80rem',
+            fontFamily: 'var(--font-crt)',
+            letterSpacing: '0.5px',
+            boxShadow: '2px 2px 0px #111111',
+            marginTop: '3px',
+          }}
+        >
           {data.formattedDate.toUpperCase()} • {data.dayOfWeek.toUpperCase()}
-        </p>
+        </div>
       </div>
 
-      {/* 80s VIP Passport Card */}
+      {/* 80s Memphis VIP Passport Card */}
       <div
+        className="memphis-card"
         style={{
-          background: 'rgba(22, 8, 47, 0.95)',
+          background: '#ffffff',
           borderRadius: '16px',
           padding: '12px 14px',
-          border: '2.5px solid #00f0ff',
-          boxShadow: '5px 5px 0px #ff2a85, 9px 9px 0px #ffde59',
+          border: '3px solid #111111',
+          boxShadow: '4px 4px 0px #111111, 8px 8px 0px #ff2a85',
           zIndex: 2,
           display: 'flex',
           flexDirection: 'column',
           gap: '8px',
+          position: 'relative',
         }}
       >
         {/* Row 1: Sign & Moon */}
@@ -91,15 +118,34 @@ export default function SlideSummaryCard({ data }: SlideProps) {
           <div
             style={{
               padding: '8px 10px',
-              borderRadius: '8px',
-              background: '#0d061c',
-              border: '1.5px solid #ff2a85',
+              borderRadius: '10px',
+              background: '#fff275',
+              border: '2px solid #111111',
+              boxShadow: '2.5px 2.5px 0px #111111',
             }}
           >
-            <div style={{ fontSize: '0.62rem', fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px' }}>
-              SIGNO SOLAR
+            <div
+              style={{
+                fontSize: '0.64rem',
+                fontFamily: 'var(--font-80s)',
+                color: '#111111',
+                letterSpacing: '0.5px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '3px',
+              }}
+            >
+              <span>⭐ SIGNO SOLAR</span>
             </div>
-            <div style={{ fontSize: '0.90rem', fontWeight: 800, fontFamily: 'var(--font-80s)', color: '#ffffff', marginTop: '1px' }}>
+            <div
+              style={{
+                fontSize: '0.92rem',
+                fontWeight: 800,
+                fontFamily: 'var(--font-80s)',
+                color: '#111111',
+                marginTop: '2px',
+              }}
+            >
               {data.astronomy.zodiacSymbol} {data.astronomy.zodiacSign.toUpperCase()}
             </div>
           </div>
@@ -107,15 +153,37 @@ export default function SlideSummaryCard({ data }: SlideProps) {
           <div
             style={{
               padding: '8px 10px',
-              borderRadius: '8px',
-              background: '#0d061c',
-              border: '1.5px solid #ffde59',
+              borderRadius: '10px',
+              background: '#80e8ff',
+              border: '2px solid #111111',
+              boxShadow: '2.5px 2.5px 0px #111111',
             }}
           >
-            <div style={{ fontSize: '0.62rem', fontFamily: 'var(--font-80s)', color: '#ffde59', letterSpacing: '0.5px' }}>
-              FASE DA LUA
+            <div
+              style={{
+                fontSize: '0.64rem',
+                fontFamily: 'var(--font-80s)',
+                color: '#111111',
+                letterSpacing: '0.5px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '3px',
+              }}
+            >
+              <span>🌙 FASE DA LUA</span>
             </div>
-            <div style={{ fontSize: '0.85rem', fontWeight: 800, fontFamily: 'var(--font-80s)', color: '#ffffff', marginTop: '1px' }}>
+            <div
+              style={{
+                fontSize: '0.86rem',
+                fontWeight: 800,
+                fontFamily: 'var(--font-80s)',
+                color: '#111111',
+                marginTop: '2px',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
               {data.astronomy.moonPhaseEmoji} {data.astronomy.moonPhaseName}
             </div>
           </div>
@@ -125,24 +193,47 @@ export default function SlideSummaryCard({ data }: SlideProps) {
         <div
           style={{
             padding: '8px 10px',
-            borderRadius: '8px',
-            background: '#0d061c',
-            border: '1.5px solid #00f0ff',
+            borderRadius: '10px',
+            background: '#ff66aa',
+            border: '2px solid #111111',
+            boxShadow: '2.5px 2.5px 0px #111111',
             display: 'flex',
             alignItems: 'center',
             gap: '10px',
           }}
         >
-          <Music size={16} color="#00f0ff" style={{ flexShrink: 0 }} />
-          <div style={{ minWidth: 0 }}>
-            <div style={{ fontSize: '0.62rem', fontFamily: 'var(--font-80s)', color: '#00f0ff', letterSpacing: '0.5px' }}>
+          <div
+            style={{
+              width: '28px',
+              height: '28px',
+              borderRadius: '50%',
+              background: '#ffe600',
+              border: '2px solid #111111',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+            }}
+          >
+            <Music size={15} color="#111111" />
+          </div>
+          <div style={{ minWidth: 0, flex: 1 }}>
+            <div
+              style={{
+                fontSize: '0.62rem',
+                fontFamily: 'var(--font-80s)',
+                color: '#ffffff',
+                letterSpacing: '0.5px',
+                textShadow: '1px 1px 0px #111111',
+              }}
+            >
               TRILHA DA ÉPOCA (#1)
             </div>
             <div
               style={{
                 fontSize: '0.84rem',
-                fontWeight: 700,
-                color: '#ffffff',
+                fontWeight: 800,
+                color: '#111111',
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -157,24 +248,47 @@ export default function SlideSummaryCard({ data }: SlideProps) {
         <div
           style={{
             padding: '8px 10px',
-            borderRadius: '8px',
-            background: '#0d061c',
-            border: '1.5px solid #ff2a85',
+            borderRadius: '10px',
+            background: '#c288f5',
+            border: '2px solid #111111',
+            boxShadow: '2.5px 2.5px 0px #111111',
             display: 'flex',
             alignItems: 'center',
             gap: '10px',
           }}
         >
-          <Film size={16} color="#ff2a85" style={{ flexShrink: 0 }} />
-          <div style={{ minWidth: 0 }}>
-            <div style={{ fontSize: '0.62rem', fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px' }}>
+          <div
+            style={{
+              width: '28px',
+              height: '28px',
+              borderRadius: '50%',
+              background: '#00d2ff',
+              border: '2px solid #111111',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+            }}
+          >
+            <Film size={15} color="#111111" />
+          </div>
+          <div style={{ minWidth: 0, flex: 1 }}>
+            <div
+              style={{
+                fontSize: '0.62rem',
+                fontFamily: 'var(--font-80s)',
+                color: '#ffffff',
+                letterSpacing: '0.5px',
+                textShadow: '1px 1px 0px #111111',
+              }}
+            >
               FILME EM CARTAZ
             </div>
             <div
               style={{
                 fontSize: '0.84rem',
-                fontWeight: 700,
-                color: '#ffffff',
+                fontWeight: 800,
+                color: '#111111',
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -189,11 +303,13 @@ export default function SlideSummaryCard({ data }: SlideProps) {
         <div
           style={{
             textAlign: 'center',
-            padding: '5px',
+            padding: '6px 10px',
+            borderRadius: '8px',
+            background: '#111111',
+            color: '#ffe600',
             fontSize: '0.74rem',
             fontWeight: 800,
             fontFamily: 'var(--font-80s)',
-            color: '#26ffdf',
             letterSpacing: '0.5px',
           }}
         >
@@ -202,26 +318,41 @@ export default function SlideSummaryCard({ data }: SlideProps) {
       </div>
 
       {/* Call to action footer / Watermark */}
-      <div style={{ textAlign: 'center', zIndex: 2 }}>
+      <div style={{ textAlign: 'center', zIndex: 2, marginBottom: '2px' }}>
         <div
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px',
-            fontSize: '0.82rem',
-            fontWeight: 800,
+            fontSize: '0.88rem',
+            fontWeight: 900,
             fontFamily: 'var(--font-80s)',
-            color: '#ffffff',
+            color: '#111111',
             letterSpacing: '0.8px',
+            background: '#ffe600',
+            border: '2px solid #111111',
+            borderRadius: '8px',
+            padding: '3px 12px',
+            boxShadow: '2.5px 2.5px 0px #111111',
           }}
         >
-          <Zap size={14} fill="#ffde59" color="#ffde59" />
+          <Zap size={15} fill="#111111" color="#111111" />
           <span className="text-chromatic">UNIVERSARIO.APP</span>
         </div>
-        <div style={{ fontFamily: 'var(--font-crt)', fontSize: '0.80rem', color: '#ffde59', marginTop: '2px' }}>
-          GERE SUA RETROSPECTIVA VINTAGE EM STORIES
+        <div
+          style={{
+            fontFamily: 'var(--font-crt)',
+            fontSize: '0.82rem',
+            color: '#111111',
+            fontWeight: 700,
+            marginTop: '4px',
+            letterSpacing: '0.5px',
+          }}
+        >
+          GERE SUA RETROSPECTIVA MEMPHIS EM STORIES
         </div>
       </div>
     </div>
   );
 }
+

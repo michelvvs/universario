@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { BirthDataPayload } from '@/types/universario';
-import { Moon, Sparkles, Compass, Star } from 'lucide-react';
+import { Moon, Sparkles, Compass } from 'lucide-react';
+import { MemphisSquiggle, MemphisZigzag, MemphisTrianglePattern, MemphisCrosshatch } from '../MemphisDoodles';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -16,16 +17,16 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
     const isWaxing = astronomy.moonPhaseIndex <= 4;
 
     return (
-      <div style={{ position: 'relative', width: '160px', height: '160px', margin: '0 auto' }}>
-        {/* Synthwave Neon Rings behind moon */}
+      <div style={{ position: 'relative', width: '150px', height: '150px', margin: '0 auto' }}>
+        {/* Memphis Geometric Rings around Moon */}
         <div
           style={{
             position: 'absolute',
-            inset: '-12px',
+            inset: '-10px',
             borderRadius: '50%',
-            border: '2px solid #00f0ff',
-            boxShadow: '0 0 20px rgba(0, 240, 255, 0.4), inset 0 0 15px rgba(255, 42, 133, 0.3)',
-            animation: 'pulseGlow 3s infinite alternate',
+            border: '3px solid #111111',
+            boxShadow: '4px 4px 0px #ff2a85',
+            pointerEvents: 'none',
           }}
         />
 
@@ -36,17 +37,18 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
             width: '100%',
             height: '100%',
             borderRadius: '50%',
-            boxShadow: '0 0 25px rgba(255, 222, 89, 0.4)',
-            backgroundColor: '#0d061c',
+            border: '3px solid #111111',
+            boxShadow: '4px 4px 0px #111111',
+            backgroundColor: '#111111',
           }}
         >
           <defs>
-            <radialGradient id="moonGlowGrad80s" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#ffde59" stopOpacity="1" />
-              <stop offset="70%" stopColor="#fef08a" stopOpacity="0.95" />
-              <stop offset="100%" stopColor="#cbd5e1" stopOpacity="0.85" />
+            <radialGradient id="moonGlowGradMemphis" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#ffe600" stopOpacity="1" />
+              <stop offset="70%" stopColor="#fff275" stopOpacity="0.95" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0.9" />
             </radialGradient>
-            <mask id="moonPhaseMask80s">
+            <mask id="moonPhaseMaskMemphis">
               <rect x="0" y="0" width="100" height="100" fill="white" />
               {illum < 98 && (
                 <path
@@ -66,33 +68,32 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
           </defs>
 
           {/* Base illuminated moon */}
-          <circle cx="50" cy="50" r="49" fill="url(#moonGlowGrad80s)" mask="url(#moonPhaseMask80s)" />
+          <circle cx="50" cy="50" r="49" fill="url(#moonGlowGradMemphis)" mask="url(#moonPhaseMaskMemphis)" />
 
           {/* Craters detail */}
-          <circle cx="35" cy="40" r="7" fill="rgba(100, 116, 139, 0.3)" mask="url(#moonPhaseMask80s)" />
-          <circle cx="62" cy="35" r="9" fill="rgba(100, 116, 139, 0.25)" mask="url(#moonPhaseMask80s)" />
-          <circle cx="50" cy="68" r="11" fill="rgba(100, 116, 139, 0.25)" mask="url(#moonPhaseMask80s)" />
+          <circle cx="35" cy="40" r="7" fill="rgba(17, 17, 17, 0.2)" mask="url(#moonPhaseMaskMemphis)" />
+          <circle cx="62" cy="35" r="9" fill="rgba(17, 17, 17, 0.18)" mask="url(#moonPhaseMaskMemphis)" />
+          <circle cx="50" cy="68" r="11" fill="rgba(17, 17, 17, 0.18)" mask="url(#moonPhaseMaskMemphis)" />
         </svg>
       </div>
     );
   };
 
   return (
-    <div
-      style={{
-        position: 'relative',
-        height: '100%',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        padding: '75px 22px 28px 22px',
-        background: 'radial-gradient(circle at 50% 25%, #290847 0%, #120524 70%, #06010d 100%)',
-        color: '#ffffff',
-        overflow: 'hidden',
-      }}
-      className="slide-content-enter"
-    >
+    <div className="slide-memphis-canvas slide-theme-moon">
+      {/* Memphis Floating Doodles */}
+      <div style={{ position: 'absolute', top: '10%', left: '5%', pointerEvents: 'none' }} className="animate-float-1">
+        <MemphisTrianglePattern size={48} fillColor="#ff2a85" />
+      </div>
+
+      <div style={{ position: 'absolute', top: '22%', right: '5%', pointerEvents: 'none' }} className="animate-float-2">
+        <MemphisCrosshatch size={34} color="#111111" />
+      </div>
+
+      <div style={{ position: 'absolute', bottom: '28%', left: '4%', pointerEvents: 'none' }}>
+        <MemphisSquiggle color="#00d2ff" width={52} height={16} />
+      </div>
+
       {/* Top Header Tag */}
       <div style={{ textAlign: 'center', zIndex: 2 }}>
         <div
@@ -100,81 +101,88 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px',
-            padding: '4px 12px',
-            borderRadius: '8px',
-            background: '#ffde59',
-            border: '2px solid #0d061c',
-            boxShadow: '3px 3px 0px #ff2a85',
-            fontSize: '0.74rem',
+            padding: '5px 14px',
+            borderRadius: '10px',
+            background: '#ffe600',
+            border: '2.5px solid #111111',
+            boxShadow: '3px 3px 0px #111111',
+            fontSize: '0.76rem',
             fontFamily: 'var(--font-80s)',
             letterSpacing: '0.5px',
-            color: '#0d061c',
-            marginBottom: '8px',
+            color: '#111111',
+            marginBottom: '6px',
+            transform: 'rotate(1deg)',
           }}
         >
-          <Moon size={12} />
+          <Moon size={13} />
           <span>FASE DA LUA • MAPA ESTELAR</span>
         </div>
 
         <h2
           style={{
-            fontSize: '2.0rem',
-            fontWeight: 800,
+            fontSize: '2.05rem',
+            fontWeight: 900,
             fontFamily: 'var(--font-80s)',
             lineHeight: 1.1,
             marginBottom: '2px',
+            color: '#111111',
+            textShadow: '2.5px 2.5px 0px #00d2ff',
           }}
           className="text-chromatic"
         >
           {astronomy.moonPhaseName.toUpperCase()}
         </h2>
 
-        <p style={{ fontSize: '0.82rem', fontFamily: 'var(--font-crt)', color: '#00f0ff', letterSpacing: '0.5px' }}>
-          ILUMINAÇÃO: {astronomy.moonIlluminationPercent}% • IDADE LUNAR: {astronomy.moonAgeDays} DIAS
+        <p style={{ fontSize: '0.82rem', fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px' }}>
+          ILUMINAÇÃO: {astronomy.moonIlluminationPercent}% • IDADE: {astronomy.moonAgeDays} DIAS
         </p>
       </div>
 
-      {/* Moon Center with Memphis 80s Synthwave Portal */}
-      <div style={{ margin: '8px 0', textAlign: 'center', zIndex: 2 }}>
+      {/* Moon Center with Memphis 80s Frame */}
+      <div style={{ margin: '6px 0', textAlign: 'center', zIndex: 2 }}>
         {renderMoonSvg()}
       </div>
 
-      {/* Cards with Details */}
+      {/* Memphis Detail Cards */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', zIndex: 2 }}>
         {/* Sky observation card */}
         <div
-          className="memphis-card-cyan"
           style={{
-            padding: '10px 14px',
-            borderRadius: '12px',
+            padding: '11px 14px',
+            borderRadius: '14px',
+            background: '#ffffff',
+            border: '2.5px solid #111111',
+            boxShadow: '3px 3px 0px #111111, 6px 6px 0px #00d2ff',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
-            <Sparkles size={13} color="#ffde59" />
-            <span style={{ fontSize: '0.72rem', fontWeight: 800, fontFamily: 'var(--font-80s)', color: '#ffde59', letterSpacing: '0.5px' }}>
+            <Sparkles size={14} color="#ff2a85" />
+            <span style={{ fontSize: '0.74rem', fontWeight: 900, fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px' }}>
               {astronomy.nasaApod ? 'REGISTRO ASTRONÔMICO NASA' : 'CONDIÇÃO CELESTE'}
             </span>
           </div>
-          <p style={{ fontSize: '0.78rem', lineHeight: 1.35, color: '#f1f5f9' }}>
+          <p style={{ fontSize: '0.80rem', lineHeight: 1.35, color: '#111111', fontWeight: 600 }}>
             {astronomy.skyHighlight}
           </p>
         </div>
 
         {/* Astrological & Elemental Quote */}
         <div
-          className="memphis-card-pink"
           style={{
-            padding: '10px 14px',
-            borderRadius: '12px',
+            padding: '11px 14px',
+            borderRadius: '14px',
+            background: '#ffffff',
+            border: '2.5px solid #111111',
+            boxShadow: '3px 3px 0px #111111, 6px 6px 0px #ffe600',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
-            <Compass size={13} color="#00f0ff" />
-            <span style={{ fontSize: '0.72rem', fontWeight: 800, fontFamily: 'var(--font-80s)', color: '#00f0ff', letterSpacing: '0.5px' }}>
+            <Compass size={14} color="#9b51e0" />
+            <span style={{ fontSize: '0.74rem', fontWeight: 900, fontFamily: 'var(--font-80s)', color: '#9b51e0', letterSpacing: '0.5px' }}>
               INFLUÊNCIA CÓSMICA ({astronomy.zodiacSign.toUpperCase()})
             </span>
           </div>
-          <p style={{ fontSize: '0.78rem', lineHeight: 1.35, color: '#ffffff', fontStyle: 'italic' }}>
+          <p style={{ fontSize: '0.80rem', lineHeight: 1.35, color: '#111111', fontStyle: 'italic', fontWeight: 600 }}>
             &ldquo;{astronomy.cosmicMessage}&rdquo;
           </p>
         </div>

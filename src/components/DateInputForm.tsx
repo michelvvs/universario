@@ -1,7 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Calendar, User, History, ArrowRight, Sparkles, Disc, Radio } from 'lucide-react';
+import { Calendar, User, History, ArrowRight, Sparkles, Disc, Radio, Music, Star } from 'lucide-react';
+import {
+  MemphisSquiggle,
+  MemphisZigzag,
+  MemphisTrianglePattern,
+  MemphisCrosshatch,
+  MemphisCoil,
+} from './MemphisDoodles';
 
 interface DateInputFormProps {
   onSubmit: (date: string, name?: string) => void;
@@ -34,30 +41,41 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
   };
 
   return (
-    <div style={{ width: '100%', maxWidth: '520px', margin: '0 auto', position: 'relative' }}>
+    <div style={{ width: '100%', maxWidth: '540px', margin: '0 auto', position: 'relative' }}>
       {/* Decorative Washi Tape on top left & bottom right */}
       <div className="tape-strip" style={{ top: '-10px', left: '15px' }} />
       <div className="tape-strip tape-strip-cyan" style={{ bottom: '-10px', right: '20px' }} />
 
+      {/* Floating Memphis Geometric Accents around the form */}
+      <div style={{ position: 'absolute', top: '-18px', right: '-12px', zIndex: 10 }}>
+        <MemphisTrianglePattern size={48} fillColor="#ffe600" borderColor="#111111" />
+      </div>
+      <div style={{ position: 'absolute', bottom: '40px', left: '-22px', zIndex: 10 }}>
+        <MemphisCrosshatch size={36} color="#00d2ff" />
+      </div>
+      <div style={{ position: 'absolute', top: '45%', right: '-18px', zIndex: 10 }}>
+        <MemphisCoil width={44} height={16} color="#ff2a85" />
+      </div>
+
       <div
         className="memphis-card"
         style={{
-          background: 'rgba(22, 8, 47, 0.92)',
-          border: '3px solid #00f0ff',
+          background: '#ffffff',
+          border: '3.5px solid #111111',
           borderRadius: '24px',
           padding: '32px 26px',
-          boxShadow: '6px 6px 0px #ff2a85, 12px 12px 0px #ffde59',
+          boxShadow: '6px 6px 0px #111111, 12px 12px 0px #ffe600',
           position: 'relative',
         }}
       >
         {/* Cassette Tape Cutout Illustration */}
         <div
           style={{
-            background: '#1a1a2e',
-            border: '2px solid #ffffff',
+            background: '#fffdf7',
+            border: '2.5px solid #111111',
             borderRadius: '16px',
             padding: '12px 16px',
-            marginBottom: '22px',
+            marginBottom: '20px',
             boxShadow: '4px 4px 0px #ff2a85',
             position: 'relative',
           }}
@@ -70,16 +88,23 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
               justifyContent: 'space-between',
               background: '#ff2a85',
               color: '#ffffff',
-              padding: '4px 10px',
-              borderRadius: '6px',
+              padding: '5px 12px',
+              borderRadius: '8px',
+              border: '2px solid #111111',
               fontFamily: 'var(--font-80s)',
               fontSize: '0.85rem',
               letterSpacing: '1px',
               marginBottom: '8px',
+              boxShadow: '2px 2px 0px #111111',
             }}
           >
-            <span>MIXTAPE • UNIVERSÁRIO 80s</span>
-            <span style={{ fontFamily: 'var(--font-crt)', color: '#ffde59' }}>SIDE A / 90 MIN</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Music size={14} />
+              <span>MIXTAPE • UNIVERSÁRIO 80s</span>
+            </span>
+            <span style={{ fontFamily: 'var(--font-crt)', color: '#ffe600', fontSize: '0.9rem' }}>
+              SIDE A / 90 MIN
+            </span>
           </div>
 
           {/* Cassette Tape Window & Spools */}
@@ -89,8 +114,8 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
               alignItems: 'center',
               justifyContent: 'center',
               gap: '24px',
-              background: '#0d0d1a',
-              border: '2px solid rgba(255,255,255,0.2)',
+              background: '#f1f5f9',
+              border: '2px solid #111111',
               borderRadius: '10px',
               padding: '10px 18px',
               position: 'relative',
@@ -100,34 +125,35 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
             <div
               className="animate-tape-spin"
               style={{
-                width: '32px',
-                height: '32px',
+                width: '34px',
+                height: '34px',
                 borderRadius: '50%',
                 background: '#ffffff',
-                border: '4px solid #ffde59',
+                border: '3.5px solid #ffe600',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 0 6px rgba(255, 222, 89, 0.6)',
+                boxShadow: '2px 2px 0px #111111',
               }}
             >
-              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#1a1a2e' }} />
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#111111' }} />
             </div>
 
             {/* Magnetic Tape Window Center */}
             <div
               style={{
-                width: '80px',
-                height: '18px',
-                background: '#4a2511',
-                borderRadius: '4px',
-                border: '1px solid rgba(255,255,255,0.3)',
+                width: '90px',
+                height: '20px',
+                background: '#111111',
+                borderRadius: '6px',
+                border: '1.5px solid #111111',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontFamily: 'var(--font-crt)',
-                color: '#ffde59',
-                fontSize: '0.8rem',
+                color: '#ffe600',
+                fontSize: '0.85rem',
+                letterSpacing: '1px',
               }}
             >
               00 : 25 : 89
@@ -137,39 +163,40 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
             <div
               className="animate-tape-spin"
               style={{
-                width: '32px',
-                height: '32px',
+                width: '34px',
+                height: '34px',
                 borderRadius: '50%',
                 background: '#ffffff',
-                border: '4px solid #00f0ff',
+                border: '3.5px solid #00d2ff',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 0 6px rgba(0, 240, 255, 0.6)',
+                boxShadow: '2px 2px 0px #111111',
               }}
             >
-              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#1a1a2e' }} />
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#111111' }} />
             </div>
           </div>
         </div>
 
         {/* Title Header */}
-        <div style={{ textAlign: 'center', marginBottom: '22px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
           <h1
             style={{
-              fontSize: '2.4rem',
-              fontWeight: 800,
+              fontSize: '2.5rem',
+              fontWeight: 900,
               fontFamily: 'var(--font-80s)',
               lineHeight: 1.1,
               marginBottom: '6px',
+              color: '#111111',
             }}
             className="text-chromatic"
           >
             UNIVERSÁRIO
           </h1>
 
-          <p style={{ color: '#cbd5e1', fontSize: '0.92rem', lineHeight: 1.4 }}>
-            Insira sua data de nascimento para gerar a fita cassete cósmica e seus stories oitentistas.
+          <p style={{ color: '#444444', fontSize: '0.94rem', lineHeight: 1.4, fontWeight: 500 }}>
+            Insira sua data de nascimento para gerar a fita cassete cósmica e seus stories no estilo Memphis 80s/90s.
           </p>
         </div>
 
@@ -182,14 +209,27 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
                 alignItems: 'center',
                 gap: '8px',
                 fontSize: '0.88rem',
-                fontWeight: 700,
-                color: '#ffde59',
+                fontWeight: 800,
+                color: '#111111',
                 fontFamily: 'var(--font-80s)',
                 letterSpacing: '0.5px',
                 marginBottom: '6px',
               }}
             >
-              <Calendar size={16} color="#00f0ff" />
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '6px',
+                  background: '#ffe600',
+                  border: '1.5px solid #111111',
+                }}
+              >
+                <Calendar size={14} color="#111111" />
+              </span>
               <span>DATA DE NASCIMENTO *</span>
             </label>
             <input
@@ -202,15 +242,15 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
               style={{
                 width: '100%',
                 padding: '14px 16px',
-                background: '#0d061c',
-                border: '2.5px solid #ff2a85',
+                background: '#fffdf7',
+                border: '2.5px solid #111111',
                 borderRadius: '12px',
-                color: '#ffffff',
+                color: '#111111',
                 fontFamily: 'var(--font-main)',
                 fontSize: '1.05rem',
-                fontWeight: 600,
+                fontWeight: 700,
                 outline: 'none',
-                boxShadow: '3px 3px 0px #00f0ff',
+                boxShadow: '3px 3px 0px #00d2ff',
                 cursor: 'pointer',
               }}
             />
@@ -223,14 +263,27 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
                 alignItems: 'center',
                 gap: '8px',
                 fontSize: '0.88rem',
-                fontWeight: 700,
-                color: '#ffde59',
+                fontWeight: 800,
+                color: '#111111',
                 fontFamily: 'var(--font-80s)',
                 letterSpacing: '0.5px',
                 marginBottom: '6px',
               }}
             >
-              <User size={16} color="#ff2a85" />
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '6px',
+                  background: '#ff2a85',
+                  border: '1.5px solid #111111',
+                }}
+              >
+                <User size={14} color="#ffffff" />
+              </span>
               <span>NOME / APELIDO (OPCIONAL)</span>
             </label>
             <input
@@ -242,13 +295,13 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
               style={{
                 width: '100%',
                 padding: '14px 16px',
-                background: '#0d061c',
-                border: '2.5px solid #00f0ff',
+                background: '#fffdf7',
+                border: '2.5px solid #111111',
                 borderRadius: '12px',
-                color: '#ffffff',
+                color: '#111111',
                 fontFamily: 'var(--font-main)',
                 fontSize: '1rem',
-                fontWeight: 500,
+                fontWeight: 600,
                 outline: 'none',
                 boxShadow: '3px 3px 0px #ff2a85',
               }}
@@ -267,20 +320,20 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
         </form>
 
         {/* Preset Dates Section */}
-        <div style={{ marginTop: '26px', borderTop: '2px dashed rgba(255,255,255,0.18)', paddingTop: '18px' }}>
+        <div style={{ marginTop: '24px', borderTop: '2.5px dashed #111111', paddingTop: '16px' }}>
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
-              color: '#00f0ff',
+              color: '#111111',
               fontFamily: 'var(--font-80s)',
-              fontSize: '0.82rem',
+              fontSize: '0.84rem',
               letterSpacing: '0.5px',
               marginBottom: '10px',
             }}
           >
-            <History size={14} />
+            <History size={15} color="#ff2a85" />
             <span>OU TESTE DATAS HISTÓRICAS:</span>
           </div>
 
@@ -291,25 +344,25 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
                 type="button"
                 onClick={() => handlePreset(preset.date, preset.name)}
                 style={{
-                  background: '#0d061c',
-                  border: '1.5px solid #ffde59',
+                  background: '#fffdf7',
+                  border: '2px solid #111111',
                   borderRadius: '999px',
-                  padding: '6px 12px',
-                  fontSize: '0.78rem',
+                  padding: '6px 14px',
+                  fontSize: '0.80rem',
                   fontFamily: 'var(--font-main)',
-                  fontWeight: 600,
-                  color: '#ffffff',
+                  fontWeight: 700,
+                  color: '#111111',
                   cursor: 'pointer',
-                  boxShadow: '2px 2px 0px #ff2a85',
+                  boxShadow: '2.5px 2.5px 0px #00d2ff',
                   transition: 'all 0.15s ease',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translate(-1px, -1px)';
-                  e.currentTarget.style.boxShadow = '3px 3px 0px #00f0ff';
+                  e.currentTarget.style.transform = 'translate(-2px, -2px)';
+                  e.currentTarget.style.boxShadow = '3.5px 3.5px 0px #ff2a85';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translate(0, 0)';
-                  e.currentTarget.style.boxShadow = '2px 2px 0px #ff2a85';
+                  e.currentTarget.style.boxShadow = '2.5px 2.5px 0px #00d2ff';
                 }}
               >
                 {preset.label}
@@ -321,3 +374,4 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
     </div>
   );
 }
+

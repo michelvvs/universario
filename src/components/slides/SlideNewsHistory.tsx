@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { BirthDataPayload } from '@/types/universario';
-import { Newspaper, Flame, AlertCircle, Bookmark } from 'lucide-react';
+import { Newspaper, Flame } from 'lucide-react';
+import { MemphisSquiggle, MemphisZigzag, MemphisTrianglePattern, MemphisCrosshatch } from '../MemphisDoodles';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -11,25 +12,24 @@ interface SlideProps {
 export default function SlideNewsHistory({ data }: SlideProps) {
   const { news, year } = data;
 
-  const cardBorderColors = ['#00f0ff', '#ffde59', '#ff2a85'];
+  const cardShadows = [
+    '3px 3px 0px #111111, 6px 6px 0px #ff2a85',
+    '3px 3px 0px #111111, 6px 6px 0px #ffe600',
+    '3px 3px 0px #111111, 6px 6px 0px #00d2ff',
+  ];
   const tapeColors = ['tape-strip', 'tape-strip tape-strip-cyan', 'tape-strip tape-strip-pink'];
 
   return (
-    <div
-      style={{
-        position: 'relative',
-        height: '100%',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        padding: '75px 20px 26px 20px',
-        background: 'radial-gradient(circle at 50% 20%, #200a38 0%, #120524 70%, #06010d 100%)',
-        color: '#ffffff',
-        overflow: 'hidden',
-      }}
-      className="slide-content-enter"
-    >
+    <div className="slide-memphis-canvas slide-theme-news">
+      {/* Memphis Floating Doodles */}
+      <div style={{ position: 'absolute', top: '10%', right: '5%', pointerEvents: 'none' }} className="animate-float-1">
+        <MemphisTrianglePattern size={46} fillColor="#9b51e0" />
+      </div>
+
+      <div style={{ position: 'absolute', bottom: '26%', left: '4%', pointerEvents: 'none' }}>
+        <MemphisSquiggle color="#ff2a85" width={52} height={16} />
+      </div>
+
       {/* Top Header */}
       <div style={{ textAlign: 'center', zIndex: 2 }}>
         <div
@@ -37,57 +37,59 @@ export default function SlideNewsHistory({ data }: SlideProps) {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px',
-            padding: '3px 12px',
-            borderRadius: '6px',
-            background: '#00f0ff',
-            border: '1.5px solid #0d061c',
-            boxShadow: '3px 3px 0px #ff2a85',
-            fontSize: '0.74rem',
+            padding: '5px 14px',
+            borderRadius: '10px',
+            background: '#9b51e0',
+            border: '2.5px solid #111111',
+            boxShadow: '3px 3px 0px #111111',
+            fontSize: '0.76rem',
             fontFamily: 'var(--font-80s)',
             letterSpacing: '0.5px',
-            color: '#0d061c',
+            color: '#ffffff',
             marginBottom: '4px',
+            transform: 'rotate(-1deg)',
           }}
         >
-          <Newspaper size={12} />
+          <Newspaper size={13} color="#ffffff" />
           <span>MANCHETES & EDIÇÃO EXTRA</span>
         </div>
 
         <h2
           style={{
             fontSize: '2.1rem',
-            fontWeight: 800,
+            fontWeight: 900,
             fontFamily: 'var(--font-80s)',
             lineHeight: 1.1,
             marginBottom: '2px',
-            color: '#ffffff',
+            color: '#111111',
+            textShadow: '2.5px 2.5px 0px #ffe600',
           }}
           className="text-chromatic"
         >
           O MUNDO EM {year}
         </h2>
 
-        <p style={{ fontSize: '0.78rem', fontFamily: 'var(--font-crt)', color: '#ffde59', letterSpacing: '0.5px' }}>
+        <p style={{ fontSize: '0.78rem', fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px' }}>
           FATOS HISTÓRICOS QUE ESTAVAM NAS PRIMEIRAS PÁGINAS
         </p>
       </div>
 
-      {/* 80s Newspaper Clippings with Washi Tapes */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', zIndex: 2, margin: '6px 0' }}>
+      {/* Memphis Newspaper Clippings with Washi Tapes */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '11px', zIndex: 2, margin: '4px 0' }}>
         {news.map((item, index) => {
-          const borderColor = cardBorderColors[index % cardBorderColors.length];
+          const shadowColor = cardShadows[index % cardShadows.length];
           const tapeClass = tapeColors[index % tapeColors.length];
 
           return (
             <div
               key={index}
               style={{
-                padding: '12px 14px',
+                padding: '11px 13px',
                 background: '#ffffff',
-                color: '#0d061c',
-                borderRadius: '10px',
-                border: '2px solid #0d061c',
-                boxShadow: `4px 4px 0px ${borderColor}`,
+                color: '#111111',
+                borderRadius: '12px',
+                border: '2.5px solid #111111',
+                boxShadow: shadowColor,
                 position: 'relative',
                 transform: index % 2 === 0 ? 'rotate(-0.8deg)' : 'rotate(0.8deg)',
               }}
@@ -106,10 +108,10 @@ export default function SlideNewsHistory({ data }: SlideProps) {
                 <span style={{ fontSize: '1.2rem' }}>{item.emoji}</span>
                 <span
                   style={{
-                    fontSize: '0.90rem',
+                    fontSize: '0.92rem',
                     fontWeight: 900,
                     fontFamily: 'var(--font-80s)',
-                    color: '#0d061c',
+                    color: '#111111',
                     lineHeight: 1.2,
                     letterSpacing: '0.3px',
                   }}
@@ -120,10 +122,10 @@ export default function SlideNewsHistory({ data }: SlideProps) {
 
               <p
                 style={{
-                  fontSize: '0.80rem',
+                  fontSize: '0.78rem',
                   lineHeight: 1.35,
-                  color: '#334155',
-                  fontWeight: 500,
+                  color: '#333333',
+                  fontWeight: 600,
                 }}
               >
                 {item.description}
@@ -140,17 +142,18 @@ export default function SlideNewsHistory({ data }: SlideProps) {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px',
-            padding: '4px 12px',
-            borderRadius: '6px',
-            background: '#16082f',
-            border: '1.5px dashed #26ffdf',
-            fontSize: '0.72rem',
-            color: '#26ffdf',
-            fontFamily: 'var(--font-crt)',
+            padding: '5px 12px',
+            borderRadius: '8px',
+            background: '#ffe600',
+            border: '2px solid #111111',
+            boxShadow: '2px 2px 0px #111111',
+            fontSize: '0.74rem',
+            color: '#111111',
+            fontFamily: 'var(--font-80s)',
             letterSpacing: '0.5px',
           }}
         >
-          <Flame size={12} color="#ffde59" />
+          <Flame size={13} color="#ff2a85" />
           <span>FONTE: ARQUIVOS HISTÓRICOS & WIKIPEDIA</span>
         </div>
       </div>

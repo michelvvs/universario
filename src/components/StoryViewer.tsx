@@ -156,15 +156,15 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
               width: '46px',
               height: '46px',
               borderRadius: '50%',
-              background: '#16082f',
-              border: '2.5px solid #00f0ff',
-              color: '#ffffff',
-              boxShadow: '3px 3px 0px #ff2a85, 0 0 12px rgba(0, 240, 255, 0.4)',
+              background: '#ffffff',
+              border: '3px solid #111111',
+              color: '#111111',
+              boxShadow: '3px 3px 0px #111111, 6px 6px 0px #00d2ff',
               cursor: 'pointer',
               transition: 'all 0.15s ease',
             }}
           >
-            <ChevronLeft size={28} color="#00f0ff" />
+            <ChevronLeft size={28} color="#111111" />
           </button>
         )}
 
@@ -229,20 +229,20 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
                 aria-label="Fechar e escolher nova data"
                 title="Fechar retrospectiva"
                 style={{
-                  background: '#16082f',
-                  border: '2px solid #ffde59',
+                  background: '#ffffff',
+                  border: '2.5px solid #111111',
                   borderRadius: '10px',
                   width: '34px',
                   height: '34px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#ffde59',
+                  color: '#111111',
                   cursor: 'pointer',
-                  boxShadow: '2px 2px 0px #ff2a85',
+                  boxShadow: '2.5px 2.5px 0px #ff2a85',
                 }}
               >
-                <X size={18} />
+                <X size={18} color="#111111" />
               </button>
             </div>
           </div>
@@ -292,19 +292,19 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
                 alignItems: 'center',
                 gap: '6px',
                 background: '#ff2a85',
-                border: '2px solid #ffffff',
+                border: '2.5px solid #111111',
                 borderRadius: '999px',
                 padding: '6px 14px',
                 color: '#ffffff',
                 fontFamily: 'var(--font-80s)',
-                fontSize: '0.74rem',
+                fontSize: '0.76rem',
                 letterSpacing: '0.5px',
-                boxShadow: '0 0 14px rgba(255, 42, 133, 0.9), 2px 2px 0px #00f0ff',
+                boxShadow: '3px 3px 0px #111111, 6px 6px 0px #ffe600',
                 cursor: 'pointer',
               }}
             >
               <span>PRÓXIMO STORY</span>
-              <ChevronRight size={14} color="#ffffff" />
+              <ChevronRight size={15} color="#ffffff" />
             </button>
           )}
         </div>
@@ -325,15 +325,15 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
               width: '46px',
               height: '46px',
               borderRadius: '50%',
-              background: '#16082f',
-              border: '2.5px solid #ff2a85',
-              color: '#ffffff',
-              boxShadow: '3px 3px 0px #00f0ff, 0 0 12px rgba(255, 42, 133, 0.4)',
+              background: '#ffffff',
+              border: '3px solid #111111',
+              color: '#111111',
+              boxShadow: '3px 3px 0px #111111, 6px 6px 0px #ff2a85',
               cursor: 'pointer',
               transition: 'all 0.15s ease',
             }}
           >
-            <ChevronRight size={28} color="#ff2a85" />
+            <ChevronRight size={28} color="#111111" />
           </button>
         )}
       </div>

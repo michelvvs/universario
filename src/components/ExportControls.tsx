@@ -80,10 +80,10 @@ export default function ExportControls({
         type="button"
         onClick={handleExportSingle}
         disabled={isExportingSingle}
-        className="btn-cosmic-primary"
+        className="btn-memphis-primary"
         style={{
           padding: '12px 20px',
-          fontSize: '0.9rem',
+          fontSize: '0.92rem',
           flex: '1 1 200px',
         }}
       >
@@ -95,7 +95,7 @@ export default function ExportControls({
         ) : (
           <>
             <Share2 size={16} />
-            <span>Compartilhar / Baixar Este Story</span>
+            <span>Compartilhar / Baixar Story</span>
           </>
         )}
       </button>
@@ -104,10 +104,10 @@ export default function ExportControls({
         type="button"
         onClick={handleExportZip}
         disabled={isExportingZip}
-        className="btn-cosmic-secondary"
+        className="btn-memphis-primary btn-memphis-cyan"
         style={{
           padding: '12px 18px',
-          fontSize: '0.88rem',
+          fontSize: '0.90rem',
           flex: '1 1 180px',
         }}
       >
@@ -127,15 +127,15 @@ export default function ExportControls({
       <button
         type="button"
         onClick={handleShareLink}
-        className="btn-cosmic-secondary"
+        className="btn-memphis-primary btn-memphis-yellow"
         style={{
-          padding: '10px 14px',
-          fontSize: '0.82rem',
+          padding: '10px 16px',
+          fontSize: '0.85rem',
         }}
       >
         {isCopied ? (
           <>
-            <Check size={14} style={{ color: 'var(--accent-emerald)' }} />
+            <Check size={14} style={{ color: '#111111' }} />
             <span>Link Copiado!</span>
           </>
         ) : (

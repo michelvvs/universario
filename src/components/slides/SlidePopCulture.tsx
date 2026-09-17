@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { BirthDataPayload } from '@/types/universario';
-import { Film, Tv, Cpu, Clapperboard, Sparkles } from 'lucide-react';
+import { Film, Tv, Cpu, Clapperboard } from 'lucide-react';
+import { MemphisSquiggle, MemphisZigzag, MemphisTrianglePattern, MemphisCrosshatch } from '../MemphisDoodles';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -12,21 +13,16 @@ export default function SlidePopCulture({ data }: SlideProps) {
   const { popCulture, year } = data;
 
   return (
-    <div
-      style={{
-        position: 'relative',
-        height: '100%',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        padding: '75px 20px 26px 20px',
-        background: 'radial-gradient(circle at 50% 20%, #2e0947 0%, #150527 70%, #080214 100%)',
-        color: '#ffffff',
-        overflow: 'hidden',
-      }}
-      className="slide-content-enter"
-    >
+    <div className="slide-memphis-canvas slide-theme-pop">
+      {/* Memphis Floating Doodles */}
+      <div style={{ position: 'absolute', top: '10%', right: '5%', pointerEvents: 'none' }} className="animate-float-1">
+        <MemphisTrianglePattern size={46} fillColor="#ffe600" />
+      </div>
+
+      <div style={{ position: 'absolute', bottom: '28%', left: '4%', pointerEvents: 'none' }}>
+        <MemphisSquiggle color="#00d2ff" width={52} height={16} />
+      </div>
+
       {/* Top Header */}
       <div style={{ textAlign: 'center', zIndex: 2 }}>
         <div
@@ -34,108 +30,116 @@ export default function SlidePopCulture({ data }: SlideProps) {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px',
-            padding: '3px 12px',
-            borderRadius: '6px',
+            padding: '5px 14px',
+            borderRadius: '10px',
             background: '#ff2a85',
-            border: '1.5px solid #ffffff',
-            boxShadow: '3px 3px 0px #00f0ff',
-            fontSize: '0.74rem',
+            border: '2.5px solid #111111',
+            boxShadow: '3px 3px 0px #111111',
+            fontSize: '0.76rem',
             fontFamily: 'var(--font-80s)',
             letterSpacing: '0.5px',
             color: '#ffffff',
             marginBottom: '4px',
+            transform: 'rotate(-1deg)',
           }}
         >
-          <Clapperboard size={12} />
+          <Clapperboard size={13} color="#ffe600" />
           <span>CINEMA & TELAS 80s</span>
         </div>
 
         <h2
           style={{
-            fontSize: '2.0rem',
-            fontWeight: 800,
+            fontSize: '2.05rem',
+            fontWeight: 900,
             fontFamily: 'var(--font-80s)',
             lineHeight: 1.1,
             marginBottom: '2px',
-            color: '#ffffff',
+            color: '#111111',
+            textShadow: '2.5px 2.5px 0px #00d2ff',
           }}
           className="text-chromatic"
         >
           CULTURA POP & CINEMA
         </h2>
 
-        <p style={{ fontSize: '0.78rem', fontFamily: 'var(--font-crt)', color: '#ffde59', letterSpacing: '0.5px' }}>
+        <p style={{ fontSize: '0.78rem', fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px' }}>
           O QUE DOMINAVA AS TELAS E LOCADORAS EM {year}
         </p>
       </div>
 
-      {/* 80s Cards */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', zIndex: 2, margin: '4px 0' }}>
+      {/* Memphis Cards */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', zIndex: 2, margin: '3px 0' }}>
         {/* Cinema Champion Card */}
         <div
-          className="memphis-card-pink"
           style={{
             padding: '10px 12px',
             borderRadius: '12px',
+            background: '#ffffff',
+            border: '2.5px solid #111111',
+            boxShadow: '3px 3px 0px #111111, 6px 6px 0px #ff2a85',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Film size={13} color="#ffde59" />
-              <span style={{ fontSize: '0.70rem', fontWeight: 800, fontFamily: 'var(--font-80s)', color: '#ffde59', letterSpacing: '0.5px' }}>
+              <Film size={13} color="#ff2a85" />
+              <span style={{ fontSize: '0.70rem', fontWeight: 900, fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px' }}>
                 BLOCKBUSTER EM CARTAZ
               </span>
             </div>
-            <span style={{ fontFamily: 'var(--font-crt)', fontSize: '0.80rem', color: '#00f0ff' }}>
-              BILHETERIA #1
+            <span style={{ fontFamily: 'var(--font-80s)', fontSize: '0.72rem', color: '#111111', background: '#ffe600', padding: '1px 6px', borderRadius: '4px', border: '1px solid #111111' }}>
+              #1 BILHETERIA
             </span>
           </div>
 
-          <div style={{ fontSize: '0.98rem', fontWeight: 800, fontFamily: 'var(--font-80s)', color: '#ffffff' }}>
+          <div style={{ fontSize: '1.0rem', fontWeight: 900, fontFamily: 'var(--font-80s)', color: '#111111' }}>
             {popCulture.topMovie.title}
           </div>
-          <div style={{ fontSize: '0.72rem', color: '#cbd5e1', marginTop: '1px' }}>
+          <div style={{ fontSize: '0.72rem', color: '#555555', fontWeight: 600 }}>
             Dirigido por {popCulture.topMovie.director}
           </div>
-          <div style={{ fontSize: '0.72rem', color: '#ffde59', marginTop: '3px', lineHeight: 1.3 }}>
+          <div style={{ fontSize: '0.72rem', color: '#ff2a85', fontWeight: 600, marginTop: '2px', lineHeight: 1.3 }}>
             ✦ {popCulture.topMovie.funFact}
           </div>
         </div>
 
-        {/* TV & Brazilian Culture (VHS Tape Aesthetic) */}
+        {/* TV & Brazilian Culture */}
         <div
-          className="memphis-card-cyan"
           style={{
             padding: '10px 12px',
             borderRadius: '12px',
+            background: '#ffffff',
+            border: '2.5px solid #111111',
+            boxShadow: '3px 3px 0px #111111, 6px 6px 0px #00d2ff',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
-            <Tv size={13} color="#00f0ff" />
-            <span style={{ fontSize: '0.70rem', fontWeight: 800, fontFamily: 'var(--font-80s)', color: '#00f0ff', letterSpacing: '0.5px' }}>
+            <Tv size={13} color="#00d2ff" />
+            <span style={{ fontSize: '0.70rem', fontWeight: 900, fontFamily: 'var(--font-80s)', color: '#00d2ff', letterSpacing: '0.5px' }}>
               NA TV BRASILEIRA
             </span>
           </div>
-          <div style={{ fontSize: '0.78rem', color: '#f1f5f9', lineHeight: 1.35 }}>
+          <div style={{ fontSize: '0.78rem', color: '#111111', lineHeight: 1.35, fontWeight: 600 }}>
             {popCulture.topBrazilianTVOrCulture}
           </div>
         </div>
 
         {/* Tech Milestone */}
         <div
-          className="memphis-card-yellow"
           style={{
             padding: '10px 12px',
             borderRadius: '12px',
+            background: '#ffffff',
+            border: '2.5px solid #111111',
+            boxShadow: '3px 3px 0px #111111, 6px 6px 0px #ffe600',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
-            <Cpu size={13} color="#ffde59" />
-            <span style={{ fontSize: '0.70rem', fontWeight: 800, fontFamily: 'var(--font-80s)', color: '#ffde59', letterSpacing: '0.5px' }}>
+            <Cpu size={13} color="#ff5722" />
+            <span style={{ fontSize: '0.70rem', fontWeight: 900, fontFamily: 'var(--font-80s)', color: '#ff5722', letterSpacing: '0.5px' }}>
               MARCO TECNOLÓGICO 80s
             </span>
           </div>
-          <div style={{ fontSize: '0.78rem', color: '#f1f5f9', lineHeight: 1.35 }}>
+          <div style={{ fontSize: '0.78rem', color: '#111111', lineHeight: 1.35, fontWeight: 600 }}>
             {popCulture.techMilestone}
           </div>
         </div>
@@ -143,28 +147,33 @@ export default function SlidePopCulture({ data }: SlideProps) {
 
       {/* Nostalgia Chips / 80s Stickers */}
       <div style={{ zIndex: 2, textAlign: 'center' }}>
-        <div style={{ fontSize: '0.70rem', fontFamily: 'var(--font-80s)', color: '#26ffdf', marginBottom: '6px', letterSpacing: '0.5px' }}>
+        <div style={{ fontSize: '0.72rem', fontFamily: 'var(--font-80s)', color: '#111111', marginBottom: '5px', letterSpacing: '0.5px' }}>
           ★ ÍCONES DE NOSTALGIA DA ÉPOCA ★
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', justifyContent: 'center' }}>
-          {(popCulture.nostalgiaItems || []).map((item: string, idx: number) => (
-            <span
-              key={idx}
-              style={{
-                padding: '4px 10px',
-                borderRadius: '6px',
-                background: idx % 2 === 0 ? '#ff2a85' : '#00f0ff',
-                color: idx % 2 === 0 ? '#ffffff' : '#0d061c',
-                border: '1.5px solid #ffffff',
-                boxShadow: '2px 2px 0px #ffde59',
-                fontSize: '0.72rem',
-                fontFamily: 'var(--font-80s)',
-                letterSpacing: '0.3px',
-              }}
-            >
-              {item}
-            </span>
-          ))}
+          {(popCulture.nostalgiaItems || []).map((item: string, idx: number) => {
+            const stickerBg = idx % 3 === 0 ? '#ff2a85' : idx % 3 === 1 ? '#ffe600' : '#00d2ff';
+            const stickerColor = idx % 3 === 0 ? '#ffffff' : '#111111';
+
+            return (
+              <span
+                key={idx}
+                style={{
+                  padding: '4px 10px',
+                  borderRadius: '8px',
+                  background: stickerBg,
+                  color: stickerColor,
+                  border: '2px solid #111111',
+                  boxShadow: '2px 2px 0px #111111',
+                  fontSize: '0.74rem',
+                  fontFamily: 'var(--font-80s)',
+                  letterSpacing: '0.3px',
+                }}
+              >
+                {item}
+              </span>
+            );
+          })}
         </div>
       </div>
     </div>

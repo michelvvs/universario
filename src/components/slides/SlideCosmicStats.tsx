@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { BirthDataPayload } from '@/types/universario';
-import { Orbit, Heart, Wind, Users2, Sparkles, Activity } from 'lucide-react';
+import { Orbit, Heart, Wind, Users2, Activity } from 'lucide-react';
+import { MemphisSquiggle, MemphisZigzag, MemphisTrianglePattern, MemphisCrosshatch } from '../MemphisDoodles';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -12,21 +13,16 @@ export default function SlideCosmicStats({ data }: SlideProps) {
   const { stats } = data;
 
   return (
-    <div
-      style={{
-        position: 'relative',
-        height: '100%',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        padding: '75px 20px 26px 20px',
-        background: 'radial-gradient(circle at 50% 20%, #1a0833 0%, #0d041c 70%, #05010a 100%)',
-        color: '#ffffff',
-        overflow: 'hidden',
-      }}
-      className="slide-content-enter"
-    >
+    <div className="slide-memphis-canvas slide-theme-stats">
+      {/* Memphis Floating Doodles */}
+      <div style={{ position: 'absolute', top: '10%', right: '5%', pointerEvents: 'none' }} className="animate-float-1">
+        <MemphisTrianglePattern size={46} fillColor="#00d2ff" />
+      </div>
+
+      <div style={{ position: 'absolute', bottom: '26%', left: '4%', pointerEvents: 'none' }}>
+        <MemphisSquiggle color="#ff2a85" width={52} height={16} />
+      </div>
+
       {/* Top Header */}
       <div style={{ textAlign: 'center', zIndex: 2 }}>
         <div
@@ -34,90 +30,98 @@ export default function SlideCosmicStats({ data }: SlideProps) {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px',
-            padding: '3px 12px',
-            borderRadius: '6px',
-            background: '#26ffdf',
-            border: '1.5px solid #0d061c',
-            boxShadow: '3px 3px 0px #ff2a85',
-            fontSize: '0.74rem',
+            padding: '5px 14px',
+            borderRadius: '10px',
+            background: '#00d2ff',
+            border: '2.5px solid #111111',
+            boxShadow: '3px 3px 0px #111111',
+            fontSize: '0.76rem',
             fontFamily: 'var(--font-80s)',
             letterSpacing: '0.5px',
-            color: '#0d061c',
+            color: '#111111',
             marginBottom: '4px',
+            transform: 'rotate(1deg)',
           }}
         >
-          <Activity size={12} />
+          <Activity size={13} color="#111111" />
           <span>PLACAR CÓSMICO • HIGH SCORE</span>
         </div>
 
         <h2
           style={{
-            fontSize: '2.0rem',
-            fontWeight: 800,
+            fontSize: '2.05rem',
+            fontWeight: 900,
             fontFamily: 'var(--font-80s)',
             lineHeight: 1.1,
             marginBottom: '2px',
-            color: '#ffffff',
+            color: '#111111',
+            textShadow: '2.5px 2.5px 0px #ffe600',
           }}
           className="text-chromatic"
         >
           ODÔMETRO DO TEMPO
         </h2>
 
-        <p style={{ fontSize: '0.78rem', fontFamily: 'var(--font-crt)', color: '#ffde59', letterSpacing: '0.5px' }}>
+        <p style={{ fontSize: '0.78rem', fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px' }}>
           O QUE SEU CORPO & A TERRA PERCORRERAM
         </p>
       </div>
 
-      {/* Grid of 80s Arcade Stats Cards */}
+      {/* Grid of Memphis Arcade Stats Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', zIndex: 2, margin: '4px 0' }}>
         {/* Heartbeats */}
         <div
-          className="memphis-card-pink"
           style={{
             padding: '12px 10px',
-            borderRadius: '12px',
+            borderRadius: '14px',
+            background: '#ffffff',
+            border: '2.5px solid #111111',
+            boxShadow: '3px 3px 0px #111111, 6px 6px 0px #ff2a85',
             textAlign: 'center',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '3px' }}>
-            <Heart size={20} color="#ff2a85" fill="#ff2a85" />
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2px' }}>
+            <Heart size={22} color="#ff2a85" fill="#ff2a85" />
           </div>
-          <div style={{ fontSize: '1.15rem', fontWeight: 800, fontFamily: 'var(--font-80s)', color: '#ffffff' }}>
+          <div style={{ fontSize: '1.2rem', fontWeight: 900, fontFamily: 'var(--font-80s)', color: '#111111' }}>
             ~{stats.heartbeatsEstimated}
           </div>
-          <div style={{ fontSize: '0.65rem', fontFamily: 'var(--font-80s)', color: '#ffde59', letterSpacing: '0.5px', marginTop: '2px' }}>
+          <div style={{ fontSize: '0.66rem', fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px', marginTop: '2px' }}>
             BATIMENTOS CARDÍACOS
           </div>
         </div>
 
         {/* Breaths */}
         <div
-          className="memphis-card-cyan"
           style={{
             padding: '12px 10px',
-            borderRadius: '12px',
+            borderRadius: '14px',
+            background: '#ffffff',
+            border: '2.5px solid #111111',
+            boxShadow: '3px 3px 0px #111111, 6px 6px 0px #00d2ff',
             textAlign: 'center',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '3px' }}>
-            <Wind size={20} color="#00f0ff" />
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2px' }}>
+            <Wind size={22} color="#00d2ff" />
           </div>
-          <div style={{ fontSize: '1.15rem', fontWeight: 800, fontFamily: 'var(--font-80s)', color: '#ffffff' }}>
+          <div style={{ fontSize: '1.2rem', fontWeight: 900, fontFamily: 'var(--font-80s)', color: '#111111' }}>
             ~{stats.breathsEstimated}
           </div>
-          <div style={{ fontSize: '0.65rem', fontFamily: 'var(--font-80s)', color: '#00f0ff', letterSpacing: '0.5px', marginTop: '2px' }}>
+          <div style={{ fontSize: '0.66rem', fontFamily: 'var(--font-80s)', color: '#00d2ff', letterSpacing: '0.5px', marginTop: '2px' }}>
             RESPIRAÇÕES NO AR
           </div>
         </div>
 
         {/* Cosmic Travel Distance */}
         <div
-          className="memphis-card-yellow"
           style={{
             gridColumn: '1 / -1',
             padding: '12px 14px',
-            borderRadius: '12px',
+            borderRadius: '14px',
+            background: '#ffffff',
+            border: '2.5px solid #111111',
+            boxShadow: '3px 3px 0px #111111, 6px 6px 0px #ffe600',
             display: 'flex',
             alignItems: 'center',
             gap: '12px',
@@ -125,24 +129,25 @@ export default function SlideCosmicStats({ data }: SlideProps) {
         >
           <div
             style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '8px',
-              background: '#0d061c',
-              border: '1.5px solid #ffde59',
+              width: '42px',
+              height: '42px',
+              borderRadius: '10px',
+              background: '#ffe600',
+              border: '2px solid #111111',
+              boxShadow: '2px 2px 0px #111111',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               flexShrink: 0,
             }}
           >
-            <Orbit size={22} color="#ffde59" />
+            <Orbit size={24} color="#111111" />
           </div>
           <div>
-            <div style={{ fontSize: '0.66rem', fontFamily: 'var(--font-80s)', color: '#0d061c', background: '#ffde59', padding: '1px 6px', borderRadius: '4px', display: 'inline-block', letterSpacing: '0.5px' }}>
+            <div style={{ fontSize: '0.68rem', fontFamily: 'var(--font-80s)', color: '#111111', background: '#ffe600', padding: '1px 8px', borderRadius: '5px', border: '1px solid #111111', display: 'inline-block', letterSpacing: '0.5px' }}>
               DISTÂNCIA VIAJADA PELA TERRA
             </div>
-            <div style={{ fontSize: '1.15rem', fontWeight: 800, fontFamily: 'var(--font-80s)', color: '#ffffff', marginTop: '2px' }}>
+            <div style={{ fontSize: '1.18rem', fontWeight: 900, fontFamily: 'var(--font-80s)', color: '#111111', marginTop: '2px' }}>
               {stats.earthTraveledMillionKm}
             </div>
           </div>
@@ -153,23 +158,23 @@ export default function SlideCosmicStats({ data }: SlideProps) {
           style={{
             gridColumn: '1 / -1',
             padding: '10px 14px',
-            background: '#0d061c',
-            border: '2px solid #26ffdf',
-            borderRadius: '12px',
-            boxShadow: '3px 3px 0px #ff2a85',
+            background: '#ffffff',
+            border: '2.5px solid #111111',
+            borderRadius: '14px',
+            boxShadow: '3px 3px 0px #111111',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <Users2 size={20} color="#26ffdf" />
+            <Users2 size={22} color="#9b51e0" />
             <div>
-              <div style={{ fontSize: '0.65rem', fontFamily: 'var(--font-80s)', color: '#26ffdf', letterSpacing: '0.5px' }}>
+              <div style={{ fontSize: '0.66rem', fontFamily: 'var(--font-80s)', color: '#9b51e0', letterSpacing: '0.5px' }}>
                 POPULAÇÃO MUNDIAL (ENTÃO ➔ HOJE)
               </div>
-              <div style={{ fontSize: '0.92rem', fontWeight: 800, fontFamily: 'var(--font-80s)', color: '#ffffff' }}>
-                {stats.worldPopulationThen} ➔ <span style={{ color: '#ffde59' }}>{stats.worldPopulationNow}</span>
+              <div style={{ fontSize: '0.94rem', fontWeight: 900, fontFamily: 'var(--font-80s)', color: '#111111' }}>
+                {stats.worldPopulationThen} ➔ <span style={{ color: '#ff2a85' }}>{stats.worldPopulationNow}</span>
               </div>
             </div>
           </div>
@@ -178,7 +183,7 @@ export default function SlideCosmicStats({ data }: SlideProps) {
 
       {/* Bottom Note */}
       <div style={{ textAlign: 'center', zIndex: 2 }}>
-        <div style={{ fontFamily: 'var(--font-crt)', fontSize: '0.9rem', color: '#ffde59' }}>
+        <div style={{ fontFamily: 'var(--font-80s)', fontSize: '0.78rem', color: '#111111' }}>
           ★ VOCÊ É UMA TESTEMUNHA ÚNICA DO UNIVERSO ★
         </div>
       </div>

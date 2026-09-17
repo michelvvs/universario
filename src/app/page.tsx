@@ -220,12 +220,12 @@ export default function HomePage() {
           >
             <div
               style={{
-                width: '42px',
-                height: '42px',
+                width: '44px',
+                height: '44px',
                 borderRadius: '12px',
-                background: '#ff2a85',
-                border: '2px solid #ffffff',
-                boxShadow: '3px 3px 0px #00f0ff',
+                background: '#ffe600',
+                border: '2.5px solid #111111',
+                boxShadow: '3px 3px 0px #111111, 6px 6px 0px #ff2a85',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -237,8 +237,8 @@ export default function HomePage() {
             <div>
               <span
                 style={{
-                  fontSize: '1.6rem',
-                  fontWeight: 800,
+                  fontSize: '1.7rem',
+                  fontWeight: 900,
                   fontFamily: 'var(--font-80s)',
                   color: '#ffffff',
                 }}
@@ -249,20 +249,45 @@ export default function HomePage() {
               <div
                 style={{
                   fontFamily: 'var(--font-crt)',
-                  fontSize: '0.9rem',
-                  color: '#00f0ff',
+                  fontSize: '0.95rem',
+                  color: '#ffe600',
                   letterSpacing: '1px',
                   lineHeight: 1,
+                  fontWeight: 700,
                 }}
               >
-                RETRO EDITION • 1980s
+                MEMPHIS RETRO STORIES • 80s/90s
               </div>
             </div>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span className="vhs-rec">
-              <span className="vhs-rec-dot" />
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                background: '#ffffff',
+                border: '2px solid #111111',
+                borderRadius: '8px',
+                padding: '4px 12px',
+                fontFamily: 'var(--font-80s)',
+                fontSize: '0.80rem',
+                color: '#111111',
+                boxShadow: '2.5px 2.5px 0px #ff2a85',
+                letterSpacing: '0.5px',
+              }}
+            >
+              <span
+                style={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  background: '#ff2a85',
+                  display: 'inline-block',
+                }}
+                className="animate-pulse"
+              />
               <span>REC 80s</span>
             </span>
           </div>
@@ -287,13 +312,13 @@ export default function HomePage() {
                     margin: '0 auto 16px auto',
                     padding: '12px 16px',
                     borderRadius: '12px',
-                    background: 'rgba(255, 42, 133, 0.25)',
-                    border: '2px solid #ff2a85',
-                    color: '#ffffff',
+                    background: '#ff66aa',
+                    border: '3px solid #111111',
+                    color: '#111111',
                     fontFamily: 'var(--font-80s)',
                     fontSize: '0.95rem',
                     textAlign: 'center',
-                    boxShadow: '4px 4px 0px #00f0ff',
+                    boxShadow: '4px 4px 0px #111111',
                   }}
                 >
                   ⚠ {errorMessage}
@@ -315,19 +340,20 @@ export default function HomePage() {
         {/* Retro 80s Footer */}
         <footer
           style={{
-            padding: '20px 20px',
+            padding: '18px 20px',
             textAlign: 'center',
-            color: 'var(--text-muted)',
-            fontSize: '0.82rem',
-            borderTop: '1px dashed rgba(255, 255, 255, 0.15)',
-            background: 'rgba(9, 3, 20, 0.8)',
+            color: '#ffffff',
+            fontSize: '0.85rem',
+            borderTop: '2px dashed rgba(255, 255, 255, 0.25)',
+            background: 'rgba(17, 17, 17, 0.75)',
+            backdropFilter: 'blur(6px)',
           }}
         >
-          <div style={{ fontFamily: 'var(--font-crt)', fontSize: '1rem', color: '#ffde59', marginBottom: '4px' }}>
-            ★ UNIVERSÁRIO 80s • MEMPHIS RETRO ENGINE ★
+          <div style={{ fontFamily: 'var(--font-80s)', fontSize: '0.95rem', color: '#ffe600', marginBottom: '4px' }}>
+            ★ UNIVERSÁRIO • MEMPHIS 80s/90s RETRO ENGINE ★
           </div>
-          <p>
-            Paradas Nacionais & Internacionais, Astronomia & Arquivos Históricos em 9:16
+          <p style={{ color: '#cbd5e1', fontSize: '0.80rem' }}>
+            Paradas Nacionais & Internacionais, Astronomia & Arquivos Históricos em Stories 9:16
           </p>
         </footer>
       </div>
