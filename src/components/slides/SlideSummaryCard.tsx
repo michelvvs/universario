@@ -66,7 +66,7 @@ export default function SlideSummaryCard({ data }: SlideProps) {
 
         <h2
           style={{
-            fontSize: '2.3rem',
+            fontSize: 'clamp(1.55rem, 6vw, 2.3rem)',
             fontWeight: 900,
             fontFamily: 'var(--font-80s)',
             lineHeight: 1.05,
@@ -103,18 +103,18 @@ export default function SlideSummaryCard({ data }: SlideProps) {
         style={{
           background: '#ffffff',
           borderRadius: '16px',
-          padding: '12px 14px',
+          padding: 'clamp(9px, 2.2vw, 12px) clamp(10px, 2.5vw, 14px)',
           border: '3px solid #111111',
           boxShadow: '4px 4px 0px #111111, 8px 8px 0px #ff2a85',
           zIndex: 2,
           display: 'flex',
           flexDirection: 'column',
-          gap: '8px',
+          gap: 'clamp(6px, 1.8vw, 8px)',
           position: 'relative',
         }}
       >
         {/* Row 1: Sign & Moon */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(6px, 1.8vw, 8px)' }}>
           <div
             style={{
               padding: '8px 10px',

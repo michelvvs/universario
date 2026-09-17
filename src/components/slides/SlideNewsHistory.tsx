@@ -56,7 +56,7 @@ export default function SlideNewsHistory({ data }: SlideProps) {
 
         <h2
           style={{
-            fontSize: '2.1rem',
+            fontSize: 'clamp(1.45rem, 5.2vw, 2.1rem)',
             fontWeight: 900,
             fontFamily: 'var(--font-80s)',
             lineHeight: 1.1,
@@ -88,7 +88,7 @@ export default function SlideNewsHistory({ data }: SlideProps) {
       </div>
 
       {/* Memphis Newspaper Clippings with Washi Tapes */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '11px', zIndex: 2, margin: '4px 0' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(7px, 2vw, 10px)', zIndex: 2, margin: '2px 0' }}>
         {news.map((item, index) => {
           const shadowColor = cardShadows[index % cardShadows.length];
           const tapeClass = tapeColors[index % tapeColors.length];
@@ -97,7 +97,7 @@ export default function SlideNewsHistory({ data }: SlideProps) {
             <div
               key={index}
               style={{
-                padding: '11px 13px',
+                padding: 'clamp(8px, 2.2vw, 11px) clamp(10px, 2.8vw, 13px)',
                 background: '#ffffff',
                 color: '#111111',
                 borderRadius: '12px',

@@ -59,7 +59,7 @@ export default function SlideIntro({ data }: SlideProps) {
         <div style={{ position: 'relative', display: 'inline-block', margin: '2px 0' }}>
           <h1
             style={{
-              fontSize: '4.2rem',
+              fontSize: 'clamp(2.9rem, 11vw, 4.2rem)',
               fontWeight: 900,
               fontFamily: 'var(--font-80s)',
               lineHeight: 0.95,

@@ -49,7 +49,7 @@ export default function SlidePopCulture({ data }: SlideProps) {
 
         <h2
           style={{
-            fontSize: '2.05rem',
+            fontSize: 'clamp(1.4rem, 5.2vw, 2.05rem)',
             fontWeight: 900,
             fontFamily: 'var(--font-80s)',
             lineHeight: 1.1,

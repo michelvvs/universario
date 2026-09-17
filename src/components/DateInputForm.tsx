@@ -43,28 +43,28 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
   return (
     <div style={{ width: '100%', maxWidth: '540px', margin: '0 auto', position: 'relative' }}>
       {/* Decorative Washi Tape on top left & bottom right */}
-      <div className="tape-strip" style={{ top: '-10px', left: '15px' }} />
-      <div className="tape-strip tape-strip-cyan" style={{ bottom: '-10px', right: '20px' }} />
+      <div className="tape-strip" style={{ top: '-8px', left: '15px' }} />
+      <div className="tape-strip tape-strip-cyan" style={{ bottom: '-8px', right: '20px' }} />
 
       {/* Floating Memphis Geometric Accents around the form */}
-      <div style={{ position: 'absolute', top: '-18px', right: '-12px', zIndex: 10 }}>
-        <MemphisTrianglePattern size={48} fillColor="#ffe600" borderColor="#111111" />
+      <div style={{ position: 'absolute', top: '-14px', right: '-4px', zIndex: 10 }}>
+        <MemphisTrianglePattern size={42} fillColor="#ffe600" borderColor="#111111" />
       </div>
-      <div style={{ position: 'absolute', bottom: '40px', left: '-22px', zIndex: 10 }}>
-        <MemphisCrosshatch size={36} color="#00d2ff" />
+      <div style={{ position: 'absolute', bottom: '40px', left: '-8px', zIndex: 10 }}>
+        <MemphisCrosshatch size={30} color="#00d2ff" />
       </div>
-      <div style={{ position: 'absolute', top: '45%', right: '-18px', zIndex: 10 }}>
-        <MemphisCoil width={44} height={16} color="#ff2a85" />
+      <div style={{ position: 'absolute', top: '45%', right: '-8px', zIndex: 10 }}>
+        <MemphisCoil width={38} height={14} color="#ff2a85" />
       </div>
 
       <div
-        className="memphis-card"
+        className="memphis-card memphis-form-card"
         style={{
           background: '#ffffff',
           border: '3.5px solid #111111',
           borderRadius: '24px',
-          padding: '32px 26px',
-          boxShadow: '6px 6px 0px #111111, 12px 12px 0px #ffe600',
+          padding: '28px 22px',
+          boxShadow: '5px 5px 0px #111111, 10px 10px 0px #ffe600',
           position: 'relative',
         }}
       >

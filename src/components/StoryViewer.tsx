@@ -387,23 +387,23 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
           }
         }
 
-        /* Mobile / Smaller Screens: Floating slightly outside the story boundaries */
+        /* Mobile / Smaller Screens: Floating gracefully over the edge */
         @media (max-width: 639px) {
           .story-nav-prev {
             position: absolute !important;
-            top: 50% !important;
-            left: -10px !important;
+            top: 52% !important;
+            left: -4px !important;
             transform: translateY(-50%) !important;
-            width: 42px !important;
-            height: 42px !important;
+            width: 38px !important;
+            height: 38px !important;
           }
           .story-nav-next {
             position: absolute !important;
-            top: 50% !important;
-            right: -10px !important;
+            top: 52% !important;
+            right: -4px !important;
             transform: translateY(-50%) !important;
-            width: 42px !important;
-            height: 42px !important;
+            width: 38px !important;
+            height: 38px !important;
           }
         }
 

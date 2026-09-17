@@ -102,7 +102,7 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
 
         <h2
           style={{
-            fontSize: '2.05rem',
+            fontSize: 'clamp(1.4rem, 5vw, 2.05rem)',
             fontWeight: 900,
             fontFamily: 'var(--font-80s)',
             lineHeight: 1.1,
@@ -139,7 +139,7 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '16px',
+          gap: '14px',
           margin: '2px 0',
           zIndex: 2,
         }}
@@ -148,14 +148,15 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
         <div
           style={{
             position: 'relative',
-            width: '106px',
-            height: '106px',
+            width: 'clamp(82px, 20vw, 104px)',
+            height: 'clamp(82px, 20vw, 104px)',
             borderRadius: '50%',
             background: 'radial-gradient(circle at 50% 50%, #1e1e1e 0%, #0d0d0d 35%, #181818 40%, #000000 60%, #151515 70%, #000000 100%)',
             boxShadow: `4px 4px 0px #111111, 0 0 0 3px #111111, 0 0 0 5px ${config.primaryColor}`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            flexShrink: 0,
           }}
           className="animate-spin-slow"
         >

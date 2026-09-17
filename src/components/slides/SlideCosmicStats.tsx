@@ -49,7 +49,7 @@ export default function SlideCosmicStats({ data }: SlideProps) {
 
         <h2
           style={{
-            fontSize: '2.05rem',
+            fontSize: 'clamp(1.4rem, 5.2vw, 2.05rem)',
             fontWeight: 900,
             fontFamily: 'var(--font-80s)',
             lineHeight: 1.1,
@@ -81,11 +81,11 @@ export default function SlideCosmicStats({ data }: SlideProps) {
       </div>
 
       {/* Grid of Memphis Arcade Stats Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', zIndex: 2, margin: '4px 0' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(6px, 1.8vw, 8px)', zIndex: 2, margin: '2px 0' }}>
         {/* Heartbeats */}
         <div
           style={{
-            padding: '12px 10px',
+            padding: 'clamp(8px, 2.2vw, 12px) clamp(8px, 2vw, 10px)',
             borderRadius: '14px',
             background: '#ffffff',
             border: '2.5px solid #111111',
@@ -94,12 +94,12 @@ export default function SlideCosmicStats({ data }: SlideProps) {
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2px' }}>
-            <Heart size={22} color="#ff2a85" fill="#ff2a85" />
+            <Heart size={20} color="#ff2a85" fill="#ff2a85" />
           </div>
-          <div style={{ fontSize: '1.2rem', fontWeight: 900, fontFamily: 'var(--font-80s)', color: '#111111' }}>
+          <div style={{ fontSize: 'clamp(1.05rem, 3.8vw, 1.2rem)', fontWeight: 900, fontFamily: 'var(--font-80s)', color: '#111111' }}>
             ~{stats.heartbeatsEstimated}
           </div>
-          <div style={{ fontSize: '0.66rem', fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px', marginTop: '2px' }}>
+          <div style={{ fontSize: '0.64rem', fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px', marginTop: '2px' }}>
             BATIMENTOS CARDÍACOS
           </div>
         </div>
@@ -107,7 +107,7 @@ export default function SlideCosmicStats({ data }: SlideProps) {
         {/* Breaths */}
         <div
           style={{
-            padding: '12px 10px',
+            padding: 'clamp(8px, 2.2vw, 12px) clamp(8px, 2vw, 10px)',
             borderRadius: '14px',
             background: '#ffffff',
             border: '2.5px solid #111111',
@@ -116,12 +116,12 @@ export default function SlideCosmicStats({ data }: SlideProps) {
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2px' }}>
-            <Wind size={22} color="#00d2ff" />
+            <Wind size={20} color="#00d2ff" />
           </div>
-          <div style={{ fontSize: '1.2rem', fontWeight: 900, fontFamily: 'var(--font-80s)', color: '#111111' }}>
+          <div style={{ fontSize: 'clamp(1.05rem, 3.8vw, 1.2rem)', fontWeight: 900, fontFamily: 'var(--font-80s)', color: '#111111' }}>
             ~{stats.breathsEstimated}
           </div>
-          <div style={{ fontSize: '0.66rem', fontFamily: 'var(--font-80s)', color: '#00d2ff', letterSpacing: '0.5px', marginTop: '2px' }}>
+          <div style={{ fontSize: '0.64rem', fontFamily: 'var(--font-80s)', color: '#00d2ff', letterSpacing: '0.5px', marginTop: '2px' }}>
             RESPIRAÇÕES NO AR
           </div>
         </div>
@@ -130,14 +130,14 @@ export default function SlideCosmicStats({ data }: SlideProps) {
         <div
           style={{
             gridColumn: '1 / -1',
-            padding: '12px 14px',
+            padding: 'clamp(8px, 2.2vw, 12px) clamp(10px, 2.5vw, 14px)',
             borderRadius: '14px',
             background: '#ffffff',
             border: '2.5px solid #111111',
             boxShadow: '3px 3px 0px #111111, 6px 6px 0px #ffe600',
             display: 'flex',
             alignItems: 'center',
-            gap: '12px',
+            gap: '10px',
           }}
         >
           <div

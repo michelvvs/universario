@@ -17,15 +17,15 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
     const isWaxing = astronomy.moonPhaseIndex <= 4;
 
     return (
-      <div style={{ position: 'relative', width: '150px', height: '150px', margin: '0 auto' }}>
+      <div style={{ position: 'relative', width: 'clamp(100px, 28vw, 130px)', height: 'clamp(100px, 28vw, 130px)', margin: '0 auto' }}>
         {/* Memphis Geometric Rings around Moon */}
         <div
           style={{
             position: 'absolute',
-            inset: '-10px',
+            inset: '-8px',
             borderRadius: '50%',
-            border: '3px solid #111111',
-            boxShadow: '4px 4px 0px #ff2a85',
+            border: '2.5px solid #111111',
+            boxShadow: '3px 3px 0px #ff2a85',
             pointerEvents: 'none',
           }}
         />
@@ -37,8 +37,8 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
             width: '100%',
             height: '100%',
             borderRadius: '50%',
-            border: '3px solid #111111',
-            boxShadow: '4px 4px 0px #111111',
+            border: '2.5px solid #111111',
+            boxShadow: '3px 3px 0px #111111',
             backgroundColor: '#111111',
           }}
         >
@@ -83,15 +83,11 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
     <div className="slide-memphis-canvas slide-theme-moon">
       {/* Memphis Floating Doodles */}
       <div style={{ position: 'absolute', top: '10%', left: '5%', pointerEvents: 'none' }} className="animate-float-1">
-        <MemphisTrianglePattern size={48} fillColor="#ff2a85" />
+        <MemphisTrianglePattern size={40} fillColor="#ff2a85" />
       </div>
 
       <div style={{ position: 'absolute', top: '22%', right: '5%', pointerEvents: 'none' }} className="animate-float-2">
-        <MemphisCrosshatch size={34} color="#111111" />
-      </div>
-
-      <div style={{ position: 'absolute', bottom: '28%', left: '4%', pointerEvents: 'none' }}>
-        <MemphisSquiggle color="#00d2ff" width={52} height={16} />
+        <MemphisCrosshatch size={30} color="#111111" />
       </div>
 
       {/* Top Header Tag */}
@@ -101,16 +97,16 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px',
-            padding: '5px 14px',
-            borderRadius: '10px',
+            padding: '4px 12px',
+            borderRadius: '8px',
             background: '#ffe600',
-            border: '2.5px solid #111111',
-            boxShadow: '3px 3px 0px #111111',
-            fontSize: '0.76rem',
+            border: '2px solid #111111',
+            boxShadow: '2px 2px 0px #111111',
+            fontSize: '0.74rem',
             fontFamily: 'var(--font-80s)',
             letterSpacing: '0.5px',
             color: '#111111',
-            marginBottom: '6px',
+            marginBottom: '4px',
             transform: 'rotate(1deg)',
           }}
         >
@@ -120,7 +116,7 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
 
         <h2
           style={{
-            fontSize: '2.05rem',
+            fontSize: 'clamp(1.5rem, 5.5vw, 2.05rem)',
             fontWeight: 900,
             fontFamily: 'var(--font-80s)',
             lineHeight: 1.1,

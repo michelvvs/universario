@@ -666,11 +666,11 @@ export default function RetroAudioPlayer({
           display: flex;
           align-items: flex-end;
           gap: 2px;
-          height: 18px;
-          width: 18px;
+          height: 16px;
+          width: 16px;
         }
         .eq-bar {
-          width: 3px;
+          width: 2.5px;
           background: #ff2a85;
           border-radius: 1px;
           height: 4px;
@@ -697,12 +697,24 @@ export default function RetroAudioPlayer({
             background: #00d2ff;
           }
           50% {
-            height: 16px;
+            height: 14px;
             background: #ffe600;
           }
           100% {
-            height: 8px;
+            height: 7px;
             background: #ff2a85;
+          }
+        }
+        @media (max-width: 480px) {
+          .retro-walkman-bar {
+            padding: 6px 8px !important;
+            border-radius: 12px !important;
+            margin-bottom: 8px !important;
+          }
+          .sound-prompt-pill {
+            bottom: 68px !important;
+            font-size: 0.74rem !important;
+            padding: 7px 12px !important;
           }
         }
       `}</style>
