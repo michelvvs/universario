@@ -6,6 +6,7 @@ import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { Orbit, Heart, Wind, Users2, Activity, Gauge } from 'lucide-react';
 import { VcrOsdBadge, DymoLabel, VcrVuMeter, CollageCutout, ScotchTape, VhsRainbowBand } from '../VhsGraphics';
 import StoryHeader from '../StoryHeader';
+import StoryCharacter from '../StoryCharacter';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -18,21 +19,6 @@ export default function SlideCosmicStats({ data }: SlideProps) {
     <div className="slide-vhs-canvas slide-theme-stats" style={{ position: 'relative' }}>
       {/* Integrated Retro VCR Header (Safe Story OSD) */}
       <StoryHeader data={data} />
-
-      {/* Astrolabe & Stopwatch Collage Cutout Overlaid beside cards, outside text */}
-      <CollageCutout
-        src="/cutouts/astrolabe_cutout.jpg"
-        alt="Cronômetro analógico e bússola cósmica"
-        size={74}
-        rotate={10}
-        style={{
-          top: '22%',
-          right: '-6px',
-          zIndex: 20,
-          pointerEvents: 'none',
-        }}
-      />
-      <ScotchTape width={36} height={12} rotate={12} style={{ top: '21.5%', right: '14px', zIndex: 21 }} />
 
       {/* Cosmic Stats Main Header: Synthesized & Clean */}
       <div style={{ textAlign: 'center', zIndex: 2, marginBottom: '6px' }}>
@@ -65,9 +51,19 @@ export default function SlideCosmicStats({ data }: SlideProps) {
         </div>
       </div>
 
-      {/* VCR Diagnostic Panel - Glowing Vacuum Fluorescent Display */}
+      {/* 3D Themed Caricature (Stats / Cosmic Stopwatch) on the Right, above the panels */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', zIndex: 3, marginBottom: '-18px' }}>
+        <StoryCharacter
+          theme="stats"
+          gender={data.gender}
+          style={{ marginRight: '-4px' }}
+        />
+      </div>
+
+      {/* VCR Diagnostic Panel - Glowing Vacuum Fluorescent Display (Aligned to Bottom) */}
       <div
         style={{
+          marginTop: 'auto',
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: 'clamp(5px, 1.2vh, 7px)',

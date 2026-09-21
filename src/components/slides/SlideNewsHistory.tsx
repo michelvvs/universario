@@ -6,6 +6,7 @@ import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { Newspaper, Radio, AlertCircle, FileText } from 'lucide-react';
 import { VcrOsdBadge, ScotchTape, DymoLabel, VhsGoldSeal, CollageCutout } from '../VhsGraphics';
 import StoryHeader from '../StoryHeader';
+import StoryCharacter from '../StoryCharacter';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -24,21 +25,6 @@ export default function SlideNewsHistory({ data }: SlideProps) {
     <div className="slide-vhs-canvas slide-theme-news" style={{ position: 'relative' }}>
       {/* Integrated Retro VCR Header (Safe Story OSD) */}
       <StoryHeader data={data} />
-
-      {/* Press Badge & Camera Cutout Overlaid beside articles, outside reading text */}
-      <CollageCutout
-        src="/cutouts/press_cutout.jpg"
-        alt="Crachá de imprensa e câmera Polaroid retrô"
-        size={74}
-        rotate={10}
-        style={{
-          top: '22%',
-          right: '-6px',
-          zIndex: 20,
-          pointerEvents: 'none',
-        }}
-      />
-      <ScotchTape width={36} height={12} rotate={14} style={{ top: '21.5%', right: '14px', zIndex: 21 }} />
 
       {/* News Main Header: Synthesized & Clean */}
       <div style={{ textAlign: 'center', zIndex: 2, marginBottom: '6px' }}>
@@ -71,15 +57,24 @@ export default function SlideNewsHistory({ data }: SlideProps) {
         </div>
       </div>
 
-      {/* Photo-Collage Newspaper Clippings */}
+      {/* 3D Themed Caricature (Reporter / News) on the Right, above the clippings */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', zIndex: 3, marginBottom: '-18px' }}>
+        <StoryCharacter
+          theme="news"
+          gender={data.gender}
+          style={{ marginRight: '-4px' }}
+        />
+      </div>
+
+      {/* Photo-Collage Newspaper Clippings (Aligned to Bottom) */}
       <div
         style={{
+          marginTop: 'auto',
           display: 'flex',
           flexDirection: 'column',
           gap: 'clamp(5px, 1.2vh, 8px)',
           width: '100%',
           zIndex: 2,
-          paddingRight: '20px',
         }}
       >
         {news.slice(0, 3).map((item, index) => {

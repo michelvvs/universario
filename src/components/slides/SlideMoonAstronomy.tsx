@@ -5,6 +5,7 @@ import { BirthDataPayload } from '@/types/universario';
 import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { VcrOsdBadge, ScotchTape, DymoLabel, CollageCutout } from '../VhsGraphics';
 import StoryHeader from '../StoryHeader';
+import StoryCharacter from '../StoryCharacter';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -86,21 +87,6 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
       {/* Integrated Retro VCR Header (Safe Story OSD) */}
       <StoryHeader data={data} />
 
-      {/* Photo-Collage Luneta Cutout Overlaid beside Moon, outside text reading flow */}
-      <CollageCutout
-        src="/cutouts/luneta_cutout.jpg"
-        alt="Luneta astronômica retrô"
-        size={100}
-        rotate={14}
-        style={{
-          top: '25%',
-          right: '-8px',
-          zIndex: 20,
-          pointerEvents: 'none',
-        }}
-      />
-      <ScotchTape width={38} height={12} rotate={16} style={{ top: '26%', right: '14px', zIndex: 21 }} />
-
       {/* Moon Phase Main Header: Synthesized & Clean */}
       <div style={{ textAlign: 'center', zIndex: 2, marginBottom: '4px' }}>
         <h2
@@ -152,13 +138,36 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
         </div>
       </div>
 
-      {/* Moon Center with Glowing Telemetry Ring */}
-      <div style={{ margin: '2px 0', textAlign: 'center', zIndex: 2 }}>
-        {renderMoonSvg()}
+      {/* Center Section: Glowing Moon on the left, 3D Astronomer Caricature on the right */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'flex-end',
+          justifyContent: 'space-between',
+          width: '100%',
+          zIndex: 3,
+          margin: '2px 0 0 0',
+          position: 'relative',
+        }}
+      >
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignSelf: 'center' }}>
+          {renderMoonSvg()}
+        </div>
+
+        {/* 3D Themed Caricature standing on the right, positioned right above the cards */}
+        <StoryCharacter
+          theme="moon"
+          gender={data.gender}
+          style={{
+            marginBottom: '-16px',
+            marginRight: '-6px',
+            flexShrink: 0,
+          }}
+        />
       </div>
 
-      {/* Torn Paper Photo-Collage Cards */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(5px, 1.2vh, 7px)', zIndex: 2 }}>
+      {/* Torn Paper Photo-Collage Cards: Aligned to the bottom for maximum character space */}
+      <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 'clamp(5px, 1.2vh, 7px)', zIndex: 2 }}>
         {/* NASA Sky Observation Torn Card */}
         <div
           className="torn-photo-card"

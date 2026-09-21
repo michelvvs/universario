@@ -5,6 +5,7 @@ import { BirthDataPayload } from '@/types/universario';
 import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { VcrOsdBadge, VhsGoldSeal, ScotchTape, DymoLabel, SharpieLabel, VhsRainbowBand, VhsTapeSpecBadge, VhsDotMatrixBadge } from '../VhsGraphics';
 import StoryHeader from '../StoryHeader';
+import StoryCharacter from '../StoryCharacter';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -51,8 +52,17 @@ export default function SlideIntro({ data }: SlideProps) {
         </div>
       </div>
 
-      {/* Center Torn Photo & Astrological Collage */}
-      <div style={{ zIndex: 2, display: 'flex', flexDirection: 'column', gap: 'clamp(5px, 1.3vh, 8px)', margin: '2px 0' }}>
+      {/* 3D Themed Caricature (Intro / Birthday) on the Right */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', zIndex: 3, marginBottom: '-18px' }}>
+        <StoryCharacter
+          theme="intro"
+          gender={data.gender}
+          style={{ marginRight: '-4px' }}
+        />
+      </div>
+
+      {/* Center Torn Photo & Astrological Collage (Aligned to Bottom) */}
+      <div style={{ marginTop: 'auto', zIndex: 2, display: 'flex', flexDirection: 'column', gap: 'clamp(5px, 1.3vh, 8px)', margin: '2px 0 0 0' }}>
         {/* Torn Photo Date Card with Scotch Tape */}
         <div
           className="torn-photo-card"

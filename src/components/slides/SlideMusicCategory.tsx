@@ -6,6 +6,7 @@ import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { Disc3, Radio, Disc, Globe } from 'lucide-react';
 import { VcrOsdBadge, ScotchTape, DymoLabel, VhsGoldSeal, VcrVuMeter } from '../VhsGraphics';
 import StoryHeader from '../StoryHeader';
+import StoryCharacter from '../StoryCharacter';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -104,8 +105,17 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
         </div>
       </div>
 
-      {/* Main Content: #1 Torn Photo Album Card + Lined J-Card Top 2-5 */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(3px, 0.9vh, 5px)', zIndex: 2 }}>
+      {/* 3D Themed Caricature (Radio, Sales or Billboard) on the Right, above the cards */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', zIndex: 3, marginBottom: '-18px' }}>
+        <StoryCharacter
+          theme={categoryId === 'billboard' ? 'billboard' : categoryId === 'sales_br' ? 'sales' : 'radio'}
+          gender={data.gender}
+          style={{ marginRight: '-4px' }}
+        />
+      </div>
+
+      {/* Main Content: #1 Torn Photo Album Card + Lined J-Card Top 2-5 (Aligned to Bottom) */}
+      <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 'clamp(3px, 0.9vh, 5px)', zIndex: 2 }}>
         {/* #1 Torn Photo Album Cover Card */}
         <div
           className="torn-photo-card"

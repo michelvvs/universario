@@ -6,6 +6,7 @@ import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { Award, Music, Film, Zap, Star, Moon, Sparkles, CheckCircle2 } from 'lucide-react';
 import { VcrOsdBadge, ScotchTape, DymoLabel, SharpieLabel, VhsGoldSeal, VhsRainbowBand } from '../VhsGraphics';
 import StoryHeader from '../StoryHeader';
+import StoryCharacter from '../StoryCharacter';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -85,9 +86,19 @@ export default function SlideSummaryCard({ data }: SlideProps) {
         </div>
       </div>
 
-      {/* Collector's J-Card / Photo-Collage Passport */}
+      {/* 3D Themed Caricature (Summary / Gold Trophy) on the Right */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', zIndex: 3, marginBottom: '-18px' }}>
+        <StoryCharacter
+          theme="summary"
+          gender={data.gender}
+          style={{ marginRight: '-4px' }}
+        />
+      </div>
+
+      {/* Collector's J-Card / Photo-Collage Passport (Aligned to Bottom) */}
       <div
         style={{
+          marginTop: 'auto',
           position: 'relative',
           width: '100%',
           background: 'linear-gradient(135deg, #1c2230 0%, #10141f 100%)',
