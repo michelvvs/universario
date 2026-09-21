@@ -4,6 +4,7 @@ import React from 'react';
 import { BirthDataPayload } from '@/types/universario';
 import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { VcrOsdBadge, VhsGoldSeal, ScotchTape, DymoLabel, SharpieLabel, VhsRainbowBand, VhsTapeSpecBadge, VhsDotMatrixBadge } from '../VhsGraphics';
+import StoryHeader from '../StoryHeader';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -14,6 +15,9 @@ export default function SlideIntro({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-maxell" style={{ position: 'relative' }}>
+      {/* Integrated Retro VCR Header (Safe Story OSD) */}
+      <StoryHeader data={data} />
+
       {/* 4-Color Vintage Blank Tape Rainbow Racing Stripes */}
       <div style={{ zIndex: 2, margin: '2px 0 6px 0' }}>
         <VhsRainbowBand height={8} />

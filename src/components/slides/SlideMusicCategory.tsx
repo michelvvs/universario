@@ -5,6 +5,7 @@ import { BirthDataPayload, MusicTrack } from '@/types/universario';
 import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { Disc3, Radio, Disc, Globe } from 'lucide-react';
 import { VcrOsdBadge, ScotchTape, DymoLabel, VhsGoldSeal, VcrVuMeter } from '../VhsGraphics';
+import StoryHeader from '../StoryHeader';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -69,6 +70,9 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
 
   return (
     <div className={`slide-vhs-canvas slide-theme-${categoryId === 'billboard' ? 'billboard' : categoryId === 'sales_br' ? 'sales' : 'radio'}`} style={{ position: 'relative' }}>
+      {/* Integrated Retro VCR Header (Safe Story OSD) */}
+      <StoryHeader data={data} />
+
       {/* Category Main Header: Synthesized & Clean */}
       <div style={{ textAlign: 'center', zIndex: 2, marginBottom: '6px' }}>
         <h2

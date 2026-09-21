@@ -428,6 +428,8 @@ body {
   height: auto;
   border-radius: 14px;
   overflow: hidden;
+  container-type: size;
+  container-name: story;
   box-shadow: 
     0 16px 40px rgba(0, 0, 0, 0.9),
     0 0 0 2px #2d2d35,
@@ -617,13 +619,13 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* Instagram Stories Safe Zone Margins (1080x1920 9:16 Standard):
-     - Top Safe Zone (0-240px empty for IG avatar/username/X)
-     - Header at 13.5% of height (~260px)
-     - Content padding-top: 30.0% of width (~324px on 1080x1920)
-     - Bottom Safe Zone (24.9% of width = 270px on 1080x1920 for IG reply bar)
-     - Sides: 4.4% of width (~48px) */
-  padding: 30.0% 4.4% 24.9% 4.4%;
+  /* Instagram Stories Safe Zone Margins (9:16 Standard Frame):
+     - Top Safe Zone (avoid IG avatar/username/X): ~11.5% of story height
+     - Bottom Safe Zone (avoid IG reply/share bar): ~13.5% of story height
+     - Sides: ~4.5% of story width
+     Using container query units (cqh/cqw) with pixel fallbacks */
+  padding: 86px 18px 100px 18px;
+  padding: 11.5cqh 4.5cqw 13.5cqh 4.5cqw;
   overflow: hidden;
   box-sizing: border-box;
   scrollbar-width: none;
@@ -1029,21 +1031,22 @@ body {
    ========================================================= */
 
 .story-integrated-header {
-  position: absolute;
-  top: 13.5%;
-  left: 4.4%;
-  right: 4.4%;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 45;
-  padding: 3.5px 8px;
+  z-index: 15;
+  padding: 4px 8px;
   background: rgba(12, 14, 20, 0.85);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   pointer-events: none;
+  width: 100%;
+  margin-bottom: 6px;
+  flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 .story-integrated-rec {

@@ -5,6 +5,7 @@ import { BirthDataPayload } from '@/types/universario';
 import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { Orbit, Heart, Wind, Users2, Activity, Gauge } from 'lucide-react';
 import { VcrOsdBadge, DymoLabel, VcrVuMeter, CollageCutout, ScotchTape, VhsRainbowBand } from '../VhsGraphics';
+import StoryHeader from '../StoryHeader';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -15,20 +16,23 @@ export default function SlideCosmicStats({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-stats" style={{ position: 'relative' }}>
-      {/* Astrolabe & Stopwatch Collage Cutout Overlaid in top banner margin, outside stats text */}
+      {/* Integrated Retro VCR Header (Safe Story OSD) */}
+      <StoryHeader data={data} />
+
+      {/* Astrolabe & Stopwatch Collage Cutout Overlaid beside cards, outside text */}
       <CollageCutout
         src="/cutouts/astrolabe_cutout.jpg"
         alt="Cronômetro analógico e bússola cósmica"
-        size={78}
+        size={74}
         rotate={10}
         style={{
-          top: '14%',
+          top: '22%',
           right: '-6px',
           zIndex: 20,
           pointerEvents: 'none',
         }}
       />
-      <ScotchTape width={36} height={12} rotate={12} style={{ top: '13.5%', right: '14px', zIndex: 21 }} />
+      <ScotchTape width={36} height={12} rotate={12} style={{ top: '21.5%', right: '14px', zIndex: 21 }} />
 
       {/* Cosmic Stats Main Header: Synthesized & Clean */}
       <div style={{ textAlign: 'center', zIndex: 2, marginBottom: '6px' }}>

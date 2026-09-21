@@ -16,5 +16,23 @@
     "youtubeVideoId": "Be6ROem9ms8",
     "youtubeUrl": "https://www.youtube.com/watch?v=ytId",
     "audioPreviewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/66/c4/7f/66c47ff2-9a8e-6d73-c3b3-8bd48b3f4145/mzaf_10630873031702974570.plus.aac.p.m4a"
+  },
+  "caetano veloso:sozinho": {
+    "coverUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/04/77/0d/04770dcd-6222-55d5-77c1-537bf15c4da4/06UMGIM47097.rgb.jpg/600x600bb.jpg",
+    "youtubeVideoId": "sGC8g0DJ0_E",
+    "youtubeUrl": "https://www.youtube.com/watch?v=ytId",
+    "audioPreviewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/33/23/87/332387bb-ba23-3b9a-d1c3-8b12b347d884/mzaf_15064061492934606360.plus.aac.p.m4a"
+  },
+  "elton john:candle in the wind 1997": {
+    "coverUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/98/b1/dc/98b1dcad-899b-d8c6-d17c-f20a74baf2d7/00731456810928.rgb.jpg/600x600bb.jpg",
+    "youtubeVideoId": "sxb0GeS4gL8",
+    "youtubeUrl": "https://www.youtube.com/watch?v=ytId",
+    "audioPreviewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b4/4f/2b/b44f2b67-e590-9a12-50f4-5bcfa54d61f5/mzaf_14337249702080609226.plus.aac.p.m4a"
+  },
+  "só pra contrariar:só pra contrariar": {
+    "coverUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music6/v4/c0/fd/c7/c0fdc723-98c1-aae4-9b8c-fc221535d9ea/7891430028275.jpg/600x600bb.jpg",
+    "youtubeVideoId": "xi80KRIqW7Y",
+    "youtubeUrl": "https://www.youtube.com/watch?v=ytId",
+    "audioPreviewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/93/2f/4a/932f4a19-8ba9-2e36-dc2c-d40627459a2b/mzaf_13431229436917777054.plus.aac.p.m4a"
   }
 }

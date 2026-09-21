@@ -4,6 +4,7 @@ import React from 'react';
 import { BirthDataPayload } from '@/types/universario';
 import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { VcrOsdBadge, ScotchTape, DymoLabel, CollageCutout } from '../VhsGraphics';
+import StoryHeader from '../StoryHeader';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -82,6 +83,9 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-moon" style={{ position: 'relative' }}>
+      {/* Integrated Retro VCR Header (Safe Story OSD) */}
+      <StoryHeader data={data} />
+
       {/* Photo-Collage Luneta Cutout Overlaid beside Moon, outside text reading flow */}
       <CollageCutout
         src="/cutouts/luneta_cutout.jpg"

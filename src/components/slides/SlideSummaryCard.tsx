@@ -5,6 +5,7 @@ import { BirthDataPayload } from '@/types/universario';
 import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { Award, Music, Film, Zap, Star, Moon, Sparkles, CheckCircle2 } from 'lucide-react';
 import { VcrOsdBadge, ScotchTape, DymoLabel, SharpieLabel, VhsGoldSeal, VhsRainbowBand } from '../VhsGraphics';
+import StoryHeader from '../StoryHeader';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -15,7 +16,8 @@ export default function SlideSummaryCard({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-summary">
-
+      {/* Integrated Retro VCR Header (Safe Story OSD) */}
+      <StoryHeader data={data} />
 
       {/* Deluxe Gold Master Header Strip */}
       <div

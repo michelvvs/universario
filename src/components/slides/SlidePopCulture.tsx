@@ -5,6 +5,7 @@ import { BirthDataPayload } from '@/types/universario';
 import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { Film, Tv, Cpu, Sparkles, Clapperboard, Video } from 'lucide-react';
 import { VcrOsdBadge, ScotchTape, DymoLabel, VhsGoldSeal, CollageCutout } from '../VhsGraphics';
+import StoryHeader from '../StoryHeader';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -15,20 +16,23 @@ export default function SlidePopCulture({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-pop" style={{ position: 'relative' }}>
-      {/* 3D Glasses & Movie Tickets Collage Cutout Overlaid in top banner margin, outside text */}
+      {/* Integrated Retro VCR Header (Safe Story OSD) */}
+      <StoryHeader data={data} />
+
+      {/* 3D Glasses & Movie Tickets Collage Cutout Overlaid beside cards, outside text */}
       <CollageCutout
         src="/cutouts/cinema_cutout.jpg"
         alt="Óculos 3D retrô e ingressos de cinema"
-        size={78}
+        size={74}
         rotate={-8}
         style={{
-          top: '14%',
+          top: '22%',
           right: '-6px',
           zIndex: 20,
           pointerEvents: 'none',
         }}
       />
-      <ScotchTape width={36} height={12} rotate={-10} style={{ top: '13.5%', right: '14px', zIndex: 21 }} />
+      <ScotchTape width={36} height={12} rotate={-10} style={{ top: '21.5%', right: '14px', zIndex: 21 }} />
 
       {/* Cinema & Pop Culture Main Header: Synthesized & Clean */}
       <div style={{ textAlign: 'center', zIndex: 2, marginBottom: '6px' }}>

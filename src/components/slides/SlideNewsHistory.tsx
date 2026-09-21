@@ -5,6 +5,7 @@ import { BirthDataPayload } from '@/types/universario';
 import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { Newspaper, Radio, AlertCircle, FileText } from 'lucide-react';
 import { VcrOsdBadge, ScotchTape, DymoLabel, VhsGoldSeal, CollageCutout } from '../VhsGraphics';
+import StoryHeader from '../StoryHeader';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -21,20 +22,23 @@ export default function SlideNewsHistory({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-news" style={{ position: 'relative' }}>
-      {/* Press Badge & Camera Cutout Overlaid on top banner margin, outside news text */}
+      {/* Integrated Retro VCR Header (Safe Story OSD) */}
+      <StoryHeader data={data} />
+
+      {/* Press Badge & Camera Cutout Overlaid beside articles, outside reading text */}
       <CollageCutout
         src="/cutouts/press_cutout.jpg"
         alt="Crachá de imprensa e câmera Polaroid retrô"
-        size={80}
+        size={74}
         rotate={10}
         style={{
-          top: '14%',
+          top: '22%',
           right: '-6px',
           zIndex: 20,
           pointerEvents: 'none',
         }}
       />
-      <ScotchTape width={36} height={12} rotate={14} style={{ top: '13.5%', right: '14px', zIndex: 21 }} />
+      <ScotchTape width={36} height={12} rotate={14} style={{ top: '21.5%', right: '14px', zIndex: 21 }} />
 
       {/* News Main Header: Synthesized & Clean */}
       <div style={{ textAlign: 'center', zIndex: 2, marginBottom: '6px' }}>

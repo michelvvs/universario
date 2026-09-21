@@ -209,18 +209,7 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
             })}
           </div>
 
-          {/* Integrated Story Header (Seamless Retro VCR Bar without close button) */}
-          <div className="story-integrated-header">
-            <div className="story-integrated-header-left">
-              <span className="story-integrated-badge">📼 {data.name ? data.name.toUpperCase() : 'UNIVERSÁRIO'}</span>
-            </div>
-            <div className="story-integrated-header-right">
-              <span className="story-integrated-rec">REC ●</span>
-              <span className="story-integrated-date">
-                {data.dayOfMonth} {data.monthName.slice(0, 3).toUpperCase()} {data.year}
-              </span>
-            </div>
-          </div>
+
 
           {/* Interactive Touch Tap Areas */}
           {showPrev && (
@@ -350,18 +339,7 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
             {/* Classic Slipcase Cardboard Thumb Notch */}
             <div className="vhs-thumb-notch" aria-hidden="true" />
 
-            {/* Integrated Story Header */}
-            <div className="story-integrated-header">
-              <div className="story-integrated-header-left">
-                <span className="story-integrated-badge">📼 {data.name ? data.name.toUpperCase() : 'UNIVERSÁRIO'}</span>
-              </div>
-              <div className="story-integrated-header-right">
-                <span className="story-integrated-rec">REC ●</span>
-                <span className="story-integrated-date">
-                  {data.dayOfMonth} {data.monthName.slice(0, 3).toUpperCase()} {data.year}
-                </span>
-              </div>
-            </div>
+
 
             {/* Slide Component */}
             <div style={{ width: '100%', height: '100%' }}>
