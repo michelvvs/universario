@@ -337,8 +337,11 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
               width: '1080px',
               height: '1920px',
               transform: 'none',
+              position: 'relative',
+              overflow: 'hidden',
             }}
           >
+            <div className="vhs-worn-sleeve-overlay" aria-hidden="true" />
             {slide.component}
           </div>
         ))}

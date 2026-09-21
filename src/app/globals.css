@@ -993,27 +993,33 @@ body {
 /* Worn VHS Slipcase Overlay (Circular ring wear, creased corners, distressed paper) */
 .vhs-worn-sleeve-overlay {
   position: absolute;
-  inset: 0;
+  top: -3.5%;
+  bottom: -3.5%;
+  left: -6.5%;
+  right: -6.5%;
   pointer-events: none;
   z-index: 38;
   background-image: url('/textures/vhs_worn_dark.jpg');
   background-size: 100% 100%;
   background-position: center;
   mix-blend-mode: screen;
-  opacity: 0.38;
+  opacity: 0.50;
 }
 
 /* Cream/Beige Cardboard Slipcase Variation */
 .vhs-worn-sleeve-cream-overlay {
   position: absolute;
-  inset: 0;
+  top: -3.5%;
+  bottom: -3.5%;
+  left: -6.5%;
+  right: -6.5%;
   pointer-events: none;
   z-index: 38;
   background-image: url('/textures/vhs_worn_cream.jpg');
   background-size: 100% 100%;
   background-position: center;
   mix-blend-mode: multiply;
-  opacity: 0.28;
+  opacity: 0.35;
 }
 
 /* CRT TV Phosphor Scanlines disabled per user request */
