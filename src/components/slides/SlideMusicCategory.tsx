@@ -60,19 +60,20 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
 
   return (
     <div className={`slide-vhs-canvas slide-theme-${categoryId === 'billboard' ? 'billboard' : categoryId === 'sales_br' ? 'sales' : 'radio'}`} style={{ position: 'relative' }}>
-      {/* Walkman Headphones & Tape Cutout Overlaid on corner */}
+      {/* Walkman Headphones & Tape Cutout Overlaid in top packaging margin, outside text */}
       <CollageCutout
         src="/cutouts/headphones_cutout.jpg"
         alt="Fones de ouvido retrô e fita cassete"
-        size={115}
-        rotate={-8}
+        size={75}
+        rotate={-6}
         style={{
-          top: '12%',
-          right: '-16px',
-          zIndex: 15,
+          top: '2px',
+          right: '-4px',
+          zIndex: 20,
+          pointerEvents: 'none',
         }}
       />
-      <ScotchTape width={42} height={14} rotate={-14} style={{ top: '14%', right: '12px', zIndex: 16 }} />
+      <ScotchTape width={34} height={11} rotate={-10} style={{ top: '4px', right: '16px', zIndex: 21 }} />
 
       {/* Top Tape Sleeve & VCR OSD Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 2, padding: '0 2px' }}>
@@ -84,7 +85,7 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
       </div>
 
       {/* Category Title & Tape Cassette Acrylic Window with Spinning Spools */}
-      <div style={{ textAlign: 'center', zIndex: 2, margin: '1px 0', paddingRight: '35px' }}>
+      <div style={{ textAlign: 'center', zIndex: 2, margin: '1px 0' }}>
         <div style={{ display: 'inline-block', marginBottom: '3px' }}>
           <div
             style={{

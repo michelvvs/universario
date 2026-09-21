@@ -20,19 +20,20 @@ export default function SlideNewsHistory({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-news" style={{ position: 'relative' }}>
-      {/* Press Badge & Camera Cutout Overlaid on corner */}
+      {/* Press Badge & Camera Cutout Overlaid on top banner margin, outside news text */}
       <CollageCutout
         src="/cutouts/press_cutout.jpg"
         alt="Crachá de imprensa e câmera Polaroid retrô"
-        size={110}
-        rotate={12}
+        size={80}
+        rotate={10}
         style={{
-          bottom: '8%',
-          right: '-14px',
-          zIndex: 15,
+          top: '22px',
+          right: '-6px',
+          zIndex: 20,
+          pointerEvents: 'none',
         }}
       />
-      <ScotchTape width={44} height={14} rotate={14} style={{ bottom: '16%', right: '10px', zIndex: 16 }} />
+      <ScotchTape width={36} height={12} rotate={14} style={{ top: '20px', right: '14px', zIndex: 21 }} />
 
       {/* VCR OSD Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', zIndex: 3 }}>

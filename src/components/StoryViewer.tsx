@@ -5,9 +5,6 @@ import { BirthDataPayload } from '@/types/universario';
 import {
   ChevronLeft,
   ChevronRight,
-  X,
-  Sparkles,
-  Play,
   RotateCcw,
 } from 'lucide-react';
 import SlideIntro from './slides/SlideIntro';
@@ -174,12 +171,6 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
           {/* Authentic Worn VHS Slipcase Texture Overlay with Magnetic Ring Wear */}
           <div className="vhs-worn-sleeve-overlay" aria-hidden="true" />
 
-          {/* Retro CRT TV Scanlines */}
-          <div className="vhs-crt-scanlines" aria-hidden="true" />
-
-          {/* Animated Rolling VHS Tracking Glitch Scanline Bar */}
-          <div className="vhs-tracking-scanline-bar" aria-hidden="true" />
-
           {/* Classic Slipcase Cardboard Thumb Notch */}
           <div className="vhs-thumb-notch" aria-hidden="true" />
 
@@ -217,46 +208,17 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
             })}
           </div>
 
-          {/* Top Story Header / Profile info & Close Button in High-Contrast VCR Pill */}
-          <div className="story-header-pill">
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div className="story-avatar">📼</div>
-              <div className="story-user-info">
-                <span className="story-user-name">
-                  {data.name || 'Universário'}
-                </span>
-                <span className="story-user-date">
-                  {data.dayOfMonth} {data.monthName.toUpperCase()} {data.year}
-                </span>
-              </div>
+          {/* Integrated Story Header (Seamless Retro VCR Bar without close button) */}
+          <div className="story-integrated-header">
+            <div className="story-integrated-header-left">
+              <span className="story-integrated-badge">📼 {data.name ? data.name.toUpperCase() : 'UNIVERSÁRIO'}</span>
+              <span className="story-integrated-sep">•</span>
+              <span className="story-integrated-topic">{slides[currentSlideIndex]?.title || ''}</span>
             </div>
-
-            {/* Header Right Action: Close Button */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onClose();
-                }}
-                aria-label="Ejetar fita e escolher nova data"
-                title="Ejetar fita (Fechar)"
-                style={{
-                  background: '#ff2a2a',
-                  border: '1px solid #ff6666',
-                  borderRadius: '6px',
-                  width: '28px',
-                  height: '28px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#ffffff',
-                  cursor: 'pointer',
-                  boxShadow: '0 2px 6px rgba(0,0,0,0.6)',
-                }}
-              >
-                <X size={15} color="#ffffff" />
-              </button>
+            <div className="story-integrated-header-right">
+              <span className="story-integrated-date">
+                {data.dayOfMonth} {data.monthName.slice(0, 3).toUpperCase()} {data.year}
+              </span>
             </div>
           </div>
 
@@ -289,37 +251,6 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
           >
             {(slides[currentSlideIndex] || slides[0]).component}
           </div>
-
-          {/* Prompt when reading time finishes, reminding to click next */}
-          {isTimeComplete && showNext && (
-            <button
-              type="button"
-              onClick={goToNextSlide}
-              className="story-next-prompt-pill animate-pulse-glow"
-              style={{
-                position: 'absolute',
-                bottom: '22px',
-                right: '16px',
-                zIndex: 45,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                background: '#ff2a2a',
-                border: '2px solid #ffffff',
-                borderRadius: '999px',
-                padding: '6px 14px',
-                color: '#ffffff',
-                fontFamily: 'var(--font-vcr)',
-                fontSize: '0.82rem',
-                letterSpacing: '1px',
-                boxShadow: '0 0 16px rgba(255, 42, 42, 0.8)',
-                cursor: 'pointer',
-              }}
-            >
-              <span>AVANÇAR FITA ▶</span>
-              <ChevronRight size={15} color="#ffffff" />
-            </button>
-          )}
         </div>
 
         {/* Floating Next Navigation Button */}
@@ -351,14 +282,39 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
         )}
       </div>
 
-      {/* Export Controls for PNG / ZIP */}
-      <ExportControls
-        currentSlideElement={hiddenSlideRefs.current[currentSlideIndex] || activeSlideRef.current}
-        allSlideElements={hiddenSlideRefs.current.filter((el): el is HTMLDivElement => el !== null)}
-        formattedDate={data.formattedDate}
-        onPause={() => {}}
-        onResume={() => {}}
-      />
+      {/* Story Footer Controls: Regenerate Button & Export Controls */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          width: '100%',
+          maxWidth: '480px',
+          marginTop: '12px',
+          gap: '8px',
+        }}
+      >
+        {/* Regenerate Button */}
+        <button
+          type="button"
+          onClick={onClose}
+          className="btn-vhs-regenerate"
+          aria-label="Gerar novamente"
+          title="Inserir nova data e gerar outro Universário"
+        >
+          <RotateCcw size={18} />
+          <span>GERAR NOVAMENTE</span>
+        </button>
+
+        {/* Export Controls for PNG / ZIP */}
+        <ExportControls
+          currentSlideElement={hiddenSlideRefs.current[currentSlideIndex] || activeSlideRef.current}
+          allSlideElements={hiddenSlideRefs.current.filter((el): el is HTMLDivElement => el !== null)}
+          formattedDate={data.formattedDate}
+          onPause={() => {}}
+          onResume={() => {}}
+        />
+      </div>
 
       {/* Hidden 1080x1920 Story Canvas Elements for High-Res 9:16 PNG / ZIP Export */}
       <div

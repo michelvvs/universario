@@ -14,19 +14,20 @@ export default function SlideCosmicStats({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-stats" style={{ position: 'relative' }}>
-      {/* Astrolabe & Stopwatch Collage Cutout Overlaid on corner */}
+      {/* Astrolabe & Stopwatch Collage Cutout Overlaid in top banner margin, outside stats text */}
       <CollageCutout
         src="/cutouts/astrolabe_cutout.jpg"
         alt="Cronômetro analógico e bússola cósmica"
-        size={116}
+        size={78}
         rotate={10}
         style={{
-          top: '11%',
-          right: '-14px',
-          zIndex: 15,
+          top: '22px',
+          right: '-6px',
+          zIndex: 20,
+          pointerEvents: 'none',
         }}
       />
-      <ScotchTape width={42} height={14} rotate={12} style={{ top: '12%', right: '10px', zIndex: 16 }} />
+      <ScotchTape width={36} height={12} rotate={12} style={{ top: '20px', right: '14px', zIndex: 21 }} />
 
       {/* VCR OSD Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', zIndex: 3 }}>

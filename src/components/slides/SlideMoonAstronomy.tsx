@@ -81,19 +81,20 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-moon" style={{ position: 'relative' }}>
-      {/* Photo-Collage Luneta & Astrolabe Cutout Overlaid on the corner */}
+      {/* Photo-Collage Luneta Cutout Overlaid beside Moon, outside text reading flow */}
       <CollageCutout
         src="/cutouts/luneta_cutout.jpg"
         alt="Luneta astronômica retrô"
-        size={135}
-        rotate={10}
+        size={100}
+        rotate={14}
         style={{
-          top: '18%',
-          right: '-14px',
-          zIndex: 15,
+          top: '25%',
+          right: '-8px',
+          zIndex: 20,
+          pointerEvents: 'none',
         }}
       />
-      <ScotchTape width={46} height={14} rotate={18} style={{ top: '19%', right: '10px', zIndex: 16 }} />
+      <ScotchTape width={38} height={12} rotate={16} style={{ top: '26%', right: '14px', zIndex: 21 }} />
 
       {/* Top Fuji & VCR OSD Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 2, padding: '0 4px' }}>
@@ -119,7 +120,7 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
       </div>
 
       {/* Title & Moon Phase Dymo */}
-      <div style={{ textAlign: 'center', zIndex: 2, marginTop: '2px', paddingRight: '40px' }}>
+      <div style={{ textAlign: 'center', zIndex: 2, marginTop: '2px' }}>
         <div style={{ marginBottom: '2px' }}>
           <DymoLabel text="MAPA CELESTE • FASE DA LUA" color="blue" rotate={-1} fontSize="0.64rem" />
         </div>

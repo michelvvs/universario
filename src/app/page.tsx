@@ -131,79 +131,78 @@ export default function HomePage() {
           justifyContent: 'space-between',
         }}
       >
-        {/* Retro VCR Header Topbar */}
-        <header
-          style={{
-            padding: viewState === 'stories' ? '8px 16px' : '16px 24px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            maxWidth: '1100px',
-            margin: '0 auto',
-            width: '100%',
-            transition: 'padding 0.2s ease',
-          }}
-        >
-          <div
-            onClick={() => setViewState('idle')}
+        {/* Retro VCR Header Topbar (Visible on landing/form, hidden in stories for immersive integrated header) */}
+        {viewState !== 'stories' && (
+          <header
             style={{
+              padding: '16px 24px',
               display: 'flex',
               alignItems: 'center',
-              gap: '12px',
-              cursor: 'pointer',
-              userSelect: 'none',
+              justifyContent: 'space-between',
+              maxWidth: '1100px',
+              margin: '0 auto',
+              width: '100%',
             }}
           >
             <div
+              onClick={() => setViewState('idle')}
               style={{
-                width: viewState === 'stories' ? '36px' : '44px',
-                height: viewState === 'stories' ? '36px' : '44px',
-                borderRadius: '8px',
-                background: 'linear-gradient(135deg, #1c202a 0%, #0d1016 100%)',
-                border: '2px solid #3d465c',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.2)',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: viewState === 'stories' ? '1.2rem' : '1.4rem',
-                transition: 'all 0.2s ease',
+                gap: '12px',
+                cursor: 'pointer',
+                userSelect: 'none',
               }}
             >
-              📼
-            </div>
-            <div>
-              <span
-                style={{
-                  fontSize: viewState === 'stories' ? '1.35rem' : '1.75rem',
-                  fontWeight: 900,
-                  fontFamily: 'var(--font-heading)',
-                  color: '#ffffff',
-                  letterSpacing: '1.5px',
-                  transition: 'font-size 0.2s ease',
-                  textTransform: 'uppercase',
-                }}
-              >
-                UNIVERSÁRIO
-              </span>
               <div
                 style={{
-                  fontFamily: 'var(--font-vcr)',
-                  fontSize: viewState === 'stories' ? '0.82rem' : '0.96rem',
-                  color: '#00ff88',
-                  letterSpacing: '1.5px',
-                  lineHeight: 1,
-                  fontWeight: 700,
+                  width: '44px',
+                  height: '44px',
+                  borderRadius: '8px',
+                  background: 'linear-gradient(135deg, #1c202a 0%, #0d1016 100%)',
+                  border: '2px solid #3d465c',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1.4rem',
                 }}
               >
-                VHS / VCR RETRO ENGINE • NTSC HI-FI
+                📼
+              </div>
+              <div>
+                <span
+                  style={{
+                    fontSize: '1.75rem',
+                    fontWeight: 900,
+                    fontFamily: 'var(--font-heading)',
+                    color: '#ffffff',
+                    letterSpacing: '1.5px',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  UNIVERSÁRIO
+                </span>
+                <div
+                  style={{
+                    fontFamily: 'var(--font-vcr)',
+                    fontSize: '0.96rem',
+                    color: '#00ff88',
+                    letterSpacing: '1.5px',
+                    lineHeight: 1,
+                    fontWeight: 700,
+                  }}
+                >
+                  VHS / VCR RETRO ENGINE • NTSC HI-FI
+                </div>
               </div>
             </div>
-          </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <VcrOsdBadge text="REC ● NTSC" variant="rec" />
-          </div>
-        </header>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <VcrOsdBadge text="REC ● NTSC" variant="rec" />
+            </div>
+          </header>
+        )}
 
         {/* Dynamic Body Content */}
         <div

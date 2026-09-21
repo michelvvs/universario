@@ -14,19 +14,20 @@ export default function SlidePopCulture({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-pop" style={{ position: 'relative' }}>
-      {/* 3D Glasses & Movie Tickets Collage Cutout Overlaid on corner */}
+      {/* 3D Glasses & Movie Tickets Collage Cutout Overlaid in top banner margin, outside text */}
       <CollageCutout
         src="/cutouts/cinema_cutout.jpg"
         alt="Óculos 3D retrô e ingressos de cinema"
-        size={118}
-        rotate={-10}
+        size={78}
+        rotate={-8}
         style={{
-          top: '9%',
-          right: '-14px',
-          zIndex: 15,
+          top: '20px',
+          right: '-6px',
+          zIndex: 20,
+          pointerEvents: 'none',
         }}
       />
-      <ScotchTape width={42} height={14} rotate={-12} style={{ top: '10%', right: '12px', zIndex: 16 }} />
+      <ScotchTape width={36} height={12} rotate={-10} style={{ top: '18px', right: '14px', zIndex: 21 }} />
 
       {/* VCR OSD Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', zIndex: 3 }}>
@@ -96,7 +97,6 @@ export default function SlidePopCulture({ data }: SlideProps) {
           padding: 'clamp(8px, 1.6vh, 12px) clamp(10px, 2.5vw, 14px)',
           boxShadow: '0 8px 24px rgba(0,0,0,0.8), inset 0 0 16px rgba(0,0,0,0.6)',
           zIndex: 2,
-          paddingRight: '30px',
         }}
       >
         {/* Top Stickers Row */}
