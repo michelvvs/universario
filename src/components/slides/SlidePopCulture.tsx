@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { BirthDataPayload } from '@/types/universario';
+import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { Film, Tv, Cpu, Sparkles, Clapperboard, Video } from 'lucide-react';
 import { VcrOsdBadge, ScotchTape, DymoLabel, VhsGoldSeal, CollageCutout } from '../VhsGraphics';
 
@@ -65,13 +66,13 @@ export default function SlidePopCulture({ data }: SlideProps) {
           <span
             style={{
               fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(0.75rem, 2.3vw, 0.88rem)',
+              fontSize: 'clamp(0.72rem, 2.2vw, 0.84rem)',
               color: '#ffffff',
-              letterSpacing: '1px',
+              letterSpacing: '0.8px',
               textTransform: 'uppercase',
             }}
           >
-            LOCADORA & TELAS DE {year}
+            O QUE ESTAVA NAS TELAS {getWhenBornPhrase(data.name, data.gender).toUpperCase()}
           </span>
         </div>
         <span
@@ -82,7 +83,7 @@ export default function SlidePopCulture({ data }: SlideProps) {
             fontWeight: 'bold',
           }}
         >
-          MAIORES SUCESSOS
+          CINEMA & TV
         </span>
       </div>
 

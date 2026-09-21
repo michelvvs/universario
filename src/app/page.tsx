@@ -52,7 +52,11 @@ export default function HomePage() {
   const [birthData, setBirthData] = useState<BirthDataPayload | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleFetchBirthData = async (date: string, name?: string) => {
+  const handleFetchBirthData = async (
+    date: string,
+    name?: string,
+    gender?: 'masculino' | 'feminino' | 'neutro'
+  ) => {
     setViewState('loading');
     setCurrentStepIndex(0);
     setErrorMessage(null);
@@ -73,7 +77,7 @@ export default function HomePage() {
       const response = await fetch('/api/birth-data', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ date, name }),
+        body: JSON.stringify({ date, name, gender }),
       });
 
       if (!response.ok) {

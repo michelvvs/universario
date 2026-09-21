@@ -5,33 +5,35 @@ import { Calendar, User, History, ArrowRight, Play, RotateCcw, Sparkles } from '
 import { VcrOsdBadge, VhsTapeWindow, DymoLabel, SharpieLabel, ScotchTape } from './VhsGraphics';
 
 interface DateInputFormProps {
-  onSubmit: (date: string, name?: string) => void;
+  onSubmit: (date: string, name?: string, gender?: 'masculino' | 'feminino' | 'neutro') => void;
   isLoading: boolean;
 }
 
 const PRESET_DATES = [
-  { label: '📼 25/05/1989 (Teste 80s)', date: '1989-05-25', name: 'Michel' },
-  { label: '🚀 Pouso na Lua (1969)', date: '1969-07-20', name: 'Neil Armstrong' },
-  { label: '🏆 Tetra do Brasil (1994)', date: '1994-07-17', name: 'Geração 94' },
-  { label: '🚢 Titanic (1997)', date: '1997-12-19', name: 'Jack & Rose' },
-  { label: '🌟 Virada 2000', date: '2000-01-01', name: 'Millennium' },
-  { label: '⭐ Penta Brasil (2002)', date: '2002-06-30', name: 'Penta 2002' },
+  { label: '📼 25/05/1989 (Teste 80s)', date: '1989-05-25', name: 'Michel', gender: 'masculino' as const },
+  { label: '🚀 Pouso na Lua (1969)', date: '1969-07-20', name: 'Neil Armstrong', gender: 'masculino' as const },
+  { label: '🏆 Tetra do Brasil (1994)', date: '1994-07-17', name: 'Geração 94', gender: 'neutro' as const },
+  { label: '🚢 Titanic (1997)', date: '1997-12-19', name: 'Rose DeWitt', gender: 'feminino' as const },
+  { label: '🌟 Virada 2000', date: '2000-01-01', name: 'Millennium', gender: 'neutro' as const },
+  { label: '⭐ Penta Brasil (2002)', date: '2002-06-30', name: 'Penta 2002', gender: 'neutro' as const },
 ];
 
 export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProps) {
   const [date, setDate] = useState<string>('1989-05-25');
   const [name, setName] = useState<string>('');
+  const [gender, setGender] = useState<'masculino' | 'feminino' | 'neutro'>('masculino');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!date) return;
-    onSubmit(date, name);
+    onSubmit(date, name, gender);
   };
 
-  const handlePreset = (presetDate: string, presetName: string) => {
+  const handlePreset = (presetDate: string, presetName: string, presetGender: 'masculino' | 'feminino' | 'neutro' = 'neutro') => {
     setDate(presetDate);
     setName(presetName);
-    onSubmit(presetDate, presetName);
+    setGender(presetGender);
+    onSubmit(presetDate, presetName, presetGender);
   };
 
   return (
@@ -209,6 +211,89 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
             />
           </div>
 
+          {/* Gender / Grammatical Article Selection */}
+          <div>
+            <label
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: '0.88rem',
+                color: '#d0d6e2',
+                fontFamily: 'var(--font-vcr)',
+                letterSpacing: '1.2px',
+                marginBottom: '8px',
+              }}
+            >
+              <Sparkles size={14} color="#ffe600" />
+              <span>GÊNERO / ARTIGO PARA AS HISTÓRIAS:</span>
+            </label>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr 1fr',
+                gap: '8px',
+              }}
+            >
+              {[
+                { id: 'masculino', label: '♂ ELE', desc: name ? `o ${name}` : 'o aniversariante' },
+                { id: 'feminino', label: '♀ ELA', desc: name ? `a ${name}` : 'a aniversariante' },
+                { id: 'neutro', label: '✦ NEUTRO', desc: name ? `${name}` : 'neutro' },
+              ].map((opt) => {
+                const isSelected = gender === opt.id;
+                return (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    onClick={() => setGender(opt.id as 'masculino' | 'feminino' | 'neutro')}
+                    style={{
+                      padding: '9px 6px',
+                      borderRadius: '6px',
+                      background: isSelected
+                        ? 'linear-gradient(180deg, #1f2738 0%, #131924 100%)'
+                        : '#090b10',
+                      border: isSelected
+                        ? '2px solid #00ff88'
+                        : '1.5px solid #283042',
+                      boxShadow: isSelected
+                        ? '0 0 12px rgba(0, 255, 136, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+                        : 'none',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: '2px',
+                      transition: 'all 0.15s ease',
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-heading)',
+                        fontSize: '0.86rem',
+                        fontWeight: 800,
+                        letterSpacing: '0.5px',
+                        color: isSelected ? '#ffffff' : '#9ca3af',
+                      }}
+                    >
+                      {opt.label}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-vcr)',
+                        fontSize: '0.72rem',
+                        color: isSelected ? '#00ff88' : '#6b7280',
+                        letterSpacing: '0.5px',
+                      }}
+                    >
+                      {opt.desc}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Authentic Tactile VCR Keycap CTA Button */}
           <button
             type="submit"
@@ -231,27 +316,37 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
               justifyContent: 'center',
               gap: '12px',
               cursor: isLoading ? 'not-allowed' : 'pointer',
-              boxShadow: '0 6px 0 #4a0505, 0 12px 24px rgba(0,0,0,0.9), inset 0 2px 0 rgba(255,255,255,0.4)',
-              opacity: isLoading ? 0.7 : 1,
-              transition: 'transform 0.1s ease, box-shadow 0.1s ease',
+              boxShadow: '0 6px 0 #5c0707, 0 12px 24px rgba(0, 0, 0, 0.8), inset 0 2px 0 rgba(255, 255, 255, 0.3)',
+              position: 'relative',
+              transition: 'all 0.1s ease',
             }}
           >
-            <RotateCcw size={20} className={isLoading ? 'animate-spin' : ''} />
-            <span>{isLoading ? 'CALIBRANDO FITA...' : 'REW ◄◄ REBOBINAR & INICIAR STORIES ▶'}</span>
+            {isLoading ? (
+              <>
+                <RotateCcw size={22} className="animate-spin" />
+                <span>REBOBINANDO FITA...</span>
+              </>
+            ) : (
+              <>
+                <Play size={24} fill="#ffffff" />
+                <span>GERAR UNIVERSÁRIO</span>
+                <ArrowRight size={20} />
+              </>
+            )}
           </button>
         </form>
 
         {/* Preset Tape Selections */}
-        <div style={{ marginTop: '24px', borderTop: '1px dashed #282e3d', paddingTop: '16px' }}>
+        <div style={{ marginTop: '22px', borderTop: '1px dashed #2d3545', paddingTop: '16px' }}>
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
-              color: '#ffe600',
+              fontSize: '0.78rem',
+              color: '#a0a8ba',
               fontFamily: 'var(--font-vcr)',
-              fontSize: '0.88rem',
-              letterSpacing: '1.2px',
+              letterSpacing: '1px',
               marginBottom: '10px',
             }}
           >
@@ -264,7 +359,7 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
               <button
                 key={preset.date}
                 type="button"
-                onClick={() => handlePreset(preset.date, preset.name)}
+                onClick={() => handlePreset(preset.date, preset.name, preset.gender)}
                 style={{
                   background: '#12161f',
                   border: '1.5px solid #2f384c',

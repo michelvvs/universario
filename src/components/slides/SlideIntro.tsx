@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { BirthDataPayload } from '@/types/universario';
+import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { VcrOsdBadge, VhsGoldSeal, ScotchTape, DymoLabel, SharpieLabel, VhsRainbowBand, VhsTapeSpecBadge, VhsDotMatrixBadge } from '../VhsGraphics';
 
 interface SlideProps {
@@ -37,7 +38,7 @@ export default function SlideIntro({ data }: SlideProps) {
 
         <SharpieLabel
           text={`GRAVAÇÃO ORIGINAL • ${displayName.toUpperCase()}`}
-          subtext={`MEMÓRIAS HISTÓRICAS DE ${data.year}`}
+          subtext={`O MUNDO ${getWhenBornPhrase(data.name, data.gender).toUpperCase()} • ${data.year}`}
           rotate={-1.2}
         />
 

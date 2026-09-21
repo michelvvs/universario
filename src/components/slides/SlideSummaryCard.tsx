@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { BirthDataPayload } from '@/types/universario';
+import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { Award, Music, Film, Zap, Star, Moon, Sparkles, CheckCircle2 } from 'lucide-react';
 import { VcrOsdBadge, ScotchTape, DymoLabel, SharpieLabel, VhsGoldSeal, VhsRainbowBand } from '../VhsGraphics';
 
@@ -91,6 +92,9 @@ export default function SlideSummaryCard({ data }: SlideProps) {
         <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginTop: '3px', flexWrap: 'wrap' }}>
           <DymoLabel text={data.formattedDate} color="red" />
           <DymoLabel text={data.dayOfWeek} color="blue" />
+        </div>
+        <div style={{ fontFamily: 'var(--font-vcr)', fontSize: '0.72rem', color: 'var(--vhs-gold)', letterSpacing: '0.8px', marginTop: '4px' }}>
+          ★ COMO ESTAVA O MUNDO {getWhenBornPhrase(data.name, data.gender).toUpperCase()}
         </div>
       </div>
 

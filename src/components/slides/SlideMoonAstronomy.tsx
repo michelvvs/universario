@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { BirthDataPayload } from '@/types/universario';
+import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { VcrOsdBadge, ScotchTape, DymoLabel, CollageCutout } from '../VhsGraphics';
 
 interface SlideProps {
@@ -122,7 +123,7 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
       {/* Title & Moon Phase Dymo */}
       <div style={{ textAlign: 'center', zIndex: 2, marginTop: '2px' }}>
         <div style={{ marginBottom: '2px' }}>
-          <DymoLabel text="MAPA CELESTE • FASE DA LUA" color="blue" rotate={-1} fontSize="0.64rem" />
+          <DymoLabel text={`O CÉU ${getWhenBornPhrase(data.name, data.gender).toUpperCase()}`} color="blue" rotate={-1} fontSize="0.64rem" />
         </div>
 
         <h2

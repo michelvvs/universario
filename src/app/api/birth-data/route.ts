@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const dateStr = searchParams.get('date');
   const name = searchParams.get('name') || undefined;
+  const gender = (searchParams.get('gender') as 'masculino' | 'feminino' | 'neutro') || undefined;
 
   if (!dateStr || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
     return NextResponse.json(
@@ -25,13 +26,13 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  return handleBirthDataRequest(dateStr, name);
+  return handleBirthDataRequest(dateStr, name, gender);
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { date: dateStr, name } = body;
+    const { date: dateStr, name, gender } = body;
 
     if (!dateStr || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
       return NextResponse.json(
@@ -40,7 +41,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    return handleBirthDataRequest(dateStr, name);
+    return handleBirthDataRequest(dateStr, name, gender);
   } catch {
     return NextResponse.json(
       { error: 'Corpo da requisição inválido.' },
@@ -49,12 +50,16 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function handleBirthDataRequest(dateStr: string, name?: string) {
+async function handleBirthDataRequest(
+  dateStr: string,
+  name?: string,
+  gender?: 'masculino' | 'feminino' | 'neutro'
+) {
   // 1. Check cache first
   const cached = getCachedBirthData(dateStr);
   if (cached) {
-    if (name && cached.name !== name) {
-      return NextResponse.json({ ...cached, name, isCached: true });
+    if ((name && cached.name !== name) || (gender && cached.gender !== gender)) {
+      return NextResponse.json({ ...cached, name, gender, isCached: true });
     }
     return NextResponse.json(cached);
   }
@@ -194,6 +199,7 @@ async function handleBirthDataRequest(dateStr: string, name?: string) {
   const payload: BirthDataPayload = {
     birthDate: dateStr,
     name: name?.trim() || undefined,
+    gender: gender || 'masculino',
     formattedDate,
     dayOfWeek,
     dayOfMonth,

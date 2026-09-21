@@ -618,10 +618,10 @@ body {
   flex-direction: column;
   justify-content: space-between;
   /* Instagram Stories Safe Zone Margins (1080x1920 9:16 Standard):
-     - Top: ~240px (12.5% of height = 22.2% of width) protects avatar, username, time, close X
+     - Top: header at 21.8% + header height + gap -> padding-top: calc(21.8% + 28px)
      - Bottom: ~270px (14.0% of height = 24.9% of width) protects reply bar, heart, share
      - Sides: ~48px (4.4% of width) protects edge cropping */
-  padding: 22.2% 4.4% 24.9% 4.4%;
+  padding: calc(21.8% + 28px) 4.4% 24.9% 4.4%;
   overflow: hidden;
   box-sizing: border-box;
   scrollbar-width: none;
@@ -1028,28 +1028,20 @@ body {
 
 .story-integrated-header {
   position: absolute;
-  top: 15px;
-  left: 10px;
-  right: 10px;
+  top: 21.8%;
+  left: 4.4%;
+  right: 4.4%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   z-index: 45;
-  padding: 3px 8px;
-  background: rgba(12, 14, 20, 0.75);
+  padding: 3.5px 8px;
+  background: rgba(12, 14, 20, 0.85);
   backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   pointer-events: none;
-}
-
-@media (max-width: 640px) {
-  .story-integrated-header {
-    top: 13px;
-    left: 8px;
-    right: 8px;
-    padding: 2.5px 6px;
-  }
 }
 
 .story-integrated-header-left {

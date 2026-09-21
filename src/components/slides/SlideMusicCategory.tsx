@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { BirthDataPayload, MusicTrack } from '@/types/universario';
+import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { Disc3, Radio, Disc, Globe } from 'lucide-react';
 import { VcrOsdBadge, ScotchTape, DymoLabel, VhsGoldSeal, VcrVuMeter } from '../VhsGraphics';
 
@@ -58,6 +59,14 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
   const coverUrl = top1?.coverUrl;
   const hasValidCover = coverUrl && !imageError;
 
+  const whenBorn = getWhenBornPhrase(data.name, data.gender);
+  const categorySubtitles = {
+    radio_br: `As mais tocadas ${whenBorn}`,
+    sales_br: `Os discos mais vendidos ${whenBorn}`,
+    billboard: `O topo das paradas mundiais ${whenBorn}`,
+  };
+  const dynamicSubtitle = categorySubtitles[categoryId] || `As mais tocadas ${whenBorn}`;
+
   return (
     <div className={`slide-vhs-canvas slide-theme-${categoryId === 'billboard' ? 'billboard' : categoryId === 'sales_br' ? 'sales' : 'radio'}`} style={{ position: 'relative' }}>
       {/* Top Header */}
@@ -86,7 +95,7 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
             TOP 5 • {config.categoryName.toUpperCase()}
           </div>
           <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: '0.64rem', color: 'var(--vhs-gold)', letterSpacing: '0.5px', marginTop: '2px' }}>
-            {config.subtitle.toUpperCase()} ({data.monthName.toUpperCase()} DE {data.year})
+            {dynamicSubtitle.toUpperCase()} ({data.monthName.toUpperCase()} DE {data.year})
           </div>
         </div>
       </div>

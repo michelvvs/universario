@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { BirthDataPayload } from '@/types/universario';
+import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { Orbit, Heart, Wind, Users2, Activity, Gauge } from 'lucide-react';
 import { VcrOsdBadge, DymoLabel, VcrVuMeter, CollageCutout, ScotchTape, VhsRainbowBand } from '../VhsGraphics';
 
@@ -89,12 +90,12 @@ export default function SlideCosmicStats({ data }: SlideProps) {
       {/* Main Title Banner with Dymo Label */}
       <div style={{ textAlign: 'center', zIndex: 2, paddingRight: '35px' }}>
         <div style={{ display: 'inline-block', marginBottom: '2px' }}>
-          <DymoLabel text="ODÔMETRO DO TEMPO" color="blue" />
+          <DymoLabel text={`DESDE QUE ${getWhenBornPhrase(data.name, data.gender).toUpperCase()}`} color="blue" />
         </div>
         <h2
           style={{
             fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(1.2rem, 4.0vw, 1.55rem)',
+            fontSize: 'clamp(1.1rem, 3.6vw, 1.45rem)',
             color: '#ffffff',
             lineHeight: 1.1,
             textShadow: '0 2px 8px rgba(0,0,0,0.8), 0 0 10px rgba(0, 255, 204, 0.4)',
@@ -102,7 +103,7 @@ export default function SlideCosmicStats({ data }: SlideProps) {
             textTransform: 'uppercase',
           }}
         >
-          A JORNADA DO SEU CORPO PELO COSMOS
+          ODÔMETRO DA SUA JORNADA CÓSMICA
         </h2>
       </div>
 

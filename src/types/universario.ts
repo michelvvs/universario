@@ -93,6 +93,7 @@ export interface PopCultureData {
 export interface BirthDataPayload {
   birthDate: string; // YYYY-MM-DD
   name?: string;
+  gender?: 'masculino' | 'feminino' | 'neutro';
   formattedDate: string;
   dayOfWeek: string;
   dayOfMonth: number;

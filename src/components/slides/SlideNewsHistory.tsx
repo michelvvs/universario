@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { BirthDataPayload } from '@/types/universario';
+import { getWhenBornPhrase } from '@/lib/grammatical-gender';
 import { Newspaper, Radio, AlertCircle, FileText } from 'lucide-react';
 import { VcrOsdBadge, ScotchTape, DymoLabel, VhsGoldSeal, CollageCutout } from '../VhsGraphics';
 
@@ -95,20 +96,20 @@ export default function SlideNewsHistory({ data }: SlideProps) {
       {/* Main Title Banner with Dymo Label */}
       <div style={{ textAlign: 'center', zIndex: 2 }}>
         <div style={{ display: 'inline-block', marginBottom: '2px' }}>
-          <DymoLabel text={`FATOS DE ${year}`} color="red" />
+          <DymoLabel text={`O MUNDO ${getWhenBornPhrase(data.name, data.gender).toUpperCase()}`} color="red" />
         </div>
         <h2
           style={{
             fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(1.2rem, 4.0vw, 1.55rem)',
+            fontSize: 'clamp(1.05rem, 3.5vw, 1.35rem)',
             color: '#ffffff',
-            lineHeight: 1.1,
+            lineHeight: 1.15,
             textShadow: '0 2px 8px rgba(0,0,0,0.8), 0 0 10px rgba(255, 42, 42, 0.4)',
             letterSpacing: '0.5px',
             textTransform: 'uppercase',
           }}
         >
-          O QUE MARCOU AS PÁGINAS DO MUNDO
+          O QUE MARCAVA AS PÁGINAS EM {year}
         </h2>
       </div>
 
