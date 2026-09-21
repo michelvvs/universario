@@ -29,9 +29,9 @@ export default function SlideCosmicStats({ data }: SlideProps) {
       />
       <ScotchTape width={36} height={12} rotate={12} style={{ top: '20px', right: '14px', zIndex: 21 }} />
 
-      {/* VCR OSD Header */}
+      {/* Top Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', zIndex: 3 }}>
-        <VcrOsdBadge text="VCR TELEMETRY" variant="tracking" />
+        <VcrOsdBadge text="PLACAR CÓSMICO" variant="tracking" />
         <span
           style={{
             fontFamily: 'var(--font-vcr)',
@@ -40,9 +40,9 @@ export default function SlideCosmicStats({ data }: SlideProps) {
             letterSpacing: '1px',
           }}
         >
-          DIAGNÓSTICO BIOMÉTRICO
+          SEUS NÚMEROS DESDE {data.year}
         </span>
-        <VcrOsdBadge text="SP 4-HEAD" variant="sp" />
+        <VcrOsdBadge text="TEMPO DE VIDA" variant="sp" />
       </div>
 
       {/* VHS Sleeve Brand Header */}

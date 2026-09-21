@@ -114,7 +114,7 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        padding: '4px 8px 16px 8px',
+        padding: '2px 4px 6px 4px',
         position: 'relative',
         zIndex: 10,
       }}
@@ -282,30 +282,18 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
         )}
       </div>
 
-      {/* Story Footer Controls: Regenerate Button & Export Controls */}
+      {/* Story Footer Controls: Export Controls first, Regenerate Button LAST */}
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           width: '100%',
-          maxWidth: '480px',
-          marginTop: '12px',
-          gap: '8px',
+          maxWidth: '460px',
+          marginTop: '6px',
+          gap: '6px',
         }}
       >
-        {/* Regenerate Button */}
-        <button
-          type="button"
-          onClick={onClose}
-          className="btn-vhs-regenerate"
-          aria-label="Gerar novamente"
-          title="Inserir nova data e gerar outro Universário"
-        >
-          <RotateCcw size={18} />
-          <span>GERAR NOVAMENTE</span>
-        </button>
-
         {/* Export Controls for PNG / ZIP */}
         <ExportControls
           currentSlideElement={hiddenSlideRefs.current[currentSlideIndex] || activeSlideRef.current}
@@ -314,6 +302,18 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
           onPause={() => {}}
           onResume={() => {}}
         />
+
+        {/* Regenerate Button (LAST) */}
+        <button
+          type="button"
+          onClick={onClose}
+          className="btn-vhs-regenerate"
+          aria-label="Gerar novamente"
+          title="Inserir nova data e gerar outro Universário"
+        >
+          <RotateCcw size={15} />
+          <span>GERAR NOVAMENTE</span>
+        </button>
       </div>
 
       {/* Hidden 1080x1920 Story Canvas Elements for High-Res 9:16 PNG / ZIP Export */}

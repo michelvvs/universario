@@ -424,7 +424,7 @@ body {
   position: relative;
   aspect-ratio: 9 / 16;
   width: 100%;
-  max-width: min(420px, calc((100dvh - 210px) * 9 / 16), 92vw);
+  max-width: min(440px, calc((100dvh - 135px) * 9 / 16), 96vw);
   height: auto;
   border-radius: 14px;
   overflow: hidden;
@@ -443,18 +443,18 @@ body {
 
 @media (max-width: 640px) {
   .story-wrapper {
-    max-width: min(390px, calc((100dvh - 180px) * 9 / 16), 92vw);
+    max-width: min(420px, calc((100dvh - 110px) * 9 / 16), 96vw);
     border-radius: 12px;
-    border: 3px solid #1a1a22;
+    border: 2px solid #1a1a22;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 0 2px #2d2d35;
   }
 }
 
 @media (max-width: 380px) {
   .story-wrapper {
-    max-width: min(340px, calc((100dvh - 160px) * 9 / 16), 92vw);
+    max-width: min(380px, calc((100dvh - 95px) * 9 / 16), 98vw);
     border-radius: 10px;
-    border: 2.5px solid #1a1a22;
+    border: 1.5px solid #1a1a22;
   }
 }
 
@@ -633,14 +633,14 @@ body {
 @media (max-width: 640px) {
   .slide-memphis-canvas,
   .slide-vhs-canvas {
-    padding: 48px 8px 8px 8px;
+    padding: 38px 8px 6px 8px;
   }
 }
 
 @media (max-width: 380px) {
   .slide-memphis-canvas,
   .slide-vhs-canvas {
-    padding: 44px 6px 6px 6px;
+    padding: 34px 6px 4px 6px;
   }
 }
 
@@ -1105,32 +1105,33 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
-  padding: 12px 20px;
+  max-width: 460px;
+  padding: 8px 16px;
   background: linear-gradient(180deg, #ffe600 0%, #d4af37 60%, #a6820c 100%);
   color: #111111;
   font-family: var(--font-vcr);
-  font-size: 1.15rem;
-  letter-spacing: 1.5px;
+  font-size: 0.95rem;
+  letter-spacing: 1.2px;
   font-weight: 900;
-  border-radius: 6px;
-  border: 2px solid #ffffff;
-  box-shadow: 0 4px 0 #6b5305, 0 8px 20px rgba(255, 230, 0, 0.35);
+  border-radius: 5px;
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 3px 0 #6b5305, 0 4px 12px rgba(255, 230, 0, 0.35);
   cursor: pointer;
   text-transform: uppercase;
   transition: all 0.15s ease;
 }
 
 .btn-vhs-regenerate:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 0 #6b5305, 0 10px 24px rgba(255, 230, 0, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 #6b5305, 0 6px 16px rgba(255, 230, 0, 0.45);
   background: linear-gradient(180deg, #fff266 0%, #e6be3b 60%, #b89010 100%);
 }
 
 .btn-vhs-regenerate:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 0 #6b5305, 0 4px 10px rgba(255, 230, 0, 0.3);
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 #6b5305, 0 2px 6px rgba(255, 230, 0, 0.3);
 }
 
 /* Classic VHS Slipcase Cardboard Thumb Notch (Right Edge) */

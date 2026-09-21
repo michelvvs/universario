@@ -3,7 +3,7 @@
 import React from 'react';
 import { BirthDataPayload } from '@/types/universario';
 import { Film, Tv, Cpu, Sparkles, Clapperboard, Video } from 'lucide-react';
-import { VcrOsdBadge, ScotchTape, DymoLabel, VhsGoldSeal, VhsRentalSticker, CollageCutout } from '../VhsGraphics';
+import { VcrOsdBadge, ScotchTape, DymoLabel, VhsGoldSeal, CollageCutout } from '../VhsGraphics';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -29,9 +29,9 @@ export default function SlidePopCulture({ data }: SlideProps) {
       />
       <ScotchTape width={36} height={12} rotate={-10} style={{ top: '18px', right: '14px', zIndex: 21 }} />
 
-      {/* VCR OSD Header */}
+      {/* Top Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', zIndex: 3 }}>
-        <VcrOsdBadge text="PLAY ▶ CH 03" variant="play" />
+        <VcrOsdBadge text="CINEMA & TV" variant="play" />
         <span
           style={{
             fontFamily: 'var(--font-vcr)',
@@ -40,9 +40,9 @@ export default function SlidePopCulture({ data }: SlideProps) {
             letterSpacing: '1px',
           }}
         >
-          HOME VIDEO NTSC
+          TELAS DE {year}
         </span>
-        <VcrOsdBadge text="HI-FI STEREO" variant="sp" />
+        <VcrOsdBadge text="BILHETERIA" variant="sp" />
       </div>
 
       {/* VHS Rental Sleeve Banner */}
@@ -82,7 +82,7 @@ export default function SlidePopCulture({ data }: SlideProps) {
             fontWeight: 'bold',
           }}
         >
-          NOVIDADES VHS
+          MAIORES SUCESSOS
         </span>
       </div>
 
@@ -101,9 +101,9 @@ export default function SlidePopCulture({ data }: SlideProps) {
       >
         {/* Top Stickers Row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
-          <VhsRentalSticker />
+          <DymoLabel text="CAMPEÃO DE CINEMA" color="yellow" fontSize="0.60rem" />
           <div style={{ transform: 'scale(0.85)', transformOrigin: 'top right' }}>
-            <VhsGoldSeal text="#1 BILHETERIA" subtext={`BLOCKBUSTER ${year}`} />
+            <VhsGoldSeal text="#1 BILHETERIA" subtext={`ANO DE ${year}`} />
           </div>
         </div>
 

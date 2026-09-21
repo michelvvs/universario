@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { BirthDataPayload, MusicTrack } from '@/types/universario';
 import { Disc3, Radio, Disc, Globe } from 'lucide-react';
-import { VcrOsdBadge, VhsTapeWindow, ScotchTape, DymoLabel, VhsGoldSeal, VcrVuMeter, CollageCutout } from '../VhsGraphics';
+import { VcrOsdBadge, ScotchTape, DymoLabel, VhsGoldSeal, VcrVuMeter } from '../VhsGraphics';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -60,36 +60,21 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
 
   return (
     <div className={`slide-vhs-canvas slide-theme-${categoryId === 'billboard' ? 'billboard' : categoryId === 'sales_br' ? 'sales' : 'radio'}`} style={{ position: 'relative' }}>
-      {/* Walkman Headphones & Tape Cutout Overlaid in top packaging margin, outside text */}
-      <CollageCutout
-        src="/cutouts/headphones_cutout.jpg"
-        alt="Fones de ouvido retrô e fita cassete"
-        size={75}
-        rotate={-6}
-        style={{
-          top: '2px',
-          right: '-4px',
-          zIndex: 20,
-          pointerEvents: 'none',
-        }}
-      />
-      <ScotchTape width={34} height={11} rotate={-10} style={{ top: '4px', right: '16px', zIndex: 21 }} />
-
-      {/* Top Tape Sleeve & VCR OSD Header */}
+      {/* Top Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 2, padding: '0 2px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
           <VcrOsdBadge text="PLAY ▶" variant="play" />
-          <VcrOsdBadge text="DOLBY NR" variant="sp" />
+          <VcrOsdBadge text="TOP PARADAS" variant="sp" />
         </div>
-        <DymoLabel text={config.tapeBrand} color={config.badgeColor} fontSize="0.60rem" />
+        <DymoLabel text={config.categoryName.toUpperCase()} color={config.badgeColor} fontSize="0.60rem" />
       </div>
 
-      {/* Category Title & Tape Cassette Acrylic Window with Spinning Spools */}
-      <div style={{ textAlign: 'center', zIndex: 2, margin: '1px 0' }}>
-        <div style={{ display: 'inline-block', marginBottom: '3px' }}>
+      {/* Category Title */}
+      <div style={{ textAlign: 'center', zIndex: 2, margin: '2px 0 6px 0' }}>
+        <div style={{ display: 'inline-block' }}>
           <div
             style={{
-              fontSize: 'clamp(0.95rem, 3.4vw, 1.3rem)',
+              fontSize: 'clamp(1.05rem, 3.8vw, 1.4rem)',
               fontWeight: 900,
               fontFamily: "'Archivo Black', sans-serif",
               color: '#ffffff',
@@ -100,13 +85,10 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
           >
             TOP 5 • {config.categoryName.toUpperCase()}
           </div>
-          <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: '0.62rem', color: 'var(--vhs-gold)', letterSpacing: '0.5px' }}>
+          <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: '0.64rem', color: 'var(--vhs-gold)', letterSpacing: '0.5px', marginTop: '2px' }}>
             {config.subtitle.toUpperCase()} ({data.monthName.toUpperCase()} DE {data.year})
           </div>
         </div>
-
-        {/* Realistic Skeuomorphic Cassette Tape Window */}
-        <VhsTapeWindow size="small" tapeProgress={40} />
       </div>
 
       {/* Main Content: #1 Torn Photo Album Card + Lined J-Card Top 2-5 */}
@@ -236,8 +218,8 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
               borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
             }}
           >
-            <span>SIDE A • RUNNERS-UP (2º AO 5º LUGAR)</span>
-            <span style={{ color: 'var(--vhs-gold)' }}>STEREO</span>
+            <span>DO 2º AO 5º LUGAR</span>
+            <span style={{ color: 'var(--vhs-gold)' }}>PARADA MUSICAL</span>
           </div>
 
           {runnersUp.map((track, idx) => {

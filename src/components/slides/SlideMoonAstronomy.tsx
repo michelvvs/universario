@@ -99,8 +99,8 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
       {/* Top Fuji & VCR OSD Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 2, padding: '0 4px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <VcrOsdBadge text="TRACKING AUTO" variant="tracking" />
-          <VcrOsdBadge text="CH 03 NTSC" variant="sp" />
+          <VcrOsdBadge text="ASTRONOMIA" variant="tracking" />
+          <VcrOsdBadge text="CÉU NOTURNO" variant="sp" />
         </div>
         <div
           style={{

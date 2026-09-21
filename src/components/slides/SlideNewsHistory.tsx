@@ -48,7 +48,7 @@ export default function SlideNewsHistory({ data }: SlideProps) {
         >
           NOTICIÁRIO MUNDIAL
         </span>
-        <VcrOsdBadge text="TRACKING OK" variant="tracking" />
+        <VcrOsdBadge text="EDIÇÃO MUNDIAL" variant="sp" />
       </div>
 
       {/* VHS Sleeve Brand Header */}
@@ -88,7 +88,7 @@ export default function SlideNewsHistory({ data }: SlideProps) {
             fontWeight: 'bold',
           }}
         >
-          BROADCAST ARCHIVE
+          NOTÍCIAS DA ÉPOCA
         </span>
       </div>
 
@@ -264,7 +264,7 @@ export default function SlideNewsHistory({ data }: SlideProps) {
             letterSpacing: '1px',
           }}
         >
-          SP MODE 01:24:00
+          REGISTRO HISTÓRICO
         </span>
       </div>
     </div>

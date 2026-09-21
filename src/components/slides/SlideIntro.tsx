@@ -13,13 +13,13 @@ export default function SlideIntro({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-maxell" style={{ position: 'relative' }}>
-      {/* Top VCR OSD & Packaging Branding Bar */}
+      {/* Top Header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 2, padding: '0 4px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           <VcrOsdBadge text="REC ●" type="rec" glowColor="#ff3b30" />
-          <VcrOsdBadge text="SP 00:00:01" type="time" glowColor="#00ff66" />
+          <VcrOsdBadge text="00:00:01" type="time" glowColor="#00ff66" />
         </div>
-        <VhsGoldSeal title="T-120 HQ" subtitle="HI-FI STEREO" />
+        <VhsGoldSeal title="EDIÇÃO HISTÓRICA" subtitle={`ANO DE ${data.year}`} />
       </div>
 
       {/* 4-Color Vintage Blank Tape Rainbow Racing Stripes */}
@@ -31,13 +31,13 @@ export default function SlideIntro({ data }: SlideProps) {
       <div style={{ zIndex: 2, textAlign: 'center', marginTop: '1px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '2px' }}>
           <span style={{ fontFamily: "'Archivo Black', sans-serif", fontSize: '0.72rem', color: '#ffd600', letterSpacing: '1px' }}>
-            ★ VIDEO CASSETTE • ARCHIVE
+            ★ EDIÇÃO ESPECIAL DE ANIVERSÁRIO
           </span>
         </div>
 
         <SharpieLabel
           text={`GRAVAÇÃO ORIGINAL • ${displayName.toUpperCase()}`}
-          subtext="PREMIUM HIGH GRADE MASTER TAPE"
+          subtext={`MEMÓRIAS HISTÓRICAS DE ${data.year}`}
           rotate={-1.2}
         />
 
@@ -62,7 +62,7 @@ export default function SlideIntro({ data }: SlideProps) {
 
         {/* Subtitle Tape Spec */}
         <div style={{ marginTop: '2px' }}>
-          <VhsTapeSpecBadge format={`ANO DE ${data.year}`} grade="HIGH GRADE" length="MASTER RECORD" />
+          <VhsTapeSpecBadge format={`ANO DE ${data.year}`} grade="EDIÇÃO ESPECIAL" length="UNIVERSÁRIO" />
         </div>
       </div>
 

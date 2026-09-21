@@ -14,9 +14,9 @@ export default function SlideSummaryCard({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-summary">
-      {/* Top OSD Header */}
+      {/* Top Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', zIndex: 3 }}>
-        <VcrOsdBadge text="REC ● MASTER" variant="rec" />
+        <VcrOsdBadge text="RESUMO FINAL" variant="rec" />
         <span
           style={{
             fontFamily: 'var(--font-vcr)',
@@ -26,9 +26,9 @@ export default function SlideSummaryCard({ data }: SlideProps) {
             fontWeight: 'bold',
           }}
         >
-          GOLD EDITION E-180
+          PASSAPORTE VIP • {data.year}
         </span>
-        <VcrOsdBadge text="TRACKING OK" variant="tracking" />
+        <VcrOsdBadge text="COMPLETO" variant="sp" />
       </div>
 
       {/* Deluxe Gold Master Header Strip */}
