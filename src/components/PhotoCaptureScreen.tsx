@@ -20,6 +20,7 @@ export default function PhotoCaptureScreen({
   const [cameraError, setCameraError] = useState<string | null>(null);
   const [isCameraActive, setIsCameraActive] = useState<boolean>(false);
   const [isFlashActive, setIsFlashActive] = useState<boolean>(false);
+  const [isProcessingBg, setIsProcessingBg] = useState<boolean>(false);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -72,6 +73,53 @@ export default function PhotoCaptureScreen({
     };
   }, []);
 
+  // Process image: remove background with @imgly/background-removal, fallback to borderless oval mask
+  const processImageCutout = async (blob: Blob) => {
+    setIsProcessingBg(true);
+    try {
+      // Dynamic import ensures client-side WebAssembly execution with 0 SSR issues
+      const { removeBackground } = await import('@imgly/background-removal');
+      const cutoutBlob = await removeBackground(blob);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCapturedPhoto(reader.result as string);
+        setIsProcessingBg(false);
+      };
+      reader.readAsDataURL(cutoutBlob);
+    } catch (err) {
+      console.warn('Fallback to canvas cutout without frame:', err);
+      const img = new Image();
+      img.onload = () => {
+        const size = Math.min(img.width, img.height);
+        const startX = (img.width - size) / 2;
+        const startY = (img.height - size) / 2;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = 400;
+        canvas.height = 400;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          setIsProcessingBg(false);
+          return;
+        }
+
+        // Clean oval mask without any frame/border
+        ctx.save();
+        ctx.beginPath();
+        ctx.ellipse(200, 200, 160, 185, 0, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(img, startX, startY, size, size, 0, 0, 400, 400);
+        ctx.restore();
+
+        const dataUrl = canvas.toDataURL('image/png');
+        setCapturedPhoto(dataUrl);
+        setIsProcessingBg(false);
+      };
+      img.src = URL.createObjectURL(blob);
+    }
+  };
+
   // Handle capture from live video stream
   const handleCapture = () => {
     if (!videoRef.current) return;
@@ -83,94 +131,36 @@ export default function PhotoCaptureScreen({
     const videoWidth = video.videoWidth || 640;
     const videoHeight = video.videoHeight || 640;
 
-    // Output square canvas with face cropped in oval/circle
     const size = Math.min(videoWidth, videoHeight);
     const startX = (videoWidth - size) / 2;
     const startY = (videoHeight - size) / 2;
 
     const canvas = document.createElement('canvas');
-    canvas.width = 400;
-    canvas.height = 400;
+    canvas.width = 512;
+    canvas.height = 512;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     // Flip horizontally for natural selfie reflection
     ctx.translate(canvas.width, 0);
     ctx.scale(-1, 1);
+    ctx.drawImage(video, startX, startY, size, size, 0, 0, 512, 512);
 
-    // Draw square cropped video
-    ctx.drawImage(video, startX, startY, size, size, 0, 0, 400, 400);
-
-    // Apply smooth oval vignette mask
-    const finalCanvas = document.createElement('canvas');
-    finalCanvas.width = 400;
-    finalCanvas.height = 400;
-    const fCtx = finalCanvas.getContext('2d');
-    if (!fCtx) return;
-
-    // Create an oval clip
-    fCtx.save();
-    fCtx.beginPath();
-    fCtx.ellipse(200, 200, 160, 185, 0, 0, Math.PI * 2);
-    fCtx.closePath();
-    fCtx.clip();
-
-    fCtx.drawImage(canvas, 0, 0);
-    fCtx.restore();
-
-    // Draw stylized retro sticker outline around oval
-    fCtx.beginPath();
-    fCtx.ellipse(200, 200, 160, 185, 0, 0, Math.PI * 2);
-    fCtx.strokeStyle = '#ffffff';
-    fCtx.lineWidth = 8;
-    fCtx.stroke();
-
-    const dataUrl = finalCanvas.toDataURL('image/png');
-    setCapturedPhoto(dataUrl);
     stopCamera();
+
+    canvas.toBlob((blob) => {
+      if (blob) {
+        processImageCutout(blob);
+      }
+    }, 'image/png');
   };
 
   // Handle file upload
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const img = new Image();
-      img.onload = () => {
-        const size = Math.min(img.width, img.height);
-        const startX = (img.width - size) / 2;
-        const startY = (img.height - size) / 2;
-
-        const canvas = document.createElement('canvas');
-        canvas.width = 400;
-        canvas.height = 400;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-
-        // Clip oval
-        ctx.beginPath();
-        ctx.ellipse(200, 200, 160, 185, 0, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.clip();
-
-        ctx.drawImage(img, startX, startY, size, size, 0, 0, 400, 400);
-
-        // Border
-        ctx.beginPath();
-        ctx.ellipse(200, 200, 160, 185, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = '#ffffff';
-        ctx.lineWidth = 8;
-        ctx.stroke();
-
-        const dataUrl = canvas.toDataURL('image/png');
-        setCapturedPhoto(dataUrl);
-        stopCamera();
-      };
-      img.src = event.target?.result as string;
-    };
-    reader.readAsDataURL(file);
+    stopCamera();
+    processImageCutout(file);
   };
 
   const handleRetake = () => {
@@ -360,12 +350,12 @@ export default function PhotoCaptureScreen({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={capturedPhoto}
-              alt="Seu rosto capturado"
+              alt="Seu rosto recortado"
               style={{
                 width: '74%',
                 height: '74%',
                 objectFit: 'contain',
-                filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.9)) drop-shadow(0 0 4px rgba(255,230,0,0.5))',
+                filter: 'drop-shadow(0 6px 20px rgba(0,0,0,0.85))',
               }}
             />
           </div>
@@ -391,6 +381,58 @@ export default function PhotoCaptureScreen({
             <p style={{ fontSize: '0.74rem', color: '#94a3b8', lineHeight: 1.3 }}>
               Você pode enviar uma foto diretamente da galeria do seu celular/computador abaixo.
             </p>
+          </div>
+        )}
+
+        {/* State D: AI Background Removal Processing Overlay */}
+        {isProcessingBg && (
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundColor: 'rgba(10, 12, 18, 0.94)',
+              zIndex: 35,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '20px',
+              textAlign: 'center',
+            }}
+          >
+            <div
+              style={{
+                width: '38px',
+                height: '38px',
+                border: '3px solid rgba(0, 255, 136, 0.2)',
+                borderTopColor: '#00ff88',
+                borderRadius: '50%',
+                animation: 'spin 0.8s linear infinite',
+                marginBottom: '14px',
+              }}
+            />
+            <div
+              style={{
+                fontFamily: 'var(--font-vcr)',
+                fontSize: '0.92rem',
+                color: '#00ff88',
+                letterSpacing: '1px',
+                fontWeight: 700,
+                textShadow: '0 0 8px rgba(0, 255, 136, 0.6)',
+              }}
+            >
+              RECORTANDO FUNDO COM IA...
+            </div>
+            <div
+              style={{
+                fontFamily: "'Share Tech Mono', monospace",
+                fontSize: '0.74rem',
+                color: '#94a3b8',
+                marginTop: '6px',
+              }}
+            >
+              Isolando o rosto para encaixar perfeitamente na caricatura sem moldura
+            </div>
           </div>
         )}
       </div>
@@ -419,6 +461,7 @@ export default function PhotoCaptureScreen({
         {!capturedPhoto ? (
           <button
             type="button"
+            disabled={isProcessingBg}
             onClick={isCameraActive ? handleCapture : () => fileInputRef.current?.click()}
             className="btn-vhs-regenerate"
             style={{
@@ -429,10 +472,18 @@ export default function PhotoCaptureScreen({
               alignItems: 'center',
               justifyContent: 'center',
               gap: '8px',
+              opacity: isProcessingBg ? 0.5 : 1,
+              cursor: isProcessingBg ? 'not-allowed' : 'pointer',
             }}
           >
             <Camera size={20} />
-            <span>{isCameraActive ? 'CAPTURAR ROSTO 📸' : 'ESCOLHER FOTO 📁'}</span>
+            <span>
+              {isProcessingBg
+                ? 'RECORTANDO FUNDO...'
+                : isCameraActive
+                ? 'CAPTURAR ROSTO 📸'
+                : 'ESCOLHER FOTO 📁'}
+            </span>
           </button>
         ) : (
           <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
@@ -483,6 +534,7 @@ export default function PhotoCaptureScreen({
         {!capturedPhoto && isCameraActive && (
           <button
             type="button"
+            disabled={isProcessingBg}
             onClick={() => fileInputRef.current?.click()}
             style={{
               width: '100%',
@@ -493,11 +545,12 @@ export default function PhotoCaptureScreen({
               borderRadius: '6px',
               fontFamily: "'Share Tech Mono', monospace",
               fontSize: '0.78rem',
-              cursor: 'pointer',
+              cursor: isProcessingBg ? 'not-allowed' : 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '6px',
+              opacity: isProcessingBg ? 0.4 : 1,
               transition: 'background 0.15s ease',
             }}
           >
@@ -509,16 +562,17 @@ export default function PhotoCaptureScreen({
         {/* Action 3: Skip Photo Button */}
         <button
           type="button"
+          disabled={isProcessingBg}
           onClick={onSkip}
           style={{
             width: '100%',
             padding: '8px 14px',
             background: 'transparent',
-            color: '#8b949e',
+            color: isProcessingBg ? '#444' : '#8b949e',
             border: 'none',
             fontFamily: "'Share Tech Mono', monospace",
             fontSize: '0.76rem',
-            cursor: 'pointer',
+            cursor: isProcessingBg ? 'not-allowed' : 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',

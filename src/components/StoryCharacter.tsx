@@ -21,29 +21,29 @@ interface StoryCharacterProps {
   className?: string;
 }
 
-// Measured head centers (in % of width) and sizes for each unique chibi render
+// Measured neck and head centers (in % of width) and sizes for each unique chibi render
 const HEAD_OFFSETS: Record<'boy' | 'girl', Record<CharacterTheme, { centerX: number; top: number; size: number }>> = {
   boy: {
-    moon: { centerX: 37, top: 13, size: 44 },
-    radio: { centerX: 50, top: 13, size: 48 },
-    sales: { centerX: 67, top: 13, size: 48 },
-    billboard: { centerX: 63, top: 13, size: 48 },
-    news: { centerX: 39, top: 13, size: 44 },
-    cinema: { centerX: 49, top: 13, size: 52 },
-    stats: { centerX: 38, top: 13, size: 44 },
-    intro: { centerX: 40, top: 16, size: 36 },
-    summary: { centerX: 50, top: 13, size: 50 },
+    moon: { centerX: 34, top: 4, size: 50 },
+    radio: { centerX: 61, top: 5, size: 50 },
+    sales: { centerX: 71, top: 5, size: 50 },
+    billboard: { centerX: 52, top: 4, size: 50 },
+    news: { centerX: 46, top: 4, size: 50 },
+    cinema: { centerX: 49, top: 5, size: 50 },
+    stats: { centerX: 40, top: 4, size: 50 },
+    intro: { centerX: 56, top: 6, size: 45 },
+    summary: { centerX: 58, top: 7, size: 48 },
   },
   girl: {
-    moon: { centerX: 40, top: 13, size: 45 },
-    radio: { centerX: 49, top: 13, size: 48 },
-    sales: { centerX: 60, top: 13, size: 46 },
-    billboard: { centerX: 52, top: 13, size: 48 },
-    news: { centerX: 36, top: 13, size: 44 },
-    cinema: { centerX: 48, top: 13, size: 52 },
-    stats: { centerX: 37, top: 13, size: 44 },
-    intro: { centerX: 59, top: 13, size: 46 },
-    summary: { centerX: 54, top: 13, size: 52 },
+    moon: { centerX: 35, top: 5, size: 50 },
+    radio: { centerX: 58, top: 6, size: 50 },
+    sales: { centerX: 60, top: 5, size: 50 },
+    billboard: { centerX: 52, top: 5, size: 50 },
+    news: { centerX: 45, top: 4, size: 50 },
+    cinema: { centerX: 49, top: 5, size: 50 },
+    stats: { centerX: 39, top: 4, size: 50 },
+    intro: { centerX: 55, top: 5, size: 46 },
+    summary: { centerX: 61, top: 7, size: 48 },
   },
 };
 
@@ -57,13 +57,16 @@ export default function StoryCharacter({
   const [hasError, setHasError] = useState(false);
 
   const genderFolder: 'boy' | 'girl' = gender === 'feminino' ? 'girl' : 'boy';
-  const imageSrc = `/characters/${genderFolder}/${theme}.png`;
+  // If user provided their photo, use the headless body so their head fits naturally on the neck collar
+  const imageSrc = userPhotoUrl
+    ? `/characters/headless/${genderFolder}/${theme}.png`
+    : `/characters/${genderFolder}/${theme}.png`;
 
   if (hasError) {
     return null;
   }
 
-  const offset = HEAD_OFFSETS[genderFolder]?.[theme] || { centerX: 50, top: 13, size: 48 };
+  const offset = HEAD_OFFSETS[genderFolder]?.[theme] || { centerX: 50, top: 5, size: 50 };
 
   return (
     <div
@@ -95,7 +98,7 @@ export default function StoryCharacter({
         }}
       />
 
-      {/* Real User Face Cutout Layer (Seamlessly overlaid on Chibi Head) */}
+      {/* Real User Face Cutout Layer (Seamlessly seated on the neck collar without frame) */}
       {userPhotoUrl && (
         <div
           className="story-character-face-overlay"
@@ -103,26 +106,26 @@ export default function StoryCharacter({
             position: 'absolute',
             top: `${offset.top}%`,
             left: `${offset.centerX}%`,
-            transform: 'translateX(-50%) rotate(-0.5deg)',
+            transform: 'translateX(-50%)',
             width: `${offset.size}%`,
-            aspectRatio: '1 / 1.08',
-            borderRadius: '50%',
-            overflow: 'hidden',
-            border: '2px solid rgba(255, 255, 255, 0.92)',
-            boxShadow: '0 4px 14px rgba(0, 0, 0, 0.85), inset 0 0 10px rgba(0, 0, 0, 0.4)',
             zIndex: 15,
-            backgroundColor: '#11131a',
+            pointerEvents: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={userPhotoUrl}
-            alt="Rosto recortado do usuário"
+            alt="Rosto recortado da pessoa"
             style={{
               width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              filter: 'contrast(1.08) saturate(1.15) sepia(0.06)',
+              height: 'auto',
+              maxHeight: '100%',
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45)) contrast(1.05) saturate(1.1)',
+              display: 'block',
             }}
           />
         </div>
