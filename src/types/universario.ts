@@ -106,6 +106,7 @@ export interface BirthDataPayload {
   stats: CosmicStats;
   generatedAt: string;
   isCached?: boolean;
+  userPhotoUrl?: string;
 }
 
 export type LoadingStep = {

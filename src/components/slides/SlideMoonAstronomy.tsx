@@ -147,7 +147,7 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
       <div style={{ marginTop: 'auto', position: 'relative', display: 'flex', flexDirection: 'column', gap: 'clamp(5px, 1.2vh, 7px)', zIndex: 5 }}>
         {/* 3D Chibi Caricature resting directly on the card edge */}
         <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '4px', zIndex: 12, pointerEvents: 'none' }}>
-          <StoryCharacter theme="moon" gender={data.gender} />
+          <StoryCharacter theme="moon" gender={data.gender} userPhotoUrl={data.userPhotoUrl} />
         </div>
 
         {/* NASA Sky Observation Torn Card */}

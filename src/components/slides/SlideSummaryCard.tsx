@@ -105,7 +105,7 @@ export default function SlideSummaryCard({ data }: SlideProps) {
       >
         {/* 3D Themed Chibi Caricature resting directly on top of the VIP passport card */}
         <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '4px', zIndex: 12, pointerEvents: 'none' }}>
-          <StoryCharacter theme="summary" gender={data.gender} />
+          <StoryCharacter theme="summary" gender={data.gender} userPhotoUrl={data.userPhotoUrl} />
         </div>
         {/* Corner Scotch Tapes */}
         <ScotchTape angle={-15} width={42} style={{ top: '-8px', left: '12px' }} />

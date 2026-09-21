@@ -56,7 +56,7 @@ export default function SlideIntro({ data }: SlideProps) {
       <div style={{ marginTop: 'auto', position: 'relative', zIndex: 5, display: 'flex', flexDirection: 'column', gap: 'clamp(5px, 1.3vh, 8px)', margin: '2px 0 0 0' }}>
         {/* 3D Themed Chibi Caricature resting directly on top of the date card */}
         <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '4px', zIndex: 12, pointerEvents: 'none' }}>
-          <StoryCharacter theme="intro" gender={data.gender} />
+          <StoryCharacter theme="intro" gender={data.gender} userPhotoUrl={data.userPhotoUrl} />
         </div>
 
         {/* Torn Photo Date Card with Scotch Tape */}

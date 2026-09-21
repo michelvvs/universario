@@ -67,7 +67,7 @@ export default function SlidePopCulture({ data }: SlideProps) {
       >
         {/* 3D Themed Chibi Caricature resting directly on the cinema box */}
         <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '4px', zIndex: 12, pointerEvents: 'none' }}>
-          <StoryCharacter theme="cinema" gender={data.gender} />
+          <StoryCharacter theme="cinema" gender={data.gender} userPhotoUrl={data.userPhotoUrl} />
         </div>
         {/* Top Stickers Row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>

@@ -71,7 +71,7 @@ export default function SlideNewsHistory({ data }: SlideProps) {
       >
         {/* 3D Themed Chibi Caricature resting directly on top of the first newspaper card */}
         <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '4px', zIndex: 12, pointerEvents: 'none' }}>
-          <StoryCharacter theme="news" gender={data.gender} />
+          <StoryCharacter theme="news" gender={data.gender} userPhotoUrl={data.userPhotoUrl} />
         </div>
         {news.slice(0, 3).map((item, index) => {
           const stamp = stamps[index % stamps.length];

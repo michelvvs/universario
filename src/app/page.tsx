@@ -5,6 +5,7 @@ import confetti from 'canvas-confetti';
 import DateInputForm from '@/components/DateInputForm';
 import LoadingTimeline from '@/components/LoadingTimeline';
 import StoryViewer from '@/components/StoryViewer';
+import PhotoCaptureScreen from '@/components/PhotoCaptureScreen';
 import { BirthDataPayload, LoadingStep } from '@/types/universario';
 import { VcrOsdBadge, DymoLabel } from '@/components/VhsGraphics';
 
@@ -47,15 +48,40 @@ const LOADING_STEPS: LoadingStep[] = [
 ];
 
 export default function HomePage() {
-  const [viewState, setViewState] = useState<'idle' | 'loading' | 'stories'>('idle');
+  const [viewState, setViewState] = useState<'idle' | 'photo' | 'loading' | 'stories'>('idle');
+  const [pendingFormData, setPendingFormData] = useState<{
+    date: string;
+    name?: string;
+    gender?: 'masculino' | 'feminino' | 'neutro';
+  } | null>(null);
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
   const [birthData, setBirthData] = useState<BirthDataPayload | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleFetchBirthData = async (
+  const handleFormSubmit = (
     date: string,
     name?: string,
     gender?: 'masculino' | 'feminino' | 'neutro'
+  ) => {
+    setPendingFormData({ date, name, gender });
+    setViewState('photo');
+  };
+
+  const handlePhotoConfirmed = (photoDataUrl: string) => {
+    if (!pendingFormData) return;
+    executeFetchBirthData(pendingFormData.date, pendingFormData.name, pendingFormData.gender, photoDataUrl);
+  };
+
+  const handlePhotoSkipped = () => {
+    if (!pendingFormData) return;
+    executeFetchBirthData(pendingFormData.date, pendingFormData.name, pendingFormData.gender, undefined);
+  };
+
+  const executeFetchBirthData = async (
+    date: string,
+    name?: string,
+    gender?: 'masculino' | 'feminino' | 'neutro',
+    userPhotoUrl?: string
   ) => {
     setViewState('loading');
     setCurrentStepIndex(0);
@@ -86,6 +112,9 @@ export default function HomePage() {
       }
 
       const data: BirthDataPayload = await response.json();
+      if (userPhotoUrl) {
+        data.userPhotoUrl = userPhotoUrl;
+      }
 
       const remainingTime = Math.max(250, (LOADING_STEPS.length - currentStep) * stepInterval);
       setTimeout(() => {
@@ -241,8 +270,16 @@ export default function HomePage() {
                   ⚠ {errorMessage}
                 </div>
               )}
-              <DateInputForm onSubmit={handleFetchBirthData} isLoading={false} />
+              <DateInputForm onSubmit={handleFormSubmit} isLoading={false} />
             </div>
+          )}
+
+          {viewState === 'photo' && pendingFormData && (
+            <PhotoCaptureScreen
+              userName={pendingFormData.name}
+              onPhotoConfirmed={handlePhotoConfirmed}
+              onSkip={handlePhotoSkipped}
+            />
           )}
 
           {viewState === 'loading' && (

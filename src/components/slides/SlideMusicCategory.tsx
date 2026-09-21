@@ -112,6 +112,7 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
           <StoryCharacter
             theme={categoryId === 'billboard' ? 'billboard' : categoryId === 'sales_br' ? 'sales' : 'radio'}
             gender={data.gender}
+            userPhotoUrl={data.userPhotoUrl}
           />
         </div>
 
