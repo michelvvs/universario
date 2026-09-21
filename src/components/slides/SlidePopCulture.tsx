@@ -51,15 +51,6 @@ export default function SlidePopCulture({ data }: SlideProps) {
         </div>
       </div>
 
-      {/* 3D Themed Caricature (Cinema / 3D Glasses) on the Right, above the cards */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', zIndex: 3, marginBottom: '-18px' }}>
-        <StoryCharacter
-          theme="cinema"
-          gender={data.gender}
-          style={{ marginRight: '-4px' }}
-        />
-      </div>
-
       {/* Blockbuster Cinema Champion Tape Box (Aligned to Bottom) */}
       <div
         style={{
@@ -71,9 +62,13 @@ export default function SlidePopCulture({ data }: SlideProps) {
           border: '2px solid rgba(255, 230, 0, 0.4)',
           padding: 'clamp(8px, 1.6vh, 12px) clamp(10px, 2.5vw, 14px)',
           boxShadow: '0 8px 24px rgba(0,0,0,0.8), inset 0 0 16px rgba(0,0,0,0.6)',
-          zIndex: 2,
+          zIndex: 5,
         }}
       >
+        {/* 3D Themed Chibi Caricature resting directly on the cinema box */}
+        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '4px', zIndex: 12, pointerEvents: 'none' }}>
+          <StoryCharacter theme="cinema" gender={data.gender} />
+        </div>
         {/* Top Stickers Row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
           <DymoLabel text="CAMPEÃO DE CINEMA" color="yellow" fontSize="0.60rem" />

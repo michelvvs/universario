@@ -51,26 +51,22 @@ export default function SlideCosmicStats({ data }: SlideProps) {
         </div>
       </div>
 
-      {/* 3D Themed Caricature (Stats / Cosmic Stopwatch) on the Right, above the panels */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', zIndex: 3, marginBottom: '-18px' }}>
-        <StoryCharacter
-          theme="stats"
-          gender={data.gender}
-          style={{ marginRight: '-4px' }}
-        />
-      </div>
-
       {/* VCR Diagnostic Panel - Glowing Vacuum Fluorescent Display (Aligned to Bottom) */}
       <div
         style={{
           marginTop: 'auto',
+          position: 'relative',
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: 'clamp(5px, 1.2vh, 7px)',
           width: '100%',
-          zIndex: 2,
+          zIndex: 5,
         }}
       >
+        {/* 3D Themed Chibi Caricature resting directly on the stats panel */}
+        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '4px', zIndex: 12, pointerEvents: 'none' }}>
+          <StoryCharacter theme="stats" gender={data.gender} />
+        </div>
         {/* Heartbeats Counter */}
         <div
           style={{

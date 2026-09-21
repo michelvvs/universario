@@ -51,14 +51,15 @@ export default function StoryCharacter({
     >
       <img
         src={imageSrc}
-        alt={`Caricatura 3D ${theme}`}
+        alt={`Caricatura Chibi 3D ${theme}`}
         onError={() => setHasError(true)}
         className="story-character-img"
         style={{
-          height: 'clamp(120px, 26cqh, 175px)',
+          height: 'clamp(115px, 25cqh, 160px)',
           width: 'auto',
+          maxWidth: '150px',
           objectFit: 'contain',
-          filter: 'drop-shadow(0 8px 20px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 3px rgba(255, 255, 255, 0.25))',
+          filter: 'drop-shadow(0 6px 16px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.35))',
           userSelect: 'none',
         }}
       />

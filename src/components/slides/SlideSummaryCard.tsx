@@ -86,15 +86,6 @@ export default function SlideSummaryCard({ data }: SlideProps) {
         </div>
       </div>
 
-      {/* 3D Themed Caricature (Summary / Gold Trophy) on the Right */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', zIndex: 3, marginBottom: '-18px' }}>
-        <StoryCharacter
-          theme="summary"
-          gender={data.gender}
-          style={{ marginRight: '-4px' }}
-        />
-      </div>
-
       {/* Collector's J-Card / Photo-Collage Passport (Aligned to Bottom) */}
       <div
         style={{
@@ -109,9 +100,13 @@ export default function SlideSummaryCard({ data }: SlideProps) {
           display: 'flex',
           flexDirection: 'column',
           gap: 'clamp(5px, 1.2vh, 8px)',
-          zIndex: 2,
+          zIndex: 5,
         }}
       >
+        {/* 3D Themed Chibi Caricature resting directly on top of the VIP passport card */}
+        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '4px', zIndex: 12, pointerEvents: 'none' }}>
+          <StoryCharacter theme="summary" gender={data.gender} />
+        </div>
         {/* Corner Scotch Tapes */}
         <ScotchTape angle={-15} width={42} style={{ top: '-8px', left: '12px' }} />
         <ScotchTape angle={15} width={42} style={{ top: '-8px', right: '12px' }} />

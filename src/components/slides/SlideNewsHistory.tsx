@@ -57,26 +57,22 @@ export default function SlideNewsHistory({ data }: SlideProps) {
         </div>
       </div>
 
-      {/* 3D Themed Caricature (Reporter / News) on the Right, above the clippings */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', zIndex: 3, marginBottom: '-18px' }}>
-        <StoryCharacter
-          theme="news"
-          gender={data.gender}
-          style={{ marginRight: '-4px' }}
-        />
-      </div>
-
       {/* Photo-Collage Newspaper Clippings (Aligned to Bottom) */}
       <div
         style={{
           marginTop: 'auto',
+          position: 'relative',
           display: 'flex',
           flexDirection: 'column',
           gap: 'clamp(5px, 1.2vh, 8px)',
           width: '100%',
-          zIndex: 2,
+          zIndex: 5,
         }}
       >
+        {/* 3D Themed Chibi Caricature resting directly on top of the first newspaper card */}
+        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '4px', zIndex: 12, pointerEvents: 'none' }}>
+          <StoryCharacter theme="news" gender={data.gender} />
+        </div>
         {news.slice(0, 3).map((item, index) => {
           const stamp = stamps[index % stamps.length];
           const rotation = index === 0 ? '-0.8deg' : index === 1 ? '0.8deg' : '-0.5deg';

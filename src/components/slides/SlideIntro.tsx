@@ -52,17 +52,13 @@ export default function SlideIntro({ data }: SlideProps) {
         </div>
       </div>
 
-      {/* 3D Themed Caricature (Intro / Birthday) on the Right */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', zIndex: 3, marginBottom: '-18px' }}>
-        <StoryCharacter
-          theme="intro"
-          gender={data.gender}
-          style={{ marginRight: '-4px' }}
-        />
-      </div>
-
       {/* Center Torn Photo & Astrological Collage (Aligned to Bottom) */}
-      <div style={{ marginTop: 'auto', zIndex: 2, display: 'flex', flexDirection: 'column', gap: 'clamp(5px, 1.3vh, 8px)', margin: '2px 0 0 0' }}>
+      <div style={{ marginTop: 'auto', position: 'relative', zIndex: 5, display: 'flex', flexDirection: 'column', gap: 'clamp(5px, 1.3vh, 8px)', margin: '2px 0 0 0' }}>
+        {/* 3D Themed Chibi Caricature resting directly on top of the date card */}
+        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '4px', zIndex: 12, pointerEvents: 'none' }}>
+          <StoryCharacter theme="intro" gender={data.gender} />
+        </div>
+
         {/* Torn Photo Date Card with Scotch Tape */}
         <div
           className="torn-photo-card"
