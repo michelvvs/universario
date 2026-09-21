@@ -21,13 +21,13 @@ export default function SlideCosmicStats({ data }: SlideProps) {
         size={78}
         rotate={10}
         style={{
-          top: '22px',
+          top: '14%',
           right: '-6px',
           zIndex: 20,
           pointerEvents: 'none',
         }}
       />
-      <ScotchTape width={36} height={12} rotate={12} style={{ top: '20px', right: '14px', zIndex: 21 }} />
+      <ScotchTape width={36} height={12} rotate={12} style={{ top: '13.5%', right: '14px', zIndex: 21 }} />
 
       {/* Top Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', zIndex: 3 }}>

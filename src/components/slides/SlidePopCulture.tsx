@@ -21,13 +21,13 @@ export default function SlidePopCulture({ data }: SlideProps) {
         size={78}
         rotate={-8}
         style={{
-          top: '20px',
+          top: '14%',
           right: '-6px',
           zIndex: 20,
           pointerEvents: 'none',
         }}
       />
-      <ScotchTape width={36} height={12} rotate={-10} style={{ top: '18px', right: '14px', zIndex: 21 }} />
+      <ScotchTape width={36} height={12} rotate={-10} style={{ top: '13.5%', right: '14px', zIndex: 21 }} />
 
       {/* Top Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', zIndex: 3 }}>

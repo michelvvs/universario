@@ -617,7 +617,11 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 52px 10px 10px 10px;
+  /* Instagram Stories Safe Zone Margins (1080x1920 9:16 Standard):
+     - Top: ~240px (12.5% of height = 22.2% of width) protects avatar, username, time, close X
+     - Bottom: ~270px (14.0% of height = 24.9% of width) protects reply bar, heart, share
+     - Sides: ~48px (4.4% of width) protects edge cropping */
+  padding: 22.2% 4.4% 24.9% 4.4%;
   overflow: hidden;
   box-sizing: border-box;
   scrollbar-width: none;
@@ -628,20 +632,6 @@ body {
 .slide-memphis-canvas::-webkit-scrollbar,
 .slide-vhs-canvas::-webkit-scrollbar {
   display: none;
-}
-
-@media (max-width: 640px) {
-  .slide-memphis-canvas,
-  .slide-vhs-canvas {
-    padding: 38px 8px 6px 8px;
-  }
-}
-
-@media (max-width: 380px) {
-  .slide-memphis-canvas,
-  .slide-vhs-canvas {
-    padding: 34px 6px 4px 6px;
-  }
 }
 
 /* Dark Memphis 80s & Cosmic Slide Themes */

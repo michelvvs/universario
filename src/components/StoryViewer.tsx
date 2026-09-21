@@ -351,33 +351,7 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
             {/* Classic Slipcase Cardboard Thumb Notch */}
             <div className="vhs-thumb-notch" aria-hidden="true" />
 
-            {/* Top Progress Bars (Segmented Story Bars) */}
-            <div className="story-progress-container">
-              {slides.map((_, pIdx) => (
-                <div key={pIdx} className="story-progress-bar">
-                  <div
-                    className="story-progress-fill"
-                    style={{
-                      width: pIdx <= idx ? '100%' : '0%',
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
 
-            {/* Integrated Story Header */}
-            <div className="story-integrated-header">
-              <div className="story-integrated-header-left">
-                <span className="story-integrated-badge">📼 {data.name ? data.name.toUpperCase() : 'UNIVERSÁRIO'}</span>
-                <span className="story-integrated-sep">•</span>
-                <span className="story-integrated-topic">{slide.title}</span>
-              </div>
-              <div className="story-integrated-header-right">
-                <span className="story-integrated-date">
-                  {data.dayOfMonth} {data.monthName.slice(0, 3).toUpperCase()} {data.year}
-                </span>
-              </div>
-            </div>
 
             {/* Slide Component */}
             <div style={{ width: '100%', height: '100%' }}>

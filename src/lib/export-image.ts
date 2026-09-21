@@ -19,7 +19,11 @@ function getExportOptions(element: HTMLElement, quality: number = 0.98) {
           node.classList.contains('story-touch-right') ||
           node.classList.contains('tv-static-burst') ||
           node.classList.contains('tv-beam-line') ||
-          node.classList.contains('tv-channel-hud')
+          node.classList.contains('tv-channel-hud') ||
+          node.classList.contains('story-progress-container') ||
+          node.classList.contains('story-integrated-header') ||
+          node.classList.contains('story-header-pill') ||
+          node.classList.contains('story-nav-bar')
         ) {
           return false;
         }
