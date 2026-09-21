@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { BirthDataPayload } from '@/types/universario';
-import { Calendar, Zap, Sparkles, Star } from 'lucide-react';
-import { MemphisSquiggle, MemphisZigzag, MemphisTrianglePattern, MemphisCrosshatch, MemphisCoil } from '../MemphisDoodles';
+import { VcrOsdBadge, VhsGoldSeal, ScotchTape, DymoLabel, SharpieLabel, VhsRainbowBand, VhsTapeSpecBadge, VhsDotMatrixBadge } from '../VhsGraphics';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -13,232 +12,153 @@ export default function SlideIntro({ data }: SlideProps) {
   const displayName = data.name ? data.name : 'Você';
 
   return (
-    <div className="slide-memphis-canvas slide-theme-intro">
-      {/* Memphis Floating Geometric Shapes in Background */}
-      <div style={{ position: 'absolute', top: '12%', right: '6%', transform: 'rotate(15deg)', pointerEvents: 'none' }} className="animate-float-1">
-        <MemphisTrianglePattern size={52} fillColor="#ffe600" />
+    <div className="slide-vhs-canvas slide-theme-maxell" style={{ position: 'relative' }}>
+      {/* Top VCR OSD & Packaging Branding Bar */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 2, padding: '0 4px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <VcrOsdBadge text="REC ●" type="rec" glowColor="#ff3b30" />
+          <VcrOsdBadge text="SP 00:00:01" type="time" glowColor="#00ff66" />
+        </div>
+        <VhsGoldSeal title="T-120 HQ" subtitle="HI-FI STEREO" />
       </div>
 
-      <div style={{ position: 'absolute', top: '25%', left: '4%', transform: 'rotate(-10deg)', pointerEvents: 'none' }} className="animate-float-2">
-        <MemphisCrosshatch size={36} color="#111111" />
+      {/* 4-Color Vintage Blank Tape Rainbow Racing Stripes */}
+      <div style={{ zIndex: 2, margin: '3px 0' }}>
+        <VhsRainbowBand height={8} />
       </div>
 
-      <div style={{ position: 'absolute', bottom: '26%', right: '5%', pointerEvents: 'none' }}>
-        <MemphisSquiggle color="#ff2a85" width={56} height={16} />
-      </div>
-
-      <div style={{ position: 'absolute', bottom: '15%', left: '6%', transform: 'rotate(8deg)', pointerEvents: 'none' }}>
-        <MemphisCoil color="#111111" width={42} height={16} />
-      </div>
-
-      {/* Top Memphis Header Banner */}
-      <div style={{ zIndex: 2, textAlign: 'center' }}>
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '5px 14px',
-            borderRadius: '10px',
-            background: '#ff2a85',
-            border: '2.5px solid #111111',
-            boxShadow: '3px 3px 0px #111111',
-            fontSize: '0.78rem',
-            fontFamily: 'var(--font-80s)',
-            letterSpacing: '0.8px',
-            color: '#ffffff',
-            marginBottom: '8px',
-            transform: 'rotate(-1deg)',
-          }}
-        >
-          <Zap size={13} fill="#ffe600" color="#111111" />
-          <span>NO DIA EM QUE {displayName.toUpperCase()} CHEGOU</span>
+      {/* Main Sleeve Header & Giant Gold Year */}
+      <div style={{ zIndex: 2, textAlign: 'center', marginTop: '1px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '2px' }}>
+          <span style={{ fontFamily: "'Archivo Black', sans-serif", fontSize: '0.72rem', color: '#ffd600', letterSpacing: '1px' }}>
+            ★ VIDEO CASSETTE • ARCHIVE
+          </span>
         </div>
 
-        {/* Giant Memphis Typography Year */}
-        <div style={{ position: 'relative', display: 'inline-block', margin: '2px 0' }}>
+        <SharpieLabel
+          text={`GRAVAÇÃO ORIGINAL • ${displayName.toUpperCase()}`}
+          subtext="PREMIUM HIGH GRADE MASTER TAPE"
+          rotate={-1.2}
+        />
+
+        {/* Giant 80s Gold Foil Typography Year with Chromatic Glow */}
+        <div style={{ position: 'relative', display: 'inline-block', margin: '3px 0 1px 0' }}>
           <h1
             style={{
-              fontSize: 'clamp(2.9rem, 11vw, 4.2rem)',
+              fontSize: 'clamp(2.9rem, 10.5vw, 4.4rem)',
               fontWeight: 900,
-              fontFamily: 'var(--font-80s)',
-              lineHeight: 0.95,
-              letterSpacing: '1.5px',
-              color: '#111111',
-              textShadow: '3.5px 3.5px 0px #ff2a85, 7px 7px 0px #ffe600',
+              fontFamily: "'Archivo Black', sans-serif",
+              lineHeight: 0.92,
+              letterSpacing: '2px',
+              background: 'linear-gradient(180deg, #ffffff 0%, #ffe600 35%, #d4af37 60%, #996515 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              filter: 'drop-shadow(3px 3px 0px #000000) drop-shadow(0 0 14px rgba(255, 215, 0, 0.45))',
             }}
-            className="text-chromatic"
           >
             {data.year}
           </h1>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', marginTop: '4px', flexWrap: 'wrap' }}>
-          <div
-            style={{
-              display: 'inline-block',
-              fontSize: '1.15rem',
-              fontWeight: 900,
-              fontFamily: 'var(--font-80s)',
-              color: '#111111',
-              letterSpacing: '0.5px',
-              background: '#ffe600',
-              border: '2px solid #111111',
-              borderRadius: '8px',
-              padding: '2px 10px',
-              boxShadow: '2px 2px 0px #111111',
-            }}
-          >
-            {data.dayOfMonth} DE {data.monthName.toUpperCase()}
-          </div>
-
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '5px',
-              fontFamily: 'var(--font-80s)',
-              fontSize: '0.82rem',
-              color: '#ffffff',
-              letterSpacing: '0.5px',
-              background: '#ff2a85',
-              padding: '3px 9px',
-              borderRadius: '8px',
-              border: '2px solid #111111',
-              boxShadow: '2px 2px 0px #111111',
-            }}
-          >
-            <Calendar size={12} color="#ffffff" />
-            <span>{data.dayOfWeek.toUpperCase()}</span>
-          </div>
+        {/* Subtitle Tape Spec */}
+        <div style={{ marginTop: '2px' }}>
+          <VhsTapeSpecBadge format={`ANO DE ${data.year}`} grade="HIGH GRADE" length="MASTER RECORD" />
         </div>
       </div>
 
-      {/* Center Memphis Polaroid Frame & Astrological Badge */}
-      <div style={{ zIndex: 2, display: 'flex', flexDirection: 'column', gap: '8px', margin: '2px 0' }}>
-        {/* Polaroid Astro Card */}
+      {/* Center Torn Photo & Astrological Collage */}
+      <div style={{ zIndex: 2, display: 'flex', flexDirection: 'column', gap: 'clamp(5px, 1.3vh, 8px)', margin: '2px 0' }}>
+        {/* Torn Photo Date Card with Scotch Tape */}
         <div
+          className="torn-photo-card"
           style={{
-            background: '#ffffff',
-            borderRadius: '14px',
-            padding: '11px 14px',
-            boxShadow: '3.5px 3.5px 0px #111111, 7px 7px 0px #00d2ff',
-            border: '2.5px solid #111111',
-            position: 'relative',
+            padding: 'clamp(7px, 1.8vw, 10px) clamp(10px, 2.5vw, 14px)',
+            background: '#fffdf4',
+            transform: 'rotate(-0.6deg)',
           }}
         >
-          <div className="tape-strip tape-strip-yellow" style={{ top: '-10px', left: '35%' }} />
+          <ScotchTape width={54} height={16} rotate={-6} style={{ top: '-8px', left: '15%' }} />
+          <ScotchTape width={54} height={16} rotate={5} style={{ bottom: '-7px', right: '15%' }} />
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div
-                style={{
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: '10px',
-                  background: '#ff2a85',
-                  border: '2px solid #111111',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.7rem',
-                  boxShadow: '2px 2px 0px #111111',
-                }}
-              >
-                {data.astronomy.zodiacSymbol}
+            <div>
+              <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: '0.62rem', color: '#e50914', letterSpacing: '0.5px', fontWeight: 800 }}>
+                ★ DATA DO REGISTRO HISTÓRICO
               </div>
+              <div style={{ fontSize: 'clamp(1.05rem, 3.4vw, 1.25rem)', fontWeight: 900, fontFamily: "'Archivo Black', sans-serif", color: '#111827', marginTop: '1px' }}>
+                {data.dayOfMonth} DE {data.monthName.toUpperCase()}
+              </div>
+            </div>
+
+            <DymoLabel text={data.dayOfWeek} color="red" rotate={2} fontSize="0.70rem" />
+          </div>
+        </div>
+
+        {/* 2 Skeuomorphic Collage Badges (Signo Solar & Ano Chinês) */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(5px, 1.4vw, 8px)' }}>
+          {/* Signo Solar */}
+          <div
+            className="torn-photo-card-dark"
+            style={{
+              padding: 'clamp(6px, 1.6vw, 9px) clamp(8px, 2vw, 10px)',
+              transform: 'rotate(0.5deg)',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
+              <span style={{ fontSize: '1.2rem' }}>{data.astronomy.zodiacSymbol}</span>
               <div>
-                <div style={{ fontSize: '0.66rem', fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px' }}>
+                <div style={{ fontSize: '0.56rem', fontFamily: "'Share Tech Mono', monospace", color: 'var(--vhs-gold)', letterSpacing: '0.5px' }}>
                   SIGNO SOLAR
                 </div>
-                <div style={{ fontSize: '1.15rem', fontWeight: 900, fontFamily: 'var(--font-80s)', color: '#111111' }}>
+                <div style={{ fontSize: 'clamp(0.82rem, 2.5vw, 0.92rem)', fontWeight: 900, fontFamily: "'Archivo Black', sans-serif", color: '#ffffff' }}>
                   {data.astronomy.zodiacSign.toUpperCase()}
                 </div>
               </div>
             </div>
-
-            <div
-              style={{
-                padding: '4px 10px',
-                borderRadius: '8px',
-                background: '#ffe600',
-                border: '2px solid #111111',
-                color: '#111111',
-                fontFamily: 'var(--font-80s)',
-                fontSize: '0.76rem',
-                boxShadow: '2px 2px 0px #111111',
-              }}
-            >
-              {data.astronomy.zodiacElement.toUpperCase()}
-            </div>
-          </div>
-        </div>
-
-        {/* 2 Memphis Mini Badges (Chinese Zodiac & Sun Orbits) */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-          <div
-            style={{
-              padding: '8px 8px',
-              textAlign: 'center',
-              borderRadius: '12px',
-              background: '#ffffff',
-              border: '2.5px solid #111111',
-              boxShadow: '3px 3px 0px #111111, 5px 5px 0px #ff2a85',
-            }}
-          >
-            <div style={{ fontSize: '1.4rem', marginBottom: '1px' }}>
-              {data.astronomy.chineseZodiacEmoji}
-            </div>
-            <div style={{ fontSize: '0.64rem', fontFamily: 'var(--font-80s)', color: '#ff2a85', letterSpacing: '0.5px' }}>
-              ANO CHINÊS
-            </div>
-            <div style={{ fontSize: '0.86rem', fontWeight: 800, color: '#111111', fontFamily: 'var(--font-main)' }}>
-              {data.astronomy.chineseZodiac}
+            <div style={{ fontSize: '0.60rem', color: '#9e9ea7', fontFamily: "'Share Tech Mono', monospace" }}>
+              ELEMENTO: {data.astronomy.zodiacElement.toUpperCase()}
             </div>
           </div>
 
+          {/* Ano Chinês & Voltas no Sol */}
           <div
+            className="torn-photo-card-dark"
             style={{
-              padding: '8px 8px',
-              textAlign: 'center',
-              borderRadius: '12px',
-              background: '#ffffff',
-              border: '2.5px solid #111111',
-              boxShadow: '3px 3px 0px #111111, 5px 5px 0px #00d2ff',
+              padding: 'clamp(6px, 1.6vw, 9px) clamp(8px, 2vw, 10px)',
+              transform: 'rotate(-0.5deg)',
             }}
           >
-            <div style={{ fontSize: '1.3rem', color: '#111111', fontWeight: 900, fontFamily: 'var(--font-80s)' }}>
-              {data.stats.sunOrbits} ☀️
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
+              <span style={{ fontSize: '1.2rem' }}>{data.astronomy.chineseZodiacEmoji}</span>
+              <div>
+                <div style={{ fontSize: '0.56rem', fontFamily: "'Share Tech Mono', monospace", color: 'var(--vhs-cyan)', letterSpacing: '0.5px' }}>
+                  ANO CHINÊS
+                </div>
+                <div style={{ fontSize: 'clamp(0.80rem, 2.4vw, 0.90rem)', fontWeight: 800, fontFamily: "'Archivo Black', sans-serif", color: '#ffffff' }}>
+                  {data.astronomy.chineseZodiac}
+                </div>
+              </div>
             </div>
-            <div style={{ fontSize: '0.64rem', fontFamily: 'var(--font-80s)', color: '#00d2ff', letterSpacing: '0.5px' }}>
-              VOLTAS NO SOL
-            </div>
-            <div style={{ fontSize: '0.84rem', fontWeight: 800, color: '#111111', fontFamily: 'var(--font-main)' }}>
-              {data.stats.daysAlive.toLocaleString('pt-BR')} dias
+            <div style={{ fontSize: '0.60rem', color: 'var(--vhs-gold)', fontFamily: "'Share Tech Mono', monospace", fontWeight: 700 }}>
+              ☀️ {data.stats.sunOrbits} VOLTAS NO SOL
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom Generation Tag / Mixtape Badge */}
-      <div style={{ zIndex: 2, textAlign: 'center' }}>
-        <div
-          style={{
-            display: 'inline-block',
-            padding: '5px 14px',
-            borderRadius: '8px',
-            background: '#111111',
-            border: '2px solid #111111',
-            boxShadow: '2px 2px 0px #ffe600',
-            fontFamily: 'var(--font-80s)',
-            fontSize: '0.80rem',
-            color: '#ffe600',
-            letterSpacing: '0.5px',
-          }}
-        >
-          ✦ {data.stats.generationName.toUpperCase()} ✦
+      {/* Bottom Tape Specifications Barcode & Rainbow Finish */}
+      <div style={{ zIndex: 2, display: 'flex', flexDirection: 'column', gap: '3px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 4px' }}>
+          <span style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: '0.64rem', color: 'var(--vhs-gold)', letterSpacing: '0.5px' }}>
+            ✦ GERAÇÃO: {data.stats.generationName.toUpperCase()}
+          </span>
+          <span style={{ fontFamily: "'VT323', monospace", fontSize: '0.86rem', color: 'var(--vhs-green-osd)' }}>
+            246 METERS • HIGH OUTPUT
+          </span>
         </div>
+        <VhsRainbowBand height={6} />
       </div>
     </div>
   );
 }
+

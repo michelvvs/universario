@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import { CheckCircle2, Loader2, Circle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 import { LoadingStep } from '@/types/universario';
 
 interface LoadingTimelineProps {
@@ -11,172 +10,403 @@ interface LoadingTimelineProps {
 
 export default function LoadingTimeline({ steps, currentStepIndex }: LoadingTimelineProps) {
   const percentComplete = Math.min(100, Math.round(((currentStepIndex + 1) / steps.length) * 100));
+  const activeStep = steps[currentStepIndex] || steps[0];
+
+  // Tracking needle simulation
+  const needlePosition = Math.max(5, Math.min(95, percentComplete));
+
+  // Volume bar segments (total 16)
+  const totalVolumeSegments = 16;
+  const activeVolumeSegments = Math.round((percentComplete / 100) * totalVolumeSegments);
+
+  // Tracking bar segments (total 20)
+  const totalTrackingSegments = 20;
+  const activeTrackingSegments = Math.round((percentComplete / 100) * totalTrackingSegments);
 
   return (
-    <div style={{ width: '100%', maxWidth: '480px', margin: '0 auto', position: 'relative' }}>
-      <div className="tape-strip" style={{ top: '-10px', left: '20px' }} />
-      <div className="tape-strip tape-strip-pink" style={{ bottom: '-10px', right: '20px' }} />
-
+    <div
+      style={{
+        width: '100%',
+        maxWidth: '540px',
+        margin: '0 auto',
+        position: 'relative',
+        borderRadius: '12px',
+        overflow: 'hidden',
+        boxShadow: '0 20px 60px rgba(0, 0, 180, 0.5), 0 0 0 4px #000bb5, 0 0 0 8px #11141a',
+      }}
+    >
+      {/* VCR Blue Screen CRT Container */}
       <div
-        className="memphis-card"
         style={{
-          background: '#ffffff',
-          border: '3.5px solid #111111',
-          borderRadius: '24px',
-          padding: '30px 24px',
-          textAlign: 'center',
-          boxShadow: '6px 6px 0px #111111, 12px 12px 0px #00d2ff',
+          background: 'linear-gradient(180deg, #0014cc 0%, #000bb5 100%)',
+          color: '#ffffff',
+          padding: 'clamp(20px, 4vw, 28px) clamp(16px, 3.5vw, 24px)',
+          fontFamily: 'var(--font-vcr), monospace',
           position: 'relative',
+          userSelect: 'none',
+          letterSpacing: '1px',
         }}
+        className="vcr-blue-screen crt-overlay"
       >
-        {/* Top VHS Bar Indicator */}
+        {/* Subtle Horizontal CRT Scanlines & Tracking Glitch Effect */}
+        <div className="vcr-tracking-noise" />
+
+        {/* Top VHS/VCR Menu White Header Box */}
+        <div
+          style={{
+            background: '#ffffff',
+            color: '#000bb5',
+            padding: '6px 12px',
+            textAlign: 'center',
+            marginBottom: '18px',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.4)',
+          }}
+        >
+          <div
+            style={{
+              fontFamily: 'var(--font-vcr)',
+              fontSize: 'clamp(1.2rem, 4vw, 1.55rem)',
+              fontWeight: 900,
+              lineHeight: 1.05,
+              letterSpacing: '2px',
+              textTransform: 'uppercase',
+            }}
+          >
+            UNIVERSÁRIO • VCR AUTO TRACKING
+          </div>
+          <div
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 'clamp(0.68rem, 2vw, 0.78rem)',
+              fontWeight: 800,
+              letterSpacing: '1.5px',
+              marginTop: '1px',
+            }}
+          >
+            SISTEMA DE CALIBRAÇÃO DE FITAS 80s
+          </div>
+        </div>
+
+        {/* Status OSD Row */}
         <div
           style={{
             display: 'flex',
-            alignItems: 'center',
             justifyContent: 'space-between',
-            fontFamily: 'var(--font-crt)',
-            fontSize: '1.05rem',
-            color: '#111111',
-            marginBottom: '16px',
-            borderBottom: '2px dashed #111111',
-            paddingBottom: '8px',
+            alignItems: 'center',
+            fontSize: 'clamp(0.88rem, 2.5vw, 1.05rem)',
+            marginBottom: '14px',
+            borderBottom: '2px solid rgba(255, 255, 255, 0.35)',
+            paddingBottom: '6px',
+            textShadow: '0 0 8px rgba(255, 255, 255, 0.8)',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span className="vhs-rec-dot" />
-            <span style={{ color: '#ff2a85', fontWeight: 700 }}>REW ◄◄ MEMPHIS 80s</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span
+              style={{
+                border: '1.5px solid #ffffff',
+                padding: '0 4px',
+                fontSize: '0.80rem',
+                fontWeight: 'bold',
+              }}
+            >
+              OK
+            </span>
+            <span>📼 0:25:89</span>
           </div>
-          <div style={{ color: '#111111', fontWeight: 700 }}>SP 0:25:89</div>
-          <div style={{ color: '#9b51e0', fontWeight: 700 }}>TRACKING: OK</div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span style={{ color: '#00ff88' }} className="animate-pulse">
+              REW ◄◄
+            </span>
+            <span>PLAY 11:35 PM</span>
+          </div>
         </div>
 
-        {/* Cassette Tape Spool Loading Graphic */}
-        <div style={{ position: 'relative', width: '76px', height: '76px', margin: '0 auto 16px auto' }}>
+        {/* Volume & Signal Gauge */}
+        <div style={{ marginBottom: '14px' }}>
           <div
-            className="animate-tape-spin"
             style={{
-              position: 'relative',
-              width: '100%',
-              height: '100%',
-              borderRadius: '50%',
-              background: '#ffe600',
-              border: '3.5px solid #111111',
-              boxShadow: '4px 4px 0px #ff2a85',
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '2rem',
+              justifyContent: 'space-between',
+              fontSize: 'clamp(0.85rem, 2.4vw, 1.0rem)',
+              marginBottom: '3px',
+              fontWeight: 'bold',
             }}
           >
-            {steps[currentStepIndex]?.icon || '📼'}
+            <span>VOLUME / SINAL</span>
+            <span>{percentComplete}%</span>
+          </div>
+
+          {/* Volume Bar */}
+          <div
+            style={{
+              border: '2px solid #ffffff',
+              padding: '2px',
+              height: '18px',
+              display: 'flex',
+              background: 'rgba(0, 0, 0, 0.25)',
+              boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.5)',
+            }}
+          >
+            <div
+              style={{
+                height: '100%',
+                width: `${percentComplete}%`,
+                background: '#ffffff',
+                boxShadow: '0 0 8px #ffffff',
+                transition: 'width 0.25s ease',
+              }}
+            />
+          </div>
+
+          {/* Segmented Volume Ticks */}
+          <div
+            style={{
+              display: 'flex',
+              gap: '3px',
+              marginTop: '4px',
+              fontSize: '0.65rem',
+            }}
+          >
+            {Array.from({ length: totalVolumeSegments }).map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  flex: 1,
+                  height: '6px',
+                  background: i < activeVolumeSegments ? '#ffffff' : 'rgba(255, 255, 255, 0.2)',
+                }}
+              />
+            ))}
           </div>
         </div>
 
-        <h3
-          style={{
-            fontSize: '1.5rem',
-            fontWeight: 900,
-            fontFamily: 'var(--font-80s)',
-            marginBottom: '4px',
-            color: '#111111',
-          }}
-          className="text-chromatic"
-        >
-          REBOBINANDO A FITA DO TEMPO
-        </h3>
+        {/* Tracking Gauge */}
+        <div style={{ marginBottom: '16px' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              fontSize: 'clamp(0.85rem, 2.4vw, 1.0rem)',
+              marginBottom: '3px',
+              fontWeight: 'bold',
+            }}
+          >
+            <span>AUTO TRACKING</span>
+            <span style={{ color: '#00ff88' }}>LOCKING...</span>
+          </div>
 
-        <p style={{ color: '#444444', fontSize: '0.88rem', marginBottom: '20px', fontWeight: 500 }}>
-          Resgatando fitas cassete, discos de vinil, jornais e o céu da sua data...
-        </p>
+          {/* Tracking Bar */}
+          <div
+            style={{
+              border: '2px solid #ffffff',
+              padding: '2px',
+              height: '18px',
+              display: 'flex',
+              background: 'rgba(0, 0, 0, 0.25)',
+              boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.5)',
+            }}
+          >
+            <div
+              style={{
+                height: '100%',
+                width: `${Math.min(100, percentComplete + 15)}%`,
+                background: '#00ff88',
+                boxShadow: '0 0 10px #00ff88',
+                transition: 'width 0.25s ease',
+              }}
+            />
+          </div>
+        </div>
 
-        {/* Retro Progress Bar */}
+        {/* Tape Speed & Video Standard Format Row */}
         <div
           style={{
-            width: '100%',
-            height: '12px',
-            backgroundColor: '#fffdf7',
-            border: '2.5px solid #111111',
-            borderRadius: '8px',
-            overflow: 'hidden',
-            marginBottom: '20px',
-            boxShadow: '3px 3px 0px #ff2a85',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            fontSize: 'clamp(0.82rem, 2.3vw, 0.95rem)',
+            marginBottom: '16px',
+            borderTop: '1px dashed rgba(255, 255, 255, 0.3)',
+            borderBottom: '1px dashed rgba(255, 255, 255, 0.3)',
+            padding: '6px 0',
+          }}
+        >
+          <div>
+            <span style={{ background: '#ffffff', color: '#000bb5', padding: '0 4px', fontWeight: 'bold' }}>
+              SP
+            </span>{' '}
+            <span>EP</span> <span>SLP</span>
+          </div>
+          <div>
+            <span style={{ background: '#ffffff', color: '#000bb5', padding: '0 4px', fontWeight: 'bold' }}>
+              AUTO
+            </span>{' '}
+            <span>PAL</span> <span>SECAM</span>{' '}
+            <span style={{ color: '#ffe600', fontWeight: 'bold' }}>NTSC</span>
+          </div>
+        </div>
+
+        {/* Tape Position Ruler with Dynamic Moving Pointer Needle */}
+        <div style={{ marginBottom: '18px' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              fontSize: '0.88rem',
+              fontWeight: 'bold',
+              marginBottom: '2px',
+            }}
+          >
+            <span>0:22:{String(percentComplete).padStart(2, '0')} SP</span>
+          </div>
+
+          {/* Needle Indicator Row */}
+          <div style={{ position: 'relative', width: '100%', height: '14px' }}>
+            <div
+              style={{
+                position: 'absolute',
+                left: `${needlePosition}%`,
+                transform: 'translateX(-50%)',
+                color: '#ffffff',
+                fontSize: '1.1rem',
+                lineHeight: 1,
+                transition: 'left 0.25s ease',
+                textShadow: '0 0 6px #ffffff',
+              }}
+            >
+              ▼
+            </div>
+          </div>
+
+          {/* Tape Timeline Ruler Frame */}
+          <div
+            style={{
+              width: '100%',
+              height: '16px',
+              border: '2px solid #ffffff',
+              borderTop: 'none',
+              position: 'relative',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              padding: '0 4px',
+            }}
+          >
+            {/* Ruler Ticks */}
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((tick) => (
+              <div
+                key={tick}
+                style={{
+                  width: '2px',
+                  height: tick % 2 === 0 ? '10px' : '6px',
+                  background: '#ffffff',
+                }}
+              />
+            ))}
+          </div>
+
+          {/* BEGIN / END Labels */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              fontSize: '0.85rem',
+              fontWeight: 'bold',
+              marginTop: '2px',
+            }}
+          >
+            <span>BEGIN</span>
+            <span>END</span>
+          </div>
+        </div>
+
+        {/* Current Active Step Box */}
+        <div
+          style={{
+            background: 'rgba(0, 0, 0, 0.45)',
+            border: '2px solid #ffffff',
+            padding: '10px 14px',
+            marginBottom: '16px',
+            boxShadow: 'inset 0 0 10px rgba(0, 0, 0, 0.6)',
           }}
         >
           <div
             style={{
-              height: '100%',
-              width: `${percentComplete}%`,
-              background: 'repeating-linear-gradient(90deg, #ff2a85, #ff2a85 10px, #00d2ff 10px, #00d2ff 20px, #ffe600 20px, #ffe600 30px)',
-              transition: 'width 0.3s ease',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              fontSize: 'clamp(0.95rem, 2.7vw, 1.15rem)',
+              fontWeight: 'bold',
+              color: '#ffe600',
+              textShadow: '0 0 6px #ffe600',
             }}
-          />
+          >
+            <span>{activeStep.icon}</span>
+            <span>{activeStep.label}</span>
+          </div>
+          <div
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 'clamp(0.72rem, 2.1vw, 0.82rem)',
+              color: '#d0e0ff',
+              marginTop: '3px',
+            }}
+          >
+            ► {activeStep.sublabel}
+          </div>
         </div>
 
-        {/* Steps List */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', textAlign: 'left' }}>
-          {steps.map((step, idx) => {
-            const isCompleted = idx < currentStepIndex;
-            const isActive = idx === currentStepIndex;
-
-            return (
-              <div
-                key={step.id}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  padding: '9px 12px',
-                  borderRadius: '10px',
-                  background: isActive
-                    ? '#fff275'
-                    : isCompleted
-                    ? '#e0f7fa'
-                    : '#fffdf7',
-                  border: isActive
-                    ? '2px solid #111111'
-                    : isCompleted
-                    ? '2px solid #111111'
-                    : '1.5px dashed #cccccc',
-                  boxShadow: (isActive || isCompleted) ? '2px 2px 0px #111111' : 'none',
-                  transition: 'all 0.2s ease',
-                  opacity: isCompleted ? 0.85 : isActive ? 1 : 0.45,
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  {isCompleted ? (
-                    <CheckCircle2 size={18} color="#111111" />
-                  ) : isActive ? (
-                    <Loader2 size={18} className="animate-spin-slow" color="#ff2a85" />
-                  ) : (
-                    <Circle size={16} color="#999999" />
-                  )}
-                </div>
-
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div
-                    style={{
-                      fontSize: '0.86rem',
-                      fontWeight: isActive ? 800 : 600,
-                      color: '#111111',
-                      fontFamily: isActive ? 'var(--font-80s)' : 'var(--font-main)',
-                      letterSpacing: isActive ? '0.3px' : 'normal',
-                    }}
-                  >
-                    <span>{step.label}</span>
-                  </div>
-                  {isActive && (
-                    <div style={{ fontSize: '0.74rem', color: '#ff2a85', marginTop: '2px', fontFamily: 'var(--font-crt)', fontWeight: 700 }}>
-                      ► {step.sublabel}
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+        {/* Bottom VCR Menu Footer Instructions */}
+        <div
+          style={{
+            background: '#ffffff',
+            color: '#000bb5',
+            padding: '6px 12px',
+            textAlign: 'center',
+            fontSize: 'clamp(0.80rem, 2.3vw, 0.95rem)',
+            fontWeight: 900,
+            letterSpacing: '1px',
+          }}
+        >
+          <div>SELECT WITH (▲▼) AND [OK]</div>
+          <div>PRESS (MENU) TO END • CALIBRATING HEADS...</div>
         </div>
       </div>
+
+      <style jsx>{`
+        .vcr-blue-screen {
+          text-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+        }
+
+        .vcr-tracking-noise {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 20;
+          opacity: 0.15;
+          background-image: repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.1) 0px,
+            rgba(255, 255, 255, 0.1) 1px,
+            transparent 1px,
+            transparent 3px
+          );
+          animation: vcrScanJitter 0.18s infinite linear;
+        }
+
+        @keyframes vcrScanJitter {
+          0% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-2px);
+          }
+          100% {
+            transform: translateY(1px);
+          }
+        }
+      `}</style>
     </div>
   );
 }
-

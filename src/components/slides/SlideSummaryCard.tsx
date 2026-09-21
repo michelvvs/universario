@@ -2,183 +2,184 @@
 
 import React from 'react';
 import { BirthDataPayload } from '@/types/universario';
-import { Award, Music, Film, Zap, Star, Sparkles } from 'lucide-react';
-import {
-  MemphisSquiggle,
-  MemphisZigzag,
-  MemphisTrianglePattern,
-  MemphisCrosshatch,
-  MemphisCoil,
-} from '@/components/MemphisDoodles';
+import { Award, Music, Film, Zap, Star, Moon, Sparkles, CheckCircle2 } from 'lucide-react';
+import { VcrOsdBadge, ScotchTape, DymoLabel, SharpieLabel, VhsGoldSeal, VhsRainbowBand } from '../VhsGraphics';
 
 interface SlideProps {
   data: BirthDataPayload;
 }
 
 export default function SlideSummaryCard({ data }: SlideProps) {
-  const displayName = data.name ? data.name : 'Você';
+  const displayName = data.name ? data.name : 'VOCÊ';
 
   return (
-    <div
-      className="slide-memphis-canvas slide-theme-summary slide-content-enter"
-      style={{ color: '#111111' }}
-    >
-      {/* Decorative Memphis Washi Tape on top */}
-      <div className="tape-strip" style={{ top: '8px', left: '26%' }} />
-      <div className="tape-strip tape-strip-cyan" style={{ bottom: '12px', right: '16%' }} />
-
-      {/* Floating Memphis Geometric Accents */}
-      <div style={{ position: 'absolute', top: '14px', right: '16px', zIndex: 1 }}>
-        <MemphisTrianglePattern size={44} fillColor="#00d2ff" borderColor="#111111" />
-      </div>
-      <div style={{ position: 'absolute', top: '78px', left: '10px', zIndex: 1 }}>
-        <MemphisCrosshatch size={32} color="#111111" />
-      </div>
-      <div style={{ position: 'absolute', bottom: '60px', left: '12px', zIndex: 1 }}>
-        <MemphisCoil width={42} height={16} color="#ff2a85" />
-      </div>
-      <div style={{ position: 'absolute', bottom: '130px', right: '12px', zIndex: 1 }}>
-        <MemphisZigzag width={46} height={16} color="#111111" />
-      </div>
-
-      {/* Top Header */}
-      <div style={{ textAlign: 'center', zIndex: 2, marginTop: '2px' }}>
-        <div
+    <div className="slide-vhs-canvas slide-theme-summary">
+      {/* Top OSD Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', zIndex: 3 }}>
+        <VcrOsdBadge text="REC ● MASTER" variant="rec" />
+        <span
           style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            padding: '4px 14px',
-            borderRadius: '8px',
-            background: '#ffe600',
-            border: '2.5px solid #111111',
-            boxShadow: '3px 3px 0px #111111',
-            fontSize: '0.76rem',
-            fontFamily: 'var(--font-80s)',
-            letterSpacing: '0.5px',
-            color: '#111111',
-            marginBottom: '4px',
+            fontFamily: 'var(--font-vcr)',
+            color: '#ffe600',
+            fontSize: 'clamp(0.72rem, 2.1vw, 0.85rem)',
+            letterSpacing: '1.5px',
+            fontWeight: 'bold',
           }}
         >
-          <Award size={14} color="#111111" />
-          <span>PASSAPORTE CÓSMICO VIP • MEMPHIS 80s</span>
-        </div>
-
-        <h2
-          style={{
-            fontSize: 'clamp(1.55rem, 6vw, 2.3rem)',
-            fontWeight: 900,
-            fontFamily: 'var(--font-80s)',
-            lineHeight: 1.05,
-            color: '#111111',
-            marginTop: '2px',
-          }}
-          className="text-chromatic"
-        >
-          {displayName.toUpperCase()}
-        </h2>
-
-        <div
-          style={{
-            display: 'inline-block',
-            background: '#ff2a85',
-            color: '#ffffff',
-            border: '2px solid #111111',
-            borderRadius: '6px',
-            padding: '2px 10px',
-            fontSize: '0.80rem',
-            fontFamily: 'var(--font-crt)',
-            letterSpacing: '0.5px',
-            boxShadow: '2px 2px 0px #111111',
-            marginTop: '3px',
-          }}
-        >
-          {data.formattedDate.toUpperCase()} • {data.dayOfWeek.toUpperCase()}
-        </div>
+          GOLD EDITION E-180
+        </span>
+        <VcrOsdBadge text="TRACKING OK" variant="tracking" />
       </div>
 
-      {/* 80s Memphis VIP Passport Card */}
+      {/* Deluxe Gold Master Header Strip */}
       <div
-        className="memphis-card"
         style={{
-          background: '#ffffff',
-          borderRadius: '16px',
-          padding: 'clamp(9px, 2.2vw, 12px) clamp(10px, 2.5vw, 14px)',
-          border: '3px solid #111111',
-          boxShadow: '4px 4px 0px #111111, 8px 8px 0px #ff2a85',
-          zIndex: 2,
+          width: '100%',
+          background: 'linear-gradient(90deg, #d4af37 0%, #fff2a1 35%, #ffd700 65%, #aa820a 100%)',
+          padding: 'clamp(4px, 1vh, 6px) clamp(8px, 2vw, 12px)',
+          borderRadius: '4px',
           display: 'flex',
-          flexDirection: 'column',
-          gap: 'clamp(6px, 1.8vw, 8px)',
-          position: 'relative',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          boxShadow: '0 4px 14px rgba(212, 175, 55, 0.4), 0 2px 6px rgba(0,0,0,0.8)',
+          zIndex: 2,
         }}
       >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <Award size={16} color="#111111" />
+          <span
+            style={{
+              fontFamily: 'var(--font-heading)',
+              fontSize: 'clamp(0.72rem, 2.2vw, 0.84rem)',
+              color: '#111111',
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+              fontWeight: 900,
+            }}
+          >
+            CERTIFICADO DE ORIGEM CÓSMICA
+          </span>
+        </div>
+        <span
+          style={{
+            fontFamily: 'var(--font-vcr)',
+            color: '#111111',
+            fontSize: 'clamp(0.64rem, 1.8vw, 0.72rem)',
+            fontWeight: 'bold',
+          }}
+        >
+          VIP PASSPORT
+        </span>
+      </div>
+
+      {/* Name and Date Section */}
+      <div style={{ textAlign: 'center', zIndex: 2, width: '100%' }}>
+        <h2
+          style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'clamp(1.4rem, 5vw, 2.0rem)',
+            color: '#ffffff',
+            lineHeight: 1.05,
+            textShadow: '0 3px 12px rgba(0,0,0,0.9), 0 0 16px rgba(255, 215, 0, 0.4)',
+            letterSpacing: '0.8px',
+            textTransform: 'uppercase',
+          }}
+        >
+          {displayName}
+        </h2>
+
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginTop: '3px', flexWrap: 'wrap' }}>
+          <DymoLabel text={data.formattedDate} color="red" />
+          <DymoLabel text={data.dayOfWeek} color="blue" />
+        </div>
+      </div>
+
+      {/* Collector's J-Card / Photo-Collage Passport */}
+      <div
+        style={{
+          position: 'relative',
+          width: '100%',
+          background: 'linear-gradient(135deg, #1c2230 0%, #10141f 100%)',
+          borderRadius: '6px',
+          border: '2px solid rgba(255, 215, 0, 0.5)',
+          padding: 'clamp(8px, 1.6vh, 12px) clamp(10px, 2.5vw, 14px)',
+          boxShadow: '0 10px 28px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.7)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'clamp(5px, 1.2vh, 8px)',
+          zIndex: 2,
+        }}
+      >
+        {/* Corner Scotch Tapes */}
+        <ScotchTape angle={-15} width={42} style={{ top: '-8px', left: '12px' }} />
+        <ScotchTape angle={15} width={42} style={{ top: '-8px', right: '12px' }} />
+
         {/* Row 1: Sign & Moon */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(6px, 1.8vw, 8px)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(6px, 1.5vw, 8px)' }}>
+          {/* Sign */}
           <div
             style={{
-              padding: '8px 10px',
-              borderRadius: '10px',
-              background: '#fff275',
-              border: '2px solid #111111',
-              boxShadow: '2.5px 2.5px 0px #111111',
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 215, 0, 0.3)',
+              borderRadius: '4px',
+              padding: 'clamp(5px, 1vh, 7px)',
             }}
           >
             <div
               style={{
-                fontSize: '0.64rem',
-                fontFamily: 'var(--font-80s)',
-                color: '#111111',
+                fontFamily: 'var(--font-vcr)',
+                fontSize: 'clamp(0.58rem, 1.5vw, 0.66rem)',
+                color: '#ffe600',
                 letterSpacing: '0.5px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '3px',
+                gap: '4px',
               }}
             >
-              <span>⭐ SIGNO SOLAR</span>
+              <Star size={11} color="#ffe600" />
+              <span>SIGNO SOLAR</span>
             </div>
             <div
               style={{
-                fontSize: '0.92rem',
-                fontWeight: 800,
-                fontFamily: 'var(--font-80s)',
-                color: '#111111',
-                marginTop: '2px',
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'clamp(0.82rem, 2.4vw, 0.96rem)',
+                color: '#ffffff',
+                marginTop: '1px',
               }}
             >
               {data.astronomy.zodiacSymbol} {data.astronomy.zodiacSign.toUpperCase()}
             </div>
           </div>
 
+          {/* Moon */}
           <div
             style={{
-              padding: '8px 10px',
-              borderRadius: '10px',
-              background: '#80e8ff',
-              border: '2px solid #111111',
-              boxShadow: '2.5px 2.5px 0px #111111',
+              background: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(0, 210, 255, 0.3)',
+              borderRadius: '4px',
+              padding: 'clamp(5px, 1vh, 7px)',
             }}
           >
             <div
               style={{
-                fontSize: '0.64rem',
-                fontFamily: 'var(--font-80s)',
-                color: '#111111',
+                fontFamily: 'var(--font-vcr)',
+                fontSize: 'clamp(0.58rem, 1.5vw, 0.66rem)',
+                color: '#00d2ff',
                 letterSpacing: '0.5px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '3px',
+                gap: '4px',
               }}
             >
-              <span>🌙 FASE DA LUA</span>
+              <Moon size={11} color="#00d2ff" />
+              <span>LUA NO CÉU</span>
             </div>
             <div
               style={{
-                fontSize: '0.86rem',
-                fontWeight: 800,
-                fontFamily: 'var(--font-80s)',
-                color: '#111111',
-                marginTop: '2px',
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'clamp(0.78rem, 2.2vw, 0.90rem)',
+                color: '#ffffff',
+                marginTop: '1px',
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -189,51 +190,48 @@ export default function SlideSummaryCard({ data }: SlideProps) {
           </div>
         </div>
 
-        {/* Row 2: Top Music */}
+        {/* Row 2: Top Music Track */}
         <div
           style={{
-            padding: '8px 10px',
-            borderRadius: '10px',
-            background: '#ff66aa',
-            border: '2px solid #111111',
-            boxShadow: '2.5px 2.5px 0px #111111',
+            background: 'rgba(255, 42, 133, 0.08)',
+            border: '1px solid rgba(255, 42, 133, 0.35)',
+            borderRadius: '4px',
+            padding: 'clamp(5px, 1vh, 7px) clamp(8px, 2vw, 10px)',
             display: 'flex',
             alignItems: 'center',
-            gap: '10px',
+            gap: '8px',
           }}
         >
           <div
             style={{
-              width: '28px',
-              height: '28px',
+              width: '24px',
+              height: '24px',
               borderRadius: '50%',
-              background: '#ffe600',
-              border: '2px solid #111111',
+              background: '#ff2a85',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               flexShrink: 0,
             }}
           >
-            <Music size={15} color="#111111" />
+            <Music size={13} color="#ffffff" />
           </div>
           <div style={{ minWidth: 0, flex: 1 }}>
             <div
               style={{
-                fontSize: '0.62rem',
-                fontFamily: 'var(--font-80s)',
-                color: '#ffffff',
+                fontFamily: 'var(--font-vcr)',
+                fontSize: 'clamp(0.56rem, 1.5vw, 0.64rem)',
+                color: '#ff2a85',
                 letterSpacing: '0.5px',
-                textShadow: '1px 1px 0px #111111',
               }}
             >
-              TRILHA DA ÉPOCA (#1)
+              TRILHA SONORA #1 DA ÉPOCA
             </div>
             <div
               style={{
-                fontSize: '0.84rem',
-                fontWeight: 800,
-                color: '#111111',
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'clamp(0.74rem, 2.2vw, 0.86rem)',
+                color: '#ffffff',
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -247,48 +245,45 @@ export default function SlideSummaryCard({ data }: SlideProps) {
         {/* Row 3: Top Movie */}
         <div
           style={{
-            padding: '8px 10px',
-            borderRadius: '10px',
-            background: '#c288f5',
-            border: '2px solid #111111',
-            boxShadow: '2.5px 2.5px 0px #111111',
+            background: 'rgba(0, 210, 255, 0.08)',
+            border: '1px solid rgba(0, 210, 255, 0.35)',
+            borderRadius: '4px',
+            padding: 'clamp(5px, 1vh, 7px) clamp(8px, 2vw, 10px)',
             display: 'flex',
             alignItems: 'center',
-            gap: '10px',
+            gap: '8px',
           }}
         >
           <div
             style={{
-              width: '28px',
-              height: '28px',
+              width: '24px',
+              height: '24px',
               borderRadius: '50%',
               background: '#00d2ff',
-              border: '2px solid #111111',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               flexShrink: 0,
             }}
           >
-            <Film size={15} color="#111111" />
+            <Film size={13} color="#111111" />
           </div>
           <div style={{ minWidth: 0, flex: 1 }}>
             <div
               style={{
-                fontSize: '0.62rem',
-                fontFamily: 'var(--font-80s)',
-                color: '#ffffff',
+                fontFamily: 'var(--font-vcr)',
+                fontSize: 'clamp(0.56rem, 1.5vw, 0.64rem)',
+                color: '#00d2ff',
                 letterSpacing: '0.5px',
-                textShadow: '1px 1px 0px #111111',
               }}
             >
-              FILME EM CARTAZ
+              FILME CAMPEÃO DE BILHETERIA
             </div>
             <div
               style={{
-                fontSize: '0.84rem',
-                fontWeight: 800,
-                color: '#111111',
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'clamp(0.74rem, 2.2vw, 0.86rem)',
+                color: '#ffffff',
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -302,57 +297,100 @@ export default function SlideSummaryCard({ data }: SlideProps) {
         {/* Row 4: Generation Badge */}
         <div
           style={{
+            background: 'linear-gradient(90deg, #111111 0%, #1f2533 100%)',
+            border: '1px solid #ffe600',
+            borderRadius: '4px',
+            padding: 'clamp(4px, 0.9vh, 6px)',
             textAlign: 'center',
-            padding: '6px 10px',
-            borderRadius: '8px',
-            background: '#111111',
-            color: '#ffe600',
-            fontSize: '0.74rem',
-            fontWeight: 800,
-            fontFamily: 'var(--font-80s)',
-            letterSpacing: '0.5px',
           }}
         >
-          ★ {data.stats.generationName.toUpperCase()} • {data.stats.daysAlive.toLocaleString('pt-BR')} DIAS VIVIDOS ★
+          <span
+            style={{
+              fontFamily: 'var(--font-vcr)',
+              fontSize: 'clamp(0.64rem, 1.8vw, 0.74rem)',
+              color: '#ffe600',
+              letterSpacing: '1px',
+              fontWeight: 'bold',
+            }}
+          >
+            ★ {data.stats.generationName.toUpperCase()} • {data.stats.daysAlive.toLocaleString('pt-BR')} DIAS VIVIDOS ★
+          </span>
         </div>
       </div>
 
-      {/* Call to action footer / Watermark */}
-      <div style={{ textAlign: 'center', zIndex: 2, marginBottom: '2px' }}>
+      {/* Barcode & Share Watermark Footer */}
+      <div
+        style={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '4px',
+          zIndex: 2,
+        }}
+      >
+        {/* Retro Barcode graphic */}
+        <div
+          style={{
+            background: '#ffffff',
+            padding: '3px 14px 2px 14px',
+            borderRadius: '2px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.6)',
+          }}
+        >
+          {/* Barcode lines */}
+          <div
+            style={{
+              display: 'flex',
+              height: '16px',
+              alignItems: 'stretch',
+              gap: '2px',
+            }}
+          >
+            {[3, 1, 2, 4, 1, 3, 2, 1, 4, 2, 1, 3, 1, 2, 4, 1, 3, 2, 1, 3, 2].map((w, i) => (
+              <div
+                key={i}
+                style={{
+                  width: `${w}px`,
+                  background: i % 2 === 0 ? '#000000' : 'transparent',
+                }}
+              />
+            ))}
+          </div>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.50rem',
+              color: '#000000',
+              letterSpacing: '2px',
+              fontWeight: 'bold',
+            }}
+          >
+            UNIVERSARIO-VHS-{data.year}
+          </span>
+        </div>
+
         <div
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '6px',
-            fontSize: '0.88rem',
-            fontWeight: 900,
-            fontFamily: 'var(--font-80s)',
-            color: '#111111',
-            letterSpacing: '0.8px',
-            background: '#ffe600',
-            border: '2px solid #111111',
-            borderRadius: '8px',
-            padding: '3px 12px',
-            boxShadow: '2.5px 2.5px 0px #111111',
+            gap: '5px',
+            fontSize: 'clamp(0.68rem, 2.0vw, 0.80rem)',
+            fontFamily: 'var(--font-heading)',
+            color: '#ffe600',
+            letterSpacing: '1px',
           }}
         >
-          <Zap size={15} fill="#111111" color="#111111" />
-          <span className="text-chromatic">UNIVERSARIO.APP</span>
+          <Zap size={13} fill="#ffe600" color="#ffe600" />
+          <span>UNIVERSARIO.APP • TAPE E-180 MASTER</span>
         </div>
-        <div
-          style={{
-            fontFamily: 'var(--font-crt)',
-            fontSize: '0.82rem',
-            color: '#111111',
-            fontWeight: 700,
-            marginTop: '4px',
-            letterSpacing: '0.5px',
-          }}
-        >
-          GERE SUA RETROSPECTIVA MEMPHIS EM STORIES
-        </div>
+
+        {/* Bottom Rainbow Finish */}
+        <VhsRainbowBand height={6} />
       </div>
     </div>
   );
 }
-

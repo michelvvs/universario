@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { BirthDataPayload, MusicTrack } from '@/types/universario';
-import { Disc3, Radio, Disc, Globe, Crown, Sparkles, Volume2 } from 'lucide-react';
-import { MemphisSquiggle, MemphisZigzag, MemphisTrianglePattern, MemphisCrosshatch } from '../MemphisDoodles';
+import { Disc3, Radio, Disc, Globe } from 'lucide-react';
+import { VcrOsdBadge, VhsTapeWindow, ScotchTape, DymoLabel, VhsGoldSeal, VcrVuMeter, CollageCutout } from '../VhsGraphics';
 
 interface SlideProps {
   data: BirthDataPayload;
@@ -14,51 +14,44 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
   const { music } = data;
   const [imageError, setImageError] = useState<boolean>(false);
 
-  // Memphis category configs
+  // 80s Tape Category Configs
   const categoryConfigs = {
     radio_br: {
       categoryName: 'Rádios Brasil',
-      headerTitle: 'RÁDIOS BRASIL • AIRPLAY',
+      headerTitle: 'RÁDIOS FM • AIRPLAY 80s',
       subtitle: 'Mais tocadas nas emissoras de rádio',
       source: 'Crowley Broadcast / NOPEM / ECAD',
       icon: Radio,
-      primaryColor: '#ff2a85',
-      accentColor: '#00d2ff',
-      themeClass: 'slide-theme-radio',
-      shadowColor: '3px 3px 0px #111111, 6px 6px 0px #00d2ff',
+      tapeBrand: 'TDK SA-90',
+      badgeColor: 'red' as const,
       tracks: music.brazilRadioTop5 || [music.brazilTopTrack],
-      badgeText: 'FM HITS 80s',
+      badgeText: 'FM #1 HIT',
     },
     sales_br: {
       categoryName: 'Vendas Brasil',
-      headerTitle: 'VENDAS BRASIL • LPs & FITAS',
-      subtitle: 'Discos e compactos mais vendidos',
+      headerTitle: 'VENDAS • LPs & FITAS K7',
+      subtitle: 'Discos e fitas mais vendidos',
       source: 'Instituto NOPEM / Pro-Música Brasil',
       icon: Disc,
-      primaryColor: '#ffe600',
-      accentColor: '#ff2a85',
-      themeClass: 'slide-theme-sales',
-      shadowColor: '3px 3px 0px #111111, 6px 6px 0px #ff2a85',
+      tapeBrand: 'MAXELL XL-II',
+      badgeColor: 'blue' as const,
       tracks: music.brazilSalesTop5 || [music.brazilSalesTrack || music.brazilTopTrack],
       badgeText: 'DISCO DE PLATINA',
     },
     billboard: {
       categoryName: 'Billboard Hot 100',
-      headerTitle: 'BILLBOARD HOT 100 • MUNDO',
+      headerTitle: 'BILLBOARD HOT 100 • EUA',
       subtitle: 'Parada oficial internacional',
       source: 'Billboard Hot 100 (EUA)',
       icon: Globe,
-      primaryColor: '#00d2ff',
-      accentColor: '#ffe600',
-      themeClass: 'slide-theme-billboard',
-      shadowColor: '3px 3px 0px #111111, 6px 6px 0px #ffe600',
+      tapeBrand: 'BASF CHROME',
+      badgeColor: 'black' as const,
       tracks: music.billboardTop5 || [music.globalTopTrack],
       badgeText: 'GLOBAL #1 HIT',
     },
   };
 
   const config = categoryConfigs[categoryId] || categoryConfigs.radio_br;
-  const IconComponent = config.icon;
   const tracks: MusicTrack[] = config.tracks || [];
   const top1 = tracks[0] || (categoryId === 'billboard' ? music.globalTopTrack : music.brazilTopTrack);
   const runnersUp = tracks.slice(1, 5);
@@ -66,261 +59,114 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
   const hasValidCover = coverUrl && !imageError;
 
   return (
-    <div className={`slide-memphis-canvas ${config.themeClass}`}>
-      {/* Memphis Floating Doodles */}
-      <div style={{ position: 'absolute', top: '10%', right: '5%', pointerEvents: 'none' }} className="animate-float-1">
-        <MemphisTrianglePattern size={46} fillColor={config.primaryColor} />
-      </div>
-
-      <div style={{ position: 'absolute', bottom: '26%', left: '4%', pointerEvents: 'none' }}>
-        <MemphisSquiggle color="#111111" width={52} height={16} />
-      </div>
-
-      {/* Top Header */}
-      <div style={{ textAlign: 'center', zIndex: 2 }}>
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            padding: '5px 14px',
-            borderRadius: '10px',
-            background: config.primaryColor,
-            border: '2.5px solid #111111',
-            boxShadow: '3px 3px 0px #111111',
-            fontSize: '0.76rem',
-            fontFamily: 'var(--font-80s)',
-            color: '#111111',
-            letterSpacing: '0.5px',
-            marginBottom: '4px',
-            transform: 'rotate(-1deg)',
-          }}
-        >
-          <IconComponent size={13} color="#111111" />
-          <span>{config.headerTitle}</span>
-        </div>
-
-        <h2
-          style={{
-            fontSize: 'clamp(1.4rem, 5vw, 2.05rem)',
-            fontWeight: 900,
-            fontFamily: 'var(--font-80s)',
-            lineHeight: 1.1,
-            marginBottom: '3px',
-            color: '#111111',
-            textShadow: `2.5px 2.5px 0px ${config.accentColor}`,
-          }}
-          className="text-chromatic"
-        >
-          TOP 5 • {config.categoryName.toUpperCase()}
-        </h2>
-
-        <div
-          style={{
-            display: 'inline-block',
-            padding: '2px 10px',
-            borderRadius: '6px',
-            background: '#ffffff',
-            border: '1.5px solid #111111',
-            boxShadow: '2px 2px 0px #111111',
-            fontSize: '0.74rem',
-            fontFamily: 'var(--font-80s)',
-            color: '#ff2a85',
-            letterSpacing: '0.5px',
-          }}
-        >
-          {config.subtitle.toUpperCase()} ({data.monthName.toUpperCase()} DE {data.year})
-        </div>
-      </div>
-
-      {/* Central Spinning Vinyl with Real Album Cover & Dancing Equalizer Bars */}
-      <div
+    <div className={`slide-vhs-canvas slide-theme-${categoryId === 'billboard' ? 'billboard' : categoryId === 'sales_br' ? 'sales' : 'radio'}`} style={{ position: 'relative' }}>
+      {/* Walkman Headphones & Tape Cutout Overlaid on corner */}
+      <CollageCutout
+        src="/cutouts/headphones_cutout.jpg"
+        alt="Fones de ouvido retrô e fita cassete"
+        size={115}
+        rotate={-8}
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '14px',
-          margin: '2px 0',
-          zIndex: 2,
+          top: '12%',
+          right: '-16px',
+          zIndex: 15,
         }}
-      >
-        {/* Realistic 3D Grooved Spinning Vinyl with Memphis Accent Border */}
-        <div
-          style={{
-            position: 'relative',
-            width: 'clamp(82px, 20vw, 104px)',
-            height: 'clamp(82px, 20vw, 104px)',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle at 50% 50%, #1e1e1e 0%, #0d0d0d 35%, #181818 40%, #000000 60%, #151515 70%, #000000 100%)',
-            boxShadow: `4px 4px 0px #111111, 0 0 0 3px #111111, 0 0 0 5px ${config.primaryColor}`,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-          }}
-          className="animate-spin-slow"
-        >
-          <div
-            style={{
-              position: 'absolute',
-              inset: '8px',
-              borderRadius: '50%',
-              border: '1px dashed rgba(255,255,255,0.2)',
-              pointerEvents: 'none',
-            }}
-          />
+      />
+      <ScotchTape width={42} height={14} rotate={-14} style={{ top: '14%', right: '12px', zIndex: 16 }} />
 
-          {/* Center Label with Album Cover Image */}
+      {/* Top Tape Sleeve & VCR OSD Header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 2, padding: '0 2px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+          <VcrOsdBadge text="PLAY ▶" variant="play" />
+          <VcrOsdBadge text="DOLBY NR" variant="sp" />
+        </div>
+        <DymoLabel text={config.tapeBrand} color={config.badgeColor} fontSize="0.60rem" />
+      </div>
+
+      {/* Category Title & Tape Cassette Acrylic Window with Spinning Spools */}
+      <div style={{ textAlign: 'center', zIndex: 2, margin: '1px 0', paddingRight: '35px' }}>
+        <div style={{ display: 'inline-block', marginBottom: '3px' }}>
           <div
             style={{
-              position: 'relative',
-              width: '50px',
-              height: '50px',
-              borderRadius: '50%',
-              overflow: 'hidden',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.8), inset 0 0 0 2px #111111',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: config.primaryColor,
+              fontSize: 'clamp(0.95rem, 3.4vw, 1.3rem)',
+              fontWeight: 900,
+              fontFamily: "'Archivo Black', sans-serif",
+              color: '#ffffff',
+              lineHeight: 1.1,
+              letterSpacing: '0.5px',
+              textShadow: '0 2px 6px rgba(0,0,0,0.9)',
             }}
           >
-            {hasValidCover ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={coverUrl}
-                alt={top1.title}
-                onError={() => setImageError(true)}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                }}
-              />
-            ) : (
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#111111' }}>
-                <Disc3 size={22} />
-              </div>
-            )}
-
-            {/* Center Spindle Hole */}
-            <div
-              style={{
-                position: 'absolute',
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                background: '#111111',
-                border: '1.5px solid #ffffff',
-                zIndex: 3,
-              }}
-            />
+            TOP 5 • {config.categoryName.toUpperCase()}
+          </div>
+          <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: '0.62rem', color: 'var(--vhs-gold)', letterSpacing: '0.5px' }}>
+            {config.subtitle.toUpperCase()} ({data.monthName.toUpperCase()} DE {data.year})
           </div>
         </div>
 
-        {/* Dynamic Equalizer Dancing Bars in Memphis Palette */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '3.5px', height: '44px' }}>
-          {[45, 90, 60, 100, 75, 95, 50, 85, 65, 90, 45, 80].map((h, i) => {
-            const animClass = `sound-bar-anim-${(i % 4) + 1}`;
-            const barBg = i % 3 === 0 ? '#ff2a85' : i % 3 === 1 ? '#ffe600' : '#00d2ff';
-            return (
-              <div
-                key={i}
-                className={animClass}
-                style={{
-                  width: '4px',
-                  height: `${h}%`,
-                  background: barBg,
-                  border: '1px solid #111111',
-                  borderRadius: '2px',
-                  boxShadow: '1.5px 1.5px 0px #111111',
-                  transition: 'height 0.1s ease',
-                }}
-              />
-            );
-          })}
-        </div>
+        {/* Realistic Skeuomorphic Cassette Tape Window */}
+        <VhsTapeWindow size="small" tapeProgress={40} />
       </div>
 
-      {/* Main Content Area: #1 Hero Winner + Top 2 to Top 5 */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '7px', zIndex: 2 }}>
-        {/* #1 Hero Winner Card in Crisp White with Memphis Borders */}
+      {/* Main Content: #1 Torn Photo Album Card + Lined J-Card Top 2-5 */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(3px, 0.9vh, 5px)', zIndex: 2 }}>
+        {/* #1 Torn Photo Album Cover Card */}
         <div
+          className="torn-photo-card"
           style={{
-            padding: '10px 12px',
-            background: '#ffffff',
-            border: '3px solid #111111',
-            borderRadius: '14px',
-            boxShadow: config.shadowColor,
-            position: 'relative',
-            overflow: 'hidden',
+            padding: 'clamp(5px, 1.4vw, 7px) clamp(7px, 1.8vw, 10px)',
+            background: '#fffdf4',
+            transform: 'rotate(-0.5deg)',
           }}
         >
-          {/* Top Row: Rank Badge & Category Info */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '3px',
-                  padding: '3px 8px',
-                  borderRadius: '6px',
-                  background: config.primaryColor,
-                  color: '#111111',
-                  fontSize: '0.72rem',
-                  fontWeight: 900,
-                  fontFamily: 'var(--font-80s)',
-                  border: '1.5px solid #111111',
-                  boxShadow: '1.5px 1.5px 0px #111111',
-                }}
-              >
-                <Crown size={11} fill="#111111" />
-                #1 LUGAR
-              </span>
-              <span style={{ fontSize: '0.70rem', fontWeight: 800, fontFamily: 'var(--font-80s)', color: '#111111', textTransform: 'uppercase' }}>
-                {config.badgeText}
-              </span>
-            </div>
+          <ScotchTape width={46} height={14} rotate={-5} style={{ top: '-6px', right: '10%' }} />
 
-            <span
-              style={{
-                fontFamily: 'var(--font-80s)',
-                fontSize: '0.78rem',
-                color: '#ff2a85',
-              }}
-            >
-              ★ CAMPEÃO
+          {/* Top Row: #1 Gold Badge & Category Info */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px' }}>
+            <VhsGoldSeal title="#1 HIT" subtitle={config.badgeText} />
+            <span style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: '0.64rem', color: '#e50914', fontWeight: 900 }}>
+              ★ CAMPEÃO DAS PARADAS
             </span>
           </div>
 
-          {/* Hero Row: Album Cover Thumbnail + Title & Artist */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            {hasValidCover && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={coverUrl}
-                alt={top1.title}
-                style={{
-                  width: '46px',
-                  height: '46px',
-                  borderRadius: '8px',
-                  objectFit: 'cover',
-                  border: '2px solid #111111',
-                  boxShadow: '2px 2px 0px #111111',
-                  flexShrink: 0,
-                }}
-              />
-            )}
+          {/* Album Cover Thumbnail + Title & Artist */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div
+              style={{
+                position: 'relative',
+                width: 'clamp(36px, 9vw, 44px)',
+                height: 'clamp(36px, 9vw, 44px)',
+                borderRadius: '3px',
+                overflow: 'hidden',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.4)',
+                border: '1px solid #111111',
+                flexShrink: 0,
+                background: '#1a1a1e',
+              }}
+            >
+              {hasValidCover ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={coverUrl}
+                  alt={top1.title}
+                  onError={() => setImageError(true)}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#ffffff' }}>
+                  <Disc3 size={18} />
+                </div>
+              )}
+            </div>
 
             <div style={{ minWidth: 0, flex: 1 }}>
               <div
                 style={{
-                  fontSize: '1.05rem',
+                  fontSize: 'clamp(0.86rem, 2.6vw, 0.98rem)',
                   fontWeight: 900,
-                  fontFamily: 'var(--font-80s)',
-                  color: '#111111',
-                  lineHeight: 1.2,
+                  fontFamily: "'Archivo Black', sans-serif",
+                  color: '#111827',
+                  lineHeight: 1.15,
                   whiteSpace: 'nowrap',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
@@ -330,10 +176,10 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
               </div>
               <div
                 style={{
-                  fontSize: '0.84rem',
-                  color: '#ff2a85',
+                  fontSize: '0.74rem',
+                  color: '#e50914',
                   fontWeight: 800,
-                  fontFamily: 'var(--font-main)',
+                  fontFamily: "'Share Tech Mono', monospace",
                   whiteSpace: 'nowrap',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
@@ -347,13 +193,14 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
           {top1.highlight && (
             <div
               style={{
-                fontSize: '0.72rem',
-                color: '#444444',
-                fontWeight: 600,
-                marginTop: '4px',
-                lineHeight: 1.3,
-                borderTop: '1px dashed #111111',
-                paddingTop: '3px',
+                fontSize: '0.62rem',
+                color: '#4b5563',
+                fontFamily: "'Share Tech Mono', monospace",
+                fontWeight: 700,
+                marginTop: '2px',
+                lineHeight: 1.2,
+                borderTop: '1px dashed #d1d5db',
+                paddingTop: '2px',
               }}
             >
               ✦ {top1.highlight}
@@ -361,17 +208,17 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
           )}
         </div>
 
-        {/* Top 2 to Top 5 Ranked Rows in Crisp White Container */}
+        {/* Top 2 to Top 5 Lined J-Card Tracklist */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: '4px',
-            background: '#ffffff',
-            borderRadius: '12px',
-            padding: '6px 8px',
-            border: '2.5px solid #111111',
-            boxShadow: '3px 3px 0px #111111',
+            gap: '2px',
+            background: 'rgba(16, 18, 24, 0.92)',
+            borderRadius: '6px',
+            padding: '3px 6px',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
+            boxShadow: '0 4px 10px rgba(0,0,0,0.6)',
           }}
         >
           <div
@@ -379,22 +226,22 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              padding: '0 2px 2px 2px',
-              fontSize: '0.66rem',
-              fontWeight: 900,
-              fontFamily: 'var(--font-80s)',
-              color: '#111111',
+              padding: '0 2px 1px 2px',
+              fontSize: '0.60rem',
+              fontWeight: 800,
+              fontFamily: "'Share Tech Mono', monospace",
+              color: 'var(--vhs-cyan)',
               letterSpacing: '0.5px',
-              borderBottom: '1.5px solid #111111',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
             }}
           >
-            <span>TOP 2 AO TOP 5</span>
-            <span style={{ color: config.primaryColor }}>{config.categoryName.toUpperCase()}</span>
+            <span>SIDE A • RUNNERS-UP (2º AO 5º LUGAR)</span>
+            <span style={{ color: 'var(--vhs-gold)' }}>STEREO</span>
           </div>
 
           {runnersUp.map((track, idx) => {
             const rank = idx + 2;
-            const badgeBg = rank === 2 ? '#ffe600' : rank === 3 ? '#00d2ff' : '#ffffff';
+            const numColor = rank === 2 ? 'var(--vhs-gold)' : rank === 3 ? 'var(--vhs-cyan)' : '#9ca3af';
 
             return (
               <div
@@ -402,39 +249,32 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px',
-                  padding: '3px 4px',
-                  borderRadius: '6px',
-                  background: idx % 2 === 0 ? 'rgba(0,0,0,0.03)' : 'transparent',
+                  gap: '6px',
+                  padding: '2px 4px',
+                  borderRadius: '3px',
+                  background: idx % 2 === 0 ? 'rgba(255,255,255,0.03)' : 'transparent',
                 }}
               >
                 <div
                   style={{
-                    width: '20px',
-                    height: '20px',
-                    borderRadius: '5px',
-                    background: badgeBg,
-                    color: '#111111',
-                    fontSize: '0.70rem',
+                    fontFamily: "'VT323', monospace",
+                    fontSize: '0.85rem',
+                    color: numColor,
                     fontWeight: 900,
-                    fontFamily: 'var(--font-80s)',
-                    border: '1.5px solid #111111',
-                    boxShadow: '1px 1px 0px #111111',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    width: '18px',
+                    textAlign: 'center',
                     flexShrink: 0,
                   }}
                 >
-                  #{rank}
+                  0{rank}.
                 </div>
 
                 <div style={{ minWidth: 0, flex: 1 }}>
                   <div
                     style={{
-                      fontSize: '0.82rem',
+                      fontSize: 'clamp(0.74rem, 2.2vw, 0.80rem)',
                       fontWeight: 800,
-                      color: '#111111',
+                      color: '#ffffff',
                       whiteSpace: 'nowrap',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
@@ -444,9 +284,9 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
                   </div>
                   <div
                     style={{
-                      fontSize: '0.70rem',
-                      color: '#666666',
-                      fontWeight: 600,
+                      fontSize: '0.64rem',
+                      color: '#9ca3af',
+                      fontFamily: "'Share Tech Mono', monospace",
                       whiteSpace: 'nowrap',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
@@ -461,10 +301,11 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
         </div>
       </div>
 
-      {/* Footer Source Note */}
-      <div style={{ textAlign: 'center', zIndex: 2 }}>
-        <div style={{ fontFamily: 'var(--font-80s)', fontSize: '0.74rem', color: '#111111' }}>
-          AUDITORIA: {config.source.toUpperCase()}
+      {/* Footer VCR VU Meter & Audio Specifications */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 2, padding: '0 2px' }}>
+        <VcrVuMeter />
+        <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: '0.58rem', color: '#9ca3af' }}>
+          FONTE: {config.source}
         </div>
       </div>
     </div>

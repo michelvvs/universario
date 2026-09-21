@@ -7,6 +7,8 @@ import {
   ChevronRight,
   X,
   Sparkles,
+  Play,
+  RotateCcw,
 } from 'lucide-react';
 import SlideIntro from './slides/SlideIntro';
 import SlideMoonAstronomy from './slides/SlideMoonAstronomy';
@@ -69,11 +71,11 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
     setIsChannelSwitching(true);
     const timer = setTimeout(() => {
       setIsChannelSwitching(false);
-    }, 750);
+    }, 600);
     return () => clearTimeout(timer);
   }, [currentSlideIndex]);
 
-  // Story progress timer - fills up to 100% and stays, waiting for user to advance manually
+  // Story progress timer
   useEffect(() => {
     setProgress(0);
     const intervalMs = 50;
@@ -114,14 +116,13 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '100vh',
         width: '100%',
-        padding: '16px 12px 24px 12px',
+        padding: '4px 8px 16px 8px',
         position: 'relative',
         zIndex: 10,
       }}
     >
-      {/* 80s Cassette Walkman Audio Player */}
+      {/* 80s VCR Audio Player */}
       <RetroAudioPlayer
         music={data.music}
         isStoryPaused={false}
@@ -156,20 +157,32 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
               width: '46px',
               height: '46px',
               borderRadius: '50%',
-              background: '#ffffff',
-              border: '3px solid #111111',
-              color: '#111111',
-              boxShadow: '3px 3px 0px #111111, 6px 6px 0px #00d2ff',
+              background: '#161922',
+              border: '2px solid #00ff88',
+              color: '#00ff88',
+              boxShadow: '0 0 16px rgba(0, 255, 136, 0.4), 0 4px 12px rgba(0,0,0,0.8)',
               cursor: 'pointer',
               transition: 'all 0.15s ease',
             }}
           >
-            <ChevronLeft size={28} color="#111111" />
+            <ChevronLeft size={28} color="#00ff88" />
           </button>
         )}
 
-        {/* 9:16 Instagram Story Frame with CRT & Film Grain Overlays */}
+        {/* 9:16 Story Frame with VCR Chassis Border */}
         <div className="story-wrapper crt-overlay film-grain">
+          {/* Authentic Worn VHS Slipcase Texture Overlay with Magnetic Ring Wear */}
+          <div className="vhs-worn-sleeve-overlay" aria-hidden="true" />
+
+          {/* Retro CRT TV Scanlines */}
+          <div className="vhs-crt-scanlines" aria-hidden="true" />
+
+          {/* Animated Rolling VHS Tracking Glitch Scanline Bar */}
+          <div className="vhs-tracking-scanline-bar" aria-hidden="true" />
+
+          {/* Classic Slipcase Cardboard Thumb Notch */}
+          <div className="vhs-thumb-notch" aria-hidden="true" />
+
           {/* TV Channel Switch CRT Static Noise Overlay */}
           {isChannelSwitching && <div className="tv-static-burst" />}
 
@@ -183,7 +196,7 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
             </div>
           )}
 
-          {/* Top Progress Bars (Instagram Stories Segmented) */}
+          {/* Top Progress Bars (Segmented Story Bars) */}
           <div className="story-progress-container">
             {slides.map((_, idx) => {
               let fillWidth = 0;
@@ -204,7 +217,7 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
             })}
           </div>
 
-          {/* Top Story Header / Profile info & Close Button in Solid High-Contrast Pill */}
+          {/* Top Story Header / Profile info & Close Button in High-Contrast VCR Pill */}
           <div className="story-header-pill">
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <div className="story-avatar">📼</div>
@@ -226,23 +239,23 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
                   e.stopPropagation();
                   onClose();
                 }}
-                aria-label="Fechar e escolher nova data"
-                title="Fechar retrospectiva"
+                aria-label="Ejetar fita e escolher nova data"
+                title="Ejetar fita (Fechar)"
                 style={{
-                  background: '#ffe600',
-                  border: '2px solid #111111',
-                  borderRadius: '8px',
-                  width: '30px',
-                  height: '30px',
+                  background: '#ff2a2a',
+                  border: '1px solid #ff6666',
+                  borderRadius: '6px',
+                  width: '28px',
+                  height: '28px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#111111',
+                  color: '#ffffff',
                   cursor: 'pointer',
-                  boxShadow: '1.5px 1.5px 0px #111111',
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.6)',
                 }}
               >
-                <X size={16} color="#111111" />
+                <X size={15} color="#ffffff" />
               </button>
             </div>
           </div>
@@ -291,19 +304,19 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
-                background: '#ff2a85',
-                border: '2.5px solid #111111',
+                background: '#ff2a2a',
+                border: '2px solid #ffffff',
                 borderRadius: '999px',
                 padding: '6px 14px',
                 color: '#ffffff',
-                fontFamily: 'var(--font-80s)',
-                fontSize: '0.76rem',
-                letterSpacing: '0.5px',
-                boxShadow: '3px 3px 0px #111111, 6px 6px 0px #ffe600',
+                fontFamily: 'var(--font-vcr)',
+                fontSize: '0.82rem',
+                letterSpacing: '1px',
+                boxShadow: '0 0 16px rgba(255, 42, 42, 0.8)',
                 cursor: 'pointer',
               }}
             >
-              <span>PRÓXIMO STORY</span>
+              <span>AVANÇAR FITA ▶</span>
               <ChevronRight size={15} color="#ffffff" />
             </button>
           )}
@@ -325,36 +338,37 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
               width: '46px',
               height: '46px',
               borderRadius: '50%',
-              background: '#ffffff',
-              border: '3px solid #111111',
-              color: '#111111',
-              boxShadow: '3px 3px 0px #111111, 6px 6px 0px #ff2a85',
+              background: '#161922',
+              border: '2px solid #ffe600',
+              color: '#ffe600',
+              boxShadow: '0 0 16px rgba(255, 230, 0, 0.4), 0 4px 12px rgba(0,0,0,0.8)',
               cursor: 'pointer',
               transition: 'all 0.15s ease',
             }}
           >
-            <ChevronRight size={28} color="#111111" />
+            <ChevronRight size={28} color="#ffe600" />
           </button>
         )}
       </div>
 
       {/* Export Controls for PNG / ZIP */}
       <ExportControls
-        currentSlideElement={activeSlideRef.current}
+        currentSlideElement={hiddenSlideRefs.current[currentSlideIndex] || activeSlideRef.current}
         allSlideElements={hiddenSlideRefs.current.filter((el): el is HTMLDivElement => el !== null)}
         formattedDate={data.formattedDate}
         onPause={() => {}}
         onResume={() => {}}
       />
 
-      {/* Hidden 1080x1920 Story Canvas Elements for High-Res Batch Export */}
+      {/* Hidden 1080x1920 Story Canvas Elements for High-Res 9:16 PNG / ZIP Export */}
       <div
         style={{
-          position: 'absolute',
-          top: '-99999px',
-          left: '-99999px',
-          visibility: 'hidden',
+          position: 'fixed',
+          left: '-9999px',
+          top: 0,
+          opacity: 0,
           pointerEvents: 'none',
+          zIndex: -9999,
         }}
       >
         {slides.map((slide, idx) => (
@@ -387,23 +401,25 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
           }
         }
 
-        /* Mobile / Smaller Screens: Floating gracefully over the edge */
+        /* Mobile / Smaller Screens: Floating gracefully inside/over the edge */
         @media (max-width: 639px) {
           .story-nav-prev {
             position: absolute !important;
-            top: 52% !important;
-            left: -4px !important;
+            top: 50% !important;
+            left: 6px !important;
             transform: translateY(-50%) !important;
-            width: 38px !important;
-            height: 38px !important;
+            width: 36px !important;
+            height: 36px !important;
+            opacity: 0.9;
           }
           .story-nav-next {
             position: absolute !important;
-            top: 52% !important;
-            right: -4px !important;
+            top: 50% !important;
+            right: 6px !important;
             transform: translateY(-50%) !important;
-            width: 38px !important;
-            height: 38px !important;
+            width: 36px !important;
+            height: 36px !important;
+            opacity: 0.9;
           }
         }
 
@@ -414,11 +430,11 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
         @keyframes pulseBorder {
           0% {
             transform: scale(1);
-            box-shadow: 3px 3px 0px #00f0ff, 0 0 10px rgba(255, 42, 133, 0.4);
+            box-shadow: 0 0 10px rgba(255, 230, 0, 0.4);
           }
           100% {
             transform: scale(1.1);
-            box-shadow: 3px 3px 0px #00f0ff, 0 0 22px rgba(255, 42, 133, 0.9);
+            box-shadow: 0 0 22px rgba(255, 230, 0, 0.9);
           }
         }
 
@@ -429,11 +445,11 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
         @keyframes pulseGlowBtn {
           0% {
             transform: scale(1);
-            box-shadow: 0 0 10px rgba(255, 42, 133, 0.7), 2px 2px 0px #00f0ff;
+            box-shadow: 0 0 10px rgba(255, 42, 42, 0.7);
           }
           100% {
             transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 42, 133, 1), 2px 2px 0px #00f0ff;
+            box-shadow: 0 0 22px rgba(255, 42, 42, 1);
           }
         }
       `}</style>

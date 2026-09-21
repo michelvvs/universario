@@ -6,26 +6,26 @@ import DateInputForm from '@/components/DateInputForm';
 import LoadingTimeline from '@/components/LoadingTimeline';
 import StoryViewer from '@/components/StoryViewer';
 import { BirthDataPayload, LoadingStep } from '@/types/universario';
-import { Sparkles, Disc3, Tv, Flame, Radio } from 'lucide-react';
+import { VcrOsdBadge, DymoLabel } from '@/components/VhsGraphics';
 
 const LOADING_STEPS: LoadingStep[] = [
   {
     id: 'astronomy',
     label: 'Calculando fase da lua e coordenadas estelares',
-    sublabel: 'Determinando luminosidade, constelação e mapa celeste...',
+    sublabel: 'Determinando luminosidade, constelação e mapa celeste NASA...',
     icon: '🌕',
     status: 'pending',
   },
   {
     id: 'music',
     label: 'Sintonizando paradas de sucesso (Rádios, Vendas & Billboard)',
-    sublabel: 'Rebobinando fitas cassete e resgatando LPs #1...',
+    sublabel: 'Rebobinando fitas cassete TDK e resgatando LPs #1...',
     icon: '📼',
     status: 'pending',
   },
   {
     id: 'news',
-    label: 'Consultando manchetes e jornais históricos',
+    label: 'Consultando manchetes e jornais históricos da época',
     sublabel: 'Acessando arquivos de notícias do Brasil e do mundo...',
     icon: '📰',
     status: 'pending',
@@ -33,14 +33,14 @@ const LOADING_STEPS: LoadingStep[] = [
   {
     id: 'popculture',
     label: 'Reunindo cinema, novelas e cultura pop da época',
-    sublabel: 'Localizando filmes em cartaz e nostalgia 80s...',
+    sublabel: 'Localizando filmes de locadora e nostalgia 80s...',
     icon: '🎬',
     status: 'pending',
   },
   {
     id: 'rendering',
-    label: 'Gravando seus Stories retrô em 9:16 HD',
-    sublabel: 'Aplicando scanlines CRT, vinil giratório e estética Memphis...',
+    label: 'Gravando fitas master em Stories 9:16 HD',
+    sublabel: 'Aplicando scanlines VCR, auto tracking e estética analógica...',
     icon: '✨',
     status: 'pending',
   },
@@ -57,7 +57,7 @@ export default function HomePage() {
     setCurrentStepIndex(0);
     setErrorMessage(null);
 
-    const stepInterval = 450;
+    const stepInterval = 480;
     let currentStep = 0;
 
     const stepTimer = setInterval(() => {
@@ -83,7 +83,7 @@ export default function HomePage() {
 
       const data: BirthDataPayload = await response.json();
 
-      const remainingTime = Math.max(200, (LOADING_STEPS.length - currentStep) * stepInterval);
+      const remainingTime = Math.max(250, (LOADING_STEPS.length - currentStep) * stepInterval);
       setTimeout(() => {
         clearInterval(stepTimer);
         setCurrentStepIndex(LOADING_STEPS.length - 1);
@@ -92,13 +92,13 @@ export default function HomePage() {
           setBirthData(data);
           setViewState('stories');
 
-          // Celebration Confetti 80s Neon Colors
+          // Celebration Confetti 80s Gold & Neon Colors
           try {
             confetti({
-              particleCount: 100,
+              particleCount: 90,
               spread: 80,
               origin: { y: 0.6 },
-              colors: ['#ff2a85', '#00f0ff', '#ffde59', '#7928ca', '#26ffdf'],
+              colors: ['#ffd700', '#00e5ff', '#ff3b30', '#00ff88', '#ffffff'],
             });
           } catch {}
         }, 300);
@@ -107,7 +107,7 @@ export default function HomePage() {
       clearInterval(stepTimer);
       setViewState('idle');
       const error = err as Error;
-      setErrorMessage(error.message || 'Houve um imprevisto ao buscar os dados. Tente novamente.');
+      setErrorMessage(error.message || 'Houve um imprevisto ao buscar os dados da fita. Tente novamente.');
     }
   };
 
@@ -116,96 +116,32 @@ export default function HomePage() {
   };
 
   return (
-    <main style={{ minHeight: '100vh', position: 'relative', width: '100%', overflowX: 'hidden' }}>
-      {/* 80s Synthwave Grid & Memphis Background */}
-      <div className="memphis-bg" />
-
-      {/* Floating Memphis Geometric Accents */}
-      <div
-        className="animate-float-1"
-        style={{
-          position: 'fixed',
-          top: '12%',
-          left: '6%',
-          width: '32px',
-          height: '32px',
-          border: '4px solid #00f0ff',
-          borderRadius: '6px',
-          pointerEvents: 'none',
-          zIndex: 0,
-          opacity: 0.6,
-        }}
-      />
-      <div
-        className="animate-float-2"
-        style={{
-          position: 'fixed',
-          top: '25%',
-          right: '8%',
-          width: '0',
-          height: '0',
-          borderLeft: '20px solid transparent',
-          borderRight: '20px solid transparent',
-          borderBottom: '36px solid #ffde59',
-          pointerEvents: 'none',
-          zIndex: 0,
-          opacity: 0.7,
-        }}
-      />
-      <div
-        className="animate-float-1"
-        style={{
-          position: 'fixed',
-          bottom: '20%',
-          left: '8%',
-          width: '40px',
-          height: '40px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, #ff2a85 40%, transparent 42%)',
-          backgroundSize: '12px 12px',
-          pointerEvents: 'none',
-          zIndex: 0,
-          opacity: 0.6,
-        }}
-      />
-      <div
-        className="animate-float-2"
-        style={{
-          position: 'fixed',
-          bottom: '15%',
-          right: '7%',
-          color: '#26ffdf',
-          fontSize: '2rem',
-          fontFamily: 'var(--font-80s)',
-          pointerEvents: 'none',
-          zIndex: 0,
-          opacity: 0.6,
-        }}
-      >
-        ✦ 〰
-      </div>
+    <main style={{ minHeight: '100dvh', position: 'relative', width: '100%', overflowX: 'hidden' }}>
+      {/* 80s VCR Studio Ambient Background */}
+      <div className="vhs-bg-studio" />
 
       {/* Main Content Container */}
       <div
         style={{
           position: 'relative',
           zIndex: 1,
-          minHeight: '100vh',
+          minHeight: '100dvh',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
         }}
       >
-        {/* Retro Header Topbar */}
+        {/* Retro VCR Header Topbar */}
         <header
           style={{
-            padding: '20px 24px',
+            padding: viewState === 'stories' ? '8px 16px' : '16px 24px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             maxWidth: '1100px',
             margin: '0 auto',
             width: '100%',
+            transition: 'padding 0.2s ease',
           }}
         >
           <div
@@ -220,16 +156,17 @@ export default function HomePage() {
           >
             <div
               style={{
-                width: '44px',
-                height: '44px',
-                borderRadius: '12px',
-                background: '#ffe600',
-                border: '2.5px solid #111111',
-                boxShadow: '3px 3px 0px #111111, 6px 6px 0px #ff2a85',
+                width: viewState === 'stories' ? '36px' : '44px',
+                height: viewState === 'stories' ? '36px' : '44px',
+                borderRadius: '8px',
+                background: 'linear-gradient(135deg, #1c202a 0%, #0d1016 100%)',
+                border: '2px solid #3d465c',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.2)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '1.4rem',
+                fontSize: viewState === 'stories' ? '1.2rem' : '1.4rem',
+                transition: 'all 0.2s ease',
               }}
             >
               📼
@@ -237,59 +174,34 @@ export default function HomePage() {
             <div>
               <span
                 style={{
-                  fontSize: '1.7rem',
+                  fontSize: viewState === 'stories' ? '1.35rem' : '1.75rem',
                   fontWeight: 900,
-                  fontFamily: 'var(--font-80s)',
+                  fontFamily: 'var(--font-heading)',
                   color: '#ffffff',
+                  letterSpacing: '1.5px',
+                  transition: 'font-size 0.2s ease',
+                  textTransform: 'uppercase',
                 }}
-                className="text-chromatic"
               >
                 UNIVERSÁRIO
               </span>
               <div
                 style={{
-                  fontFamily: 'var(--font-crt)',
-                  fontSize: '0.95rem',
-                  color: '#ffe600',
-                  letterSpacing: '1px',
+                  fontFamily: 'var(--font-vcr)',
+                  fontSize: viewState === 'stories' ? '0.82rem' : '0.96rem',
+                  color: '#00ff88',
+                  letterSpacing: '1.5px',
                   lineHeight: 1,
                   fontWeight: 700,
                 }}
               >
-                MEMPHIS RETRO STORIES • 80s/90s
+                VHS / VCR RETRO ENGINE • NTSC HI-FI
               </div>
             </div>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                background: '#ffffff',
-                border: '2px solid #111111',
-                borderRadius: '8px',
-                padding: '4px 12px',
-                fontFamily: 'var(--font-80s)',
-                fontSize: '0.80rem',
-                color: '#111111',
-                boxShadow: '2.5px 2.5px 0px #ff2a85',
-                letterSpacing: '0.5px',
-              }}
-            >
-              <span
-                style={{
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '50%',
-                  background: '#ff2a85',
-                  display: 'inline-block',
-                }}
-                className="animate-pulse"
-              />
-              <span>REC 80s</span>
-            </span>
+            <VcrOsdBadge text="REC ● NTSC" variant="rec" />
           </div>
         </header>
 
@@ -300,7 +212,8 @@ export default function HomePage() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '20px 16px',
+            padding: viewState === 'stories' ? '8px 10px' : '20px 16px',
+            width: '100%',
           }}
         >
           {viewState === 'idle' && (
@@ -311,14 +224,15 @@ export default function HomePage() {
                     maxWidth: '520px',
                     margin: '0 auto 16px auto',
                     padding: '12px 16px',
-                    borderRadius: '12px',
-                    background: '#ff66aa',
-                    border: '3px solid #111111',
-                    color: '#111111',
-                    fontFamily: 'var(--font-80s)',
-                    fontSize: '0.95rem',
+                    borderRadius: '8px',
+                    background: '#2a0c0c',
+                    border: '2px solid #ff3b30',
+                    color: '#ffffff',
+                    fontFamily: 'var(--font-vcr)',
+                    fontSize: '1.1rem',
+                    letterSpacing: '1px',
                     textAlign: 'center',
-                    boxShadow: '4px 4px 0px #111111',
+                    boxShadow: '0 8px 24px rgba(255, 59, 48, 0.4)',
                   }}
                 >
                   ⚠ {errorMessage}
@@ -337,22 +251,36 @@ export default function HomePage() {
           )}
         </div>
 
-        {/* Retro 80s Footer */}
+        {/* Retro 80s VCR Studio Footer */}
         <footer
           style={{
-            padding: '18px 20px',
+            padding: viewState === 'stories' ? '10px 14px' : '16px 20px',
             textAlign: 'center',
             color: '#ffffff',
-            fontSize: '0.85rem',
-            borderTop: '2px dashed rgba(255, 255, 255, 0.25)',
-            background: 'rgba(17, 17, 17, 0.75)',
-            backdropFilter: 'blur(6px)',
+            borderTop: '1px solid #1f2533',
+            background: 'rgba(9, 11, 16, 0.88)',
+            backdropFilter: 'blur(8px)',
           }}
         >
-          <div style={{ fontFamily: 'var(--font-80s)', fontSize: '0.95rem', color: '#ffe600', marginBottom: '4px' }}>
-            ★ UNIVERSÁRIO • MEMPHIS 80s/90s RETRO ENGINE ★
+          <div
+            style={{
+              fontFamily: 'var(--font-vcr)',
+              fontSize: viewState === 'stories' ? '0.90rem' : '1.05rem',
+              color: '#ffe600',
+              letterSpacing: '1.5px',
+              marginBottom: '2px',
+            }}
+          >
+            ★ UNIVERSÁRIO • VCR ARCHIVE ENGINE ★
           </div>
-          <p style={{ color: '#cbd5e1', fontSize: '0.80rem' }}>
+          <p
+            style={{
+              color: '#8b9bb4',
+              fontSize: viewState === 'stories' ? '0.76rem' : '0.84rem',
+              fontFamily: 'var(--font-mono)',
+              letterSpacing: '0.5px',
+            }}
+          >
             Paradas Nacionais & Internacionais, Astronomia & Arquivos Históricos em Stories 9:16
           </p>
         </footer>

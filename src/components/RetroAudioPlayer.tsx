@@ -182,18 +182,8 @@ export default function RetroAudioPlayer({
         audioFallbackRef.current.pause();
       }
       setIsPlaying(false);
-    } else {
-      if (hasInteracted) {
-        if (ytPlayerRef.current && typeof ytPlayerRef.current.playVideo === 'function') {
-          ytPlayerRef.current.playVideo();
-        }
-        if (audioFallbackRef.current && !isMuted) {
-          audioFallbackRef.current.play().catch(() => {});
-        }
-        setIsPlaying(true);
-      }
     }
-  }, [isStoryPaused, hasInteracted]);
+  }, [isStoryPaused]);
 
   const togglePlay = () => {
     setHasInteracted(true);
@@ -267,44 +257,43 @@ export default function RetroAudioPlayer({
           className="sound-prompt-pill animate-bounce-slow"
           style={{
             position: 'fixed',
-            bottom: '86px',
+            bottom: '24px',
             left: '50%',
             transform: 'translateX(-50%)',
             zIndex: 999,
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            background: '#ffe600',
-            border: '3px solid #111111',
-            color: '#111111',
-            padding: '9px 18px',
+            background: '#ff2a2a',
+            border: '2px solid #ffffff',
+            color: '#ffffff',
+            padding: '8px 18px',
             borderRadius: '999px',
-            fontFamily: 'var(--font-80s)',
-            fontSize: '0.82rem',
-            fontWeight: 800,
-            letterSpacing: '0.5px',
-            boxShadow: '4px 4px 0px #111111, 8px 8px 0px #ff2a85',
+            fontFamily: 'var(--font-vcr)',
+            fontSize: '0.86rem',
+            letterSpacing: '1px',
+            boxShadow: '0 8px 24px rgba(255, 42, 42, 0.6)',
             cursor: 'pointer',
             whiteSpace: 'nowrap',
+            maxWidth: 'calc(100vw - 24px)',
           }}
         >
-          <Volume2 size={18} className="animate-pulse" color="#ff2a85" />
+          <Volume2 size={18} className="animate-pulse" color="#ffe600" />
           <span>🔊 TOQUE PARA ATIVAR O HIT #1 DE {year}</span>
         </button>
       )}
 
-      {/* 80s Memphis Cassette Walkman Player Bar */}
+      {/* 80s VCR Audio Deck Player Bar */}
       <div
-        className="retro-walkman-bar memphis-card"
         style={{
           width: '100%',
-          maxWidth: '430px',
-          margin: '0 auto 12px auto',
-          background: '#ffffff',
-          border: '3px solid #111111',
-          borderRadius: '16px',
+          maxWidth: '460px',
+          margin: '0 auto 10px auto',
+          background: 'linear-gradient(180deg, #1c202a 0%, #0f1218 100%)',
+          border: '2px solid #333d52',
+          borderRadius: '10px',
           padding: '8px 12px',
-          boxShadow: '4px 4px 0px #111111, 8px 8px 0px #ffe600',
+          boxShadow: '0 8px 24px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1)',
           display: 'flex',
           flexDirection: 'column',
           gap: '6px',
@@ -314,7 +303,7 @@ export default function RetroAudioPlayer({
       >
         {/* Top Ticker: Track Info & Equalizer */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
-          {/* Equalizer Visualizer Bars */}
+          {/* LED Stereo Equalizer */}
           <div className={`equalizer-container ${isPlaying && !isMuted ? 'active' : ''}`}>
             <span className="eq-bar bar-1"></span>
             <span className="eq-bar bar-2"></span>
@@ -330,36 +319,36 @@ export default function RetroAudioPlayer({
               overflow: 'hidden',
               whiteSpace: 'nowrap',
               position: 'relative',
-              background: '#fffdf7',
-              border: '2px solid #111111',
-              borderRadius: '8px',
+              background: '#090b10',
+              border: '1px solid #283042',
+              borderRadius: '5px',
               padding: '4px 8px',
               display: 'flex',
               alignItems: 'center',
             }}
           >
             <div className="marquee-content">
-              <span style={{ color: '#111111', fontWeight: 800, fontSize: '0.78rem', marginRight: '6px' }}>
+              <span style={{ color: '#00ff88', fontFamily: 'var(--font-vcr)', fontSize: '0.80rem', marginRight: '6px' }}>
                 {activeItem?.icon} {activeItem?.label}:
               </span>
-              <span style={{ color: '#ff2a85', fontWeight: 900, fontSize: '0.80rem', marginRight: '8px' }}>
-                {activeTrack?.title || 'Carregando Música...'}
+              <span style={{ color: '#ffffff', fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '0.80rem', marginRight: '8px' }}>
+                {activeTrack?.title || 'Carregando Trilha Sonora...'}
               </span>
-              <span style={{ color: '#111111', fontWeight: 700, fontSize: '0.75rem', marginRight: '16px' }}>
+              <span style={{ color: '#a0aab8', fontFamily: 'var(--font-mono)', fontSize: '0.75rem', marginRight: '16px' }}>
                 • {activeTrack?.artist}
               </span>
               <span
                 style={{
                   background: '#ffe600',
                   color: '#111111',
-                  border: '1px solid #111111',
-                  borderRadius: '4px',
+                  borderRadius: '2px',
                   padding: '1px 4px',
-                  fontSize: '0.68rem',
-                  fontWeight: 800,
+                  fontSize: '0.62rem',
+                  fontFamily: 'var(--font-heading)',
+                  fontWeight: 900,
                 }}
               >
-                HIT DE {year}
+                HIT {year}
               </span>
             </div>
           </div>
@@ -377,20 +366,19 @@ export default function RetroAudioPlayer({
                 display: 'flex',
                 alignItems: 'center',
                 gap: '4px',
-                background: '#ff2a85',
-                border: '2px solid #111111',
-                borderRadius: '8px',
+                background: 'linear-gradient(180deg, #ff2a2a 0%, #aa1212 100%)',
+                border: '1px solid #ff6666',
+                borderRadius: '5px',
                 padding: '4px 8px',
                 color: '#ffffff',
                 fontSize: '0.72rem',
-                fontWeight: 800,
-                fontFamily: 'var(--font-80s)',
+                fontFamily: 'var(--font-heading)',
                 cursor: 'pointer',
-                boxShadow: '2px 2px 0px #111111',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.6)',
                 whiteSpace: 'nowrap',
               }}
             >
-              <Tv size={14} color="#ffffff" />
+              <Tv size={13} color="#ffffff" />
               <span>CLIPE</span>
             </button>
           )}
@@ -411,18 +399,18 @@ export default function RetroAudioPlayer({
                     setHasInteracted(true);
                   }}
                   style={{
-                    padding: '4px 9px',
-                    borderRadius: '8px',
-                    fontSize: '0.70rem',
-                    fontWeight: 800,
-                    fontFamily: 'var(--font-main)',
-                    background: isSelected ? '#00d2ff' : '#fffdf7',
-                    color: '#111111',
-                    border: '2px solid #111111',
-                    boxShadow: isSelected ? '2px 2px 0px #111111' : '1px 1px 0px #111111',
+                    padding: '3px 8px',
+                    borderRadius: '4px',
+                    fontSize: '0.68rem',
+                    fontFamily: 'var(--font-vcr)',
+                    letterSpacing: '0.5px',
+                    background: isSelected ? '#00ff88' : '#141822',
+                    color: isSelected ? '#000000' : '#a0aab8',
+                    border: `1px solid ${isSelected ? '#00ff88' : '#283042'}`,
                     cursor: 'pointer',
                     transition: 'all 0.15s',
                     whiteSpace: 'nowrap',
+                    fontWeight: isSelected ? 'bold' : 'normal',
                   }}
                 >
                   {item.icon} {item.id === 'billboard' ? 'Billboard' : item.id === 'radio' ? 'Rádios BR' : 'Vendas BR'}
@@ -431,7 +419,7 @@ export default function RetroAudioPlayer({
             })}
           </div>
 
-          {/* Audio Controls (Play/Pause, Mute/Unmute) */}
+          {/* Audio Mechanical Controls */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             {/* Play/Pause Button */}
             <button
@@ -440,20 +428,20 @@ export default function RetroAudioPlayer({
               aria-label={isPlaying ? 'Pausar música' : 'Tocar música'}
               title={isPlaying ? 'Pausar' : 'Tocar'}
               style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '8px',
-                background: isPlaying ? '#00d2ff' : '#ff2a85',
-                border: '2px solid #111111',
-                color: isPlaying ? '#111111' : '#ffffff',
+                width: '30px',
+                height: '30px',
+                borderRadius: '5px',
+                background: isPlaying ? '#00ff88' : '#ff2a2a',
+                border: '1px solid rgba(255,255,255,0.2)',
+                color: isPlaying ? '#000000' : '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                boxShadow: '2px 2px 0px #111111',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.6)',
               }}
             >
-              {isPlaying ? <Pause size={14} /> : <Play size={14} style={{ marginLeft: '1px' }} />}
+              {isPlaying ? <Pause size={13} /> : <Play size={13} style={{ marginLeft: '1px' }} />}
             </button>
 
             {/* Mute/Unmute Button */}
@@ -463,20 +451,20 @@ export default function RetroAudioPlayer({
               aria-label={isMuted ? 'Desmutar áudio' : 'Mutar áudio'}
               title={isMuted ? 'Ativar Som' : 'Silenciar'}
               style={{
-                width: '32px',
-                height: '32px',
-                borderRadius: '8px',
-                background: isMuted ? '#ff2a85' : '#ffe600',
-                border: '2px solid #111111',
-                color: isMuted ? '#ffffff' : '#111111',
+                width: '30px',
+                height: '30px',
+                borderRadius: '5px',
+                background: isMuted ? '#ff2a2a' : '#ffe600',
+                border: '1px solid rgba(255,255,255,0.2)',
+                color: '#111111',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                boxShadow: '2px 2px 0px #111111',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.6)',
               }}
             >
-              {isMuted ? <VolumeX size={14} color="#ffffff" /> : <Volume2 size={14} color="#111111" />}
+              {isMuted ? <VolumeX size={13} color="#ffffff" /> : <Volume2 size={13} color="#111111" />}
             </button>
           </div>
         </div>
@@ -498,14 +486,14 @@ export default function RetroAudioPlayer({
         <div id="retro-youtube-iframe-target"></div>
       </div>
 
-      {/* Retro 80s Woodgrain CRT Television Modal for Full Video */}
+      {/* Retro CRT Television Modal for Full Video */}
       {showTvModal && videoId && (
         <div
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(17, 17, 17, 0.88)',
-            backdropFilter: 'blur(6px)',
+            background: 'rgba(0, 0, 0, 0.9)',
+            backdropFilter: 'blur(8px)',
             zIndex: 99999,
             display: 'flex',
             alignItems: 'center',
@@ -515,15 +503,14 @@ export default function RetroAudioPlayer({
           onClick={() => setShowTvModal(false)}
         >
           <div
-            className="retro-tv-chassis"
             style={{
               width: '100%',
               maxWidth: '560px',
-              background: '#4a2511',
-              border: '6px solid #2b1407',
-              borderRadius: '24px',
+              background: '#161922',
+              border: '3px solid #3d465c',
+              borderRadius: '16px',
               padding: '16px',
-              boxShadow: '8px 8px 0px #111111, 0 20px 40px rgba(0,0,0,0.8)',
+              boxShadow: '0 20px 50px rgba(0,0,0,0.95)',
               position: 'relative',
             }}
             onClick={(e) => e.stopPropagation()}
@@ -535,7 +522,7 @@ export default function RetroAudioPlayer({
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 marginBottom: '10px',
-                borderBottom: '2px solid #733c1d',
+                borderBottom: '1px solid #2b3345',
                 paddingBottom: '6px',
               }}
             >
@@ -543,13 +530,13 @@ export default function RetroAudioPlayer({
                 <span style={{ fontSize: '1.2rem' }}>📺</span>
                 <span
                   style={{
-                    fontFamily: 'var(--font-80s)',
+                    fontFamily: 'var(--font-vcr)',
                     color: '#ffe600',
                     fontSize: '0.9rem',
                     letterSpacing: '1px',
                   }}
                 >
-                  TELEVISOR RETRÔ 80s
+                  VIDEO MONITOR • NTSC NATIVO
                 </span>
               </div>
 
@@ -557,29 +544,28 @@ export default function RetroAudioPlayer({
                 type="button"
                 onClick={() => setShowTvModal(false)}
                 style={{
-                  background: '#ff2a85',
-                  border: '2px solid #111111',
-                  borderRadius: '6px',
+                  background: '#ff2a2a',
+                  border: '1px solid #ff6666',
+                  borderRadius: '4px',
                   color: '#ffffff',
                   padding: '2px 6px',
                   cursor: 'pointer',
                   fontWeight: 'bold',
                 }}
               >
-                <X size={18} />
+                <X size={16} />
               </button>
             </div>
 
             {/* CRT Screen Video Embed Frame */}
             <div
-              className="crt-tv-screen"
               style={{
                 position: 'relative',
                 width: '100%',
                 paddingTop: '56.25%', // 16:9
                 background: '#000000',
-                borderRadius: '16px',
-                border: '4px solid #1a1a1a',
+                borderRadius: '8px',
+                border: '2px solid #000000',
                 overflow: 'hidden',
                 boxShadow: 'inset 0 0 20px rgba(0,0,0,0.9)',
               }}
@@ -614,14 +600,14 @@ export default function RetroAudioPlayer({
                 <span
                   style={{
                     display: 'inline-block',
-                    width: '10px',
-                    height: '10px',
+                    width: '8px',
+                    height: '8px',
                     borderRadius: '50%',
-                    background: '#00e676',
-                    boxShadow: '0 0 8px #00e676',
+                    background: '#00ff88',
+                    boxShadow: '0 0 8px #00ff88',
                   }}
                 />
-                <span style={{ color: '#ffffff', fontSize: '0.82rem', fontWeight: 700 }}>
+                <span style={{ color: '#ffffff', fontFamily: 'var(--font-mono)', fontSize: '0.82rem', fontWeight: 600 }}>
                   {activeTrack?.title} — {activeTrack?.artist}
                 </span>
               </div>
@@ -635,9 +621,10 @@ export default function RetroAudioPlayer({
                   alignItems: 'center',
                   gap: '4px',
                   color: '#00d2ff',
+                  fontFamily: 'var(--font-vcr)',
                   fontSize: '0.78rem',
                   textDecoration: 'none',
-                  fontWeight: 800,
+                  letterSpacing: '0.5px',
                 }}
               >
                 <span>Abrir YouTube</span>
@@ -671,7 +658,7 @@ export default function RetroAudioPlayer({
         }
         .eq-bar {
           width: 2.5px;
-          background: #ff2a85;
+          background: #ff2a2a;
           border-radius: 1px;
           height: 4px;
           transition: height 0.1s ease;
@@ -702,15 +689,10 @@ export default function RetroAudioPlayer({
           }
           100% {
             height: 7px;
-            background: #ff2a85;
+            background: #00ff88;
           }
         }
         @media (max-width: 480px) {
-          .retro-walkman-bar {
-            padding: 6px 8px !important;
-            border-radius: 12px !important;
-            margin-bottom: 8px !important;
-          }
           .sound-prompt-pill {
             bottom: 68px !important;
             font-size: 0.74rem !important;
@@ -721,4 +703,3 @@ export default function RetroAudioPlayer({
     </>
   );
 }
-
