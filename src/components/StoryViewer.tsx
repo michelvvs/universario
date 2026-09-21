@@ -30,6 +30,7 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
   const [isChannelSwitching, setIsChannelSwitching] = useState<boolean>(true);
 
   const activeSlideRef = useRef<HTMLDivElement>(null);
+  const storyWrapperRef = useRef<HTMLDivElement>(null);
   const hiddenSlideRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const slides = [
@@ -167,7 +168,7 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
         )}
 
         {/* 9:16 Story Frame with VCR Chassis Border */}
-        <div className="story-wrapper crt-overlay film-grain">
+        <div ref={storyWrapperRef} className="story-wrapper crt-overlay film-grain">
           {/* Authentic Worn VHS Slipcase Texture Overlay with Magnetic Ring Wear */}
           <div className="vhs-worn-sleeve-overlay" aria-hidden="true" />
 
@@ -296,7 +297,8 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
       >
         {/* Export Controls for PNG / ZIP */}
         <ExportControls
-          currentSlideElement={hiddenSlideRefs.current[currentSlideIndex] || activeSlideRef.current}
+          getCurrentSlideElement={() => storyWrapperRef.current || hiddenSlideRefs.current[currentSlideIndex]}
+          currentSlideElement={storyWrapperRef.current}
           allSlideElements={hiddenSlideRefs.current.filter((el): el is HTMLDivElement => el !== null)}
           formattedDate={data.formattedDate}
           onPause={() => {}}
@@ -316,7 +318,7 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
         </button>
       </div>
 
-      {/* Hidden 1080x1920 Story Canvas Elements for High-Res 9:16 PNG / ZIP Export */}
+      {/* Hidden 420x746.67 Story Elements for High-Res 1080x1920 PNG / ZIP Export */}
       <div
         style={{
           position: 'fixed',
@@ -333,16 +335,54 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
             ref={(el) => {
               hiddenSlideRefs.current[idx] = el;
             }}
+            className="story-wrapper crt-overlay film-grain"
             style={{
-              width: '1080px',
-              height: '1920px',
+              width: '420px',
+              height: '746.67px',
               transform: 'none',
               position: 'relative',
               overflow: 'hidden',
+              margin: 0,
             }}
           >
+            {/* Authentic Worn VHS Slipcase Texture Overlay with Magnetic Ring Wear */}
             <div className="vhs-worn-sleeve-overlay" aria-hidden="true" />
-            {slide.component}
+
+            {/* Classic Slipcase Cardboard Thumb Notch */}
+            <div className="vhs-thumb-notch" aria-hidden="true" />
+
+            {/* Top Progress Bars (Segmented Story Bars) */}
+            <div className="story-progress-container">
+              {slides.map((_, pIdx) => (
+                <div key={pIdx} className="story-progress-bar">
+                  <div
+                    className="story-progress-fill"
+                    style={{
+                      width: pIdx <= idx ? '100%' : '0%',
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Integrated Story Header */}
+            <div className="story-integrated-header">
+              <div className="story-integrated-header-left">
+                <span className="story-integrated-badge">📼 {data.name ? data.name.toUpperCase() : 'UNIVERSÁRIO'}</span>
+                <span className="story-integrated-sep">•</span>
+                <span className="story-integrated-topic">{slide.title}</span>
+              </div>
+              <div className="story-integrated-header-right">
+                <span className="story-integrated-date">
+                  {data.dayOfMonth} {data.monthName.slice(0, 3).toUpperCase()} {data.year}
+                </span>
+              </div>
+            </div>
+
+            {/* Slide Component */}
+            <div style={{ width: '100%', height: '100%' }}>
+              {slide.component}
+            </div>
           </div>
         ))}
       </div>

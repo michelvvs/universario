@@ -1,23 +1,47 @@
 import { toPng, toBlob } from 'html-to-image';
 import JSZip from 'jszip';
 
+function getExportOptions(element: HTMLElement, quality: number = 0.98) {
+  const rect = element.getBoundingClientRect();
+  const width = rect.width || element.offsetWidth || 420;
+  const ratio = 1080 / width;
+
+  return {
+    quality,
+    pixelRatio: ratio,
+    cacheBust: true,
+    canvasWidth: 1080,
+    canvasHeight: 1920,
+    filter: (node: Node) => {
+      if (node instanceof HTMLElement) {
+        if (
+          node.classList.contains('story-touch-left') ||
+          node.classList.contains('story-touch-right') ||
+          node.classList.contains('tv-static-burst') ||
+          node.classList.contains('tv-beam-line') ||
+          node.classList.contains('tv-channel-hud')
+        ) {
+          return false;
+        }
+      }
+      return true;
+    },
+    style: {
+      borderRadius: '0px',
+      transform: 'none',
+      boxShadow: 'none',
+      border: 'none',
+      margin: '0',
+    },
+  };
+}
+
 export async function captureElementAsPng(
   element: HTMLElement,
   fileName: string = 'story-universario.png'
 ): Promise<string> {
   try {
-    // Render at high resolution for Instagram Stories (1080x1920)
-    const dataUrl = await toPng(element, {
-      quality: 0.98,
-      pixelRatio: 2.5,
-      cacheBust: true,
-      skipFonts: false,
-      style: {
-        borderRadius: '0px',
-        transform: 'none',
-      },
-    });
-
+    const dataUrl = await toPng(element, getExportOptions(element, 0.98));
     return dataUrl;
   } catch (error) {
     console.error('Erro ao gerar imagem:', error);
@@ -40,15 +64,7 @@ export async function shareOrDownloadSlide(
   fileName: string = 'universario-story.png'
 ): Promise<void> {
   try {
-    const blob = await toBlob(element, {
-      quality: 0.98,
-      pixelRatio: 2.5,
-      cacheBust: true,
-      style: {
-        borderRadius: '0px',
-        transform: 'none',
-      },
-    });
+    const blob = await toBlob(element, getExportOptions(element, 0.98));
 
     if (!blob) throw new Error('Não foi possível gerar a imagem.');
 
@@ -89,15 +105,7 @@ export async function downloadAllStoriesAsZip(
   for (let i = 0; i < slideElements.length; i++) {
     const el = slideElements[i];
     try {
-      const blob = await toBlob(el, {
-        quality: 0.95,
-        pixelRatio: 2.5,
-        cacheBust: true,
-        style: {
-          borderRadius: '0px',
-          transform: 'none',
-        },
-      });
+      const blob = await toBlob(el, getExportOptions(el, 0.95));
 
       if (blob) {
         folder?.file(`story_${i + 1}_universario.png`, blob);

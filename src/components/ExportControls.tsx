@@ -5,7 +5,8 @@ import { Share2, Archive, Loader2, Sparkles, Check, Download, Video } from 'luci
 import { shareOrDownloadSlide, downloadAllStoriesAsZip } from '@/lib/export-image';
 
 interface ExportControlsProps {
-  currentSlideElement: HTMLElement | null;
+  currentSlideElement?: HTMLElement | null;
+  getCurrentSlideElement?: () => HTMLElement | null;
   allSlideElements: HTMLElement[];
   formattedDate: string;
   onPause: () => void;
@@ -14,6 +15,7 @@ interface ExportControlsProps {
 
 export default function ExportControls({
   currentSlideElement,
+  getCurrentSlideElement,
   allSlideElements,
   formattedDate,
   onPause,
@@ -24,12 +26,13 @@ export default function ExportControls({
   const [isCopied, setIsCopied] = useState(false);
 
   const handleExportSingle = async () => {
-    if (!currentSlideElement) return;
+    const el = getCurrentSlideElement ? getCurrentSlideElement() : currentSlideElement;
+    if (!el) return;
     try {
       onPause();
       setIsExportingSingle(true);
       await shareOrDownloadSlide(
-        currentSlideElement,
+        el,
         `Meu Universário - ${formattedDate}`,
         `universario-story-${formattedDate.replace(/[^a-zA-Z0-9]/g, '_')}.png`
       );
