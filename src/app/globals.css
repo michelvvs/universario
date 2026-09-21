@@ -618,10 +618,12 @@ body {
   flex-direction: column;
   justify-content: space-between;
   /* Instagram Stories Safe Zone Margins (1080x1920 9:16 Standard):
-     - Top: header at 21.8% + header height + gap -> padding-top: calc(21.8% + 28px)
-     - Bottom: ~270px (14.0% of height = 24.9% of width) protects reply bar, heart, share
-     - Sides: ~48px (4.4% of width) protects edge cropping */
-  padding: calc(21.8% + 28px) 4.4% 24.9% 4.4%;
+     - Top Safe Zone (0-240px empty for IG avatar/username/X)
+     - Header at 13.5% of height (~260px)
+     - Content padding-top: 30.0% of width (~324px on 1080x1920)
+     - Bottom Safe Zone (24.9% of width = 270px on 1080x1920 for IG reply bar)
+     - Sides: 4.4% of width (~48px) */
+  padding: 30.0% 4.4% 24.9% 4.4%;
   overflow: hidden;
   box-sizing: border-box;
   scrollbar-width: none;
@@ -1028,7 +1030,7 @@ body {
 
 .story-integrated-header {
   position: absolute;
-  top: 21.8%;
+  top: 13.5%;
   left: 4.4%;
   right: 4.4%;
   display: flex;
@@ -1042,6 +1044,16 @@ body {
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   pointer-events: none;
+}
+
+.story-integrated-rec {
+  font-family: var(--font-vcr);
+  font-size: clamp(0.70rem, 2vw, 0.78rem);
+  color: #ff3b30;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-right: 6px;
+  text-shadow: 0 0 6px rgba(255, 59, 48, 0.7);
 }
 
 .story-integrated-header-left {

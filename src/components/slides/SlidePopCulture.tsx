@@ -30,61 +30,35 @@ export default function SlidePopCulture({ data }: SlideProps) {
       />
       <ScotchTape width={36} height={12} rotate={-10} style={{ top: '13.5%', right: '14px', zIndex: 21 }} />
 
-      {/* Top Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', zIndex: 3 }}>
-        <VcrOsdBadge text="CINEMA & TV" variant="play" />
-        <span
+      {/* Cinema & Pop Culture Main Header: Synthesized & Clean */}
+      <div style={{ textAlign: 'center', zIndex: 2, marginBottom: '6px' }}>
+        <h2
           style={{
-            fontFamily: 'var(--font-vcr)',
-            color: '#a0a5b5',
-            fontSize: 'clamp(0.72rem, 2.1vw, 0.85rem)',
-            letterSpacing: '1px',
+            fontSize: 'clamp(1.2rem, 4.2vw, 1.55rem)',
+            fontWeight: 900,
+            fontFamily: "'Archivo Black', sans-serif",
+            color: '#ffffff',
+            lineHeight: 1.1,
+            letterSpacing: '0.8px',
+            textShadow: '0 2px 6px rgba(0,0,0,0.9), 0 0 12px rgba(0, 229, 255, 0.35)',
+            textTransform: 'uppercase',
+            margin: 0,
           }}
         >
-          TELAS DE {year}
-        </span>
-        <VcrOsdBadge text="BILHETERIA" variant="sp" />
-      </div>
-
-      {/* VHS Rental Sleeve Banner */}
-      <div
-        style={{
-          width: '100%',
-          background: 'linear-gradient(90deg, #102048 0%, #1e3a8a 50%, #102048 100%)',
-          padding: 'clamp(4px, 1vh, 6px) clamp(8px, 2vw, 12px)',
-          borderRadius: '4px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          border: '1px solid rgba(255, 230, 0, 0.4)',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.6)',
-          zIndex: 2,
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <Clapperboard size={15} color="#ffe600" />
-          <span
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(0.72rem, 2.2vw, 0.84rem)',
-              color: '#ffffff',
-              letterSpacing: '0.8px',
-              textTransform: 'uppercase',
-            }}
-          >
-            O QUE ESTAVA NAS TELAS {getWhenBornPhrase(data.name, data.gender).toUpperCase()}
-          </span>
+          CINEMA & TELAS
+        </h2>
+        <div
+          style={{
+            fontFamily: "'Share Tech Mono', monospace",
+            fontSize: 'clamp(0.68rem, 2vw, 0.76rem)',
+            color: 'var(--vhs-gold)',
+            letterSpacing: '0.5px',
+            marginTop: '3px',
+            fontWeight: 700,
+          }}
+        >
+          O QUE FAZIA SUCESSO {getWhenBornPhrase(data.name, data.gender).toUpperCase()}
         </div>
-        <span
-          style={{
-            fontFamily: 'var(--font-vcr)',
-            color: '#ffe600',
-            fontSize: 'clamp(0.65rem, 1.9vw, 0.75rem)',
-            fontWeight: 'bold',
-          }}
-        >
-          CINEMA & TV
-        </span>
       </div>
 
       {/* Blockbuster Cinema Champion Tape Box */}

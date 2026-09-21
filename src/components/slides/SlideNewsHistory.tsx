@@ -36,81 +36,35 @@ export default function SlideNewsHistory({ data }: SlideProps) {
       />
       <ScotchTape width={36} height={12} rotate={14} style={{ top: '13.5%', right: '14px', zIndex: 21 }} />
 
-      {/* VCR OSD Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', zIndex: 3 }}>
-        <VcrOsdBadge text={`REC ● EDIÇÃO ${year}`} variant="rec" />
-        <span
-          style={{
-            fontFamily: 'var(--font-vcr)',
-            color: '#a0a5b5',
-            fontSize: 'clamp(0.72rem, 2.1vw, 0.85rem)',
-            letterSpacing: '1px',
-          }}
-        >
-          NOTICIÁRIO MUNDIAL
-        </span>
-        <VcrOsdBadge text="EDIÇÃO MUNDIAL" variant="sp" />
-      </div>
-
-      {/* VHS Sleeve Brand Header */}
-      <div
-        style={{
-          width: '100%',
-          background: 'linear-gradient(90deg, #b31217 0%, #e52d27 50%, #b31217 100%)',
-          padding: 'clamp(4px, 1vh, 6px) clamp(8px, 2vw, 12px)',
-          borderRadius: '4px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          border: '1px solid rgba(255, 255, 255, 0.25)',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.6)',
-          zIndex: 2,
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <Newspaper size={16} color="#ffffff" />
-          <span
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(0.75rem, 2.3vw, 0.9rem)',
-              color: '#ffffff',
-              letterSpacing: '1px',
-              textTransform: 'uppercase',
-            }}
-          >
-            ARQUIVO DE MANCHETES • {year}
-          </span>
-        </div>
-        <span
-          style={{
-            fontFamily: 'var(--font-vcr)',
-            color: '#ffe600',
-            fontSize: 'clamp(0.68rem, 2vw, 0.78rem)',
-            fontWeight: 'bold',
-          }}
-        >
-          NOTÍCIAS DA ÉPOCA
-        </span>
-      </div>
-
-      {/* Main Title Banner with Dymo Label */}
-      <div style={{ textAlign: 'center', zIndex: 2 }}>
-        <div style={{ display: 'inline-block', marginBottom: '2px' }}>
-          <DymoLabel text={`O MUNDO ${getWhenBornPhrase(data.name, data.gender).toUpperCase()}`} color="red" />
-        </div>
+      {/* News Main Header: Synthesized & Clean */}
+      <div style={{ textAlign: 'center', zIndex: 2, marginBottom: '6px' }}>
         <h2
           style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(1.05rem, 3.5vw, 1.35rem)',
+            fontSize: 'clamp(1.2rem, 4.2vw, 1.55rem)',
+            fontWeight: 900,
+            fontFamily: "'Archivo Black', sans-serif",
             color: '#ffffff',
-            lineHeight: 1.15,
-            textShadow: '0 2px 8px rgba(0,0,0,0.8), 0 0 10px rgba(255, 42, 42, 0.4)',
-            letterSpacing: '0.5px',
+            lineHeight: 1.1,
+            letterSpacing: '0.8px',
+            textShadow: '0 2px 6px rgba(0,0,0,0.9), 0 0 12px rgba(255, 42, 42, 0.35)',
             textTransform: 'uppercase',
+            margin: 0,
           }}
         >
-          O QUE MARCAVA AS PÁGINAS EM {year}
+          MANCHETES HISTÓRICAS
         </h2>
+        <div
+          style={{
+            fontFamily: "'Share Tech Mono', monospace",
+            fontSize: 'clamp(0.68rem, 2vw, 0.76rem)',
+            color: 'var(--vhs-gold)',
+            letterSpacing: '0.5px',
+            marginTop: '3px',
+            fontWeight: 700,
+          }}
+        >
+          O QUE MARCAVA O MUNDO {getWhenBornPhrase(data.name, data.gender).toUpperCase()}
+        </div>
       </div>
 
       {/* Photo-Collage Newspaper Clippings */}

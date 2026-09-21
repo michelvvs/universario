@@ -30,81 +30,35 @@ export default function SlideCosmicStats({ data }: SlideProps) {
       />
       <ScotchTape width={36} height={12} rotate={12} style={{ top: '13.5%', right: '14px', zIndex: 21 }} />
 
-      {/* Top Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', zIndex: 3 }}>
-        <VcrOsdBadge text="PLACAR CÓSMICO" variant="tracking" />
-        <span
-          style={{
-            fontFamily: 'var(--font-vcr)',
-            color: '#a0a5b5',
-            fontSize: 'clamp(0.72rem, 2.1vw, 0.85rem)',
-            letterSpacing: '1px',
-          }}
-        >
-          SEUS NÚMEROS DESDE {data.year}
-        </span>
-        <VcrOsdBadge text="TEMPO DE VIDA" variant="sp" />
-      </div>
-
-      {/* VHS Sleeve Brand Header */}
-      <div
-        style={{
-          width: '100%',
-          background: 'linear-gradient(90deg, #0b2e2b 0%, #0d5952 50%, #0b2e2b 100%)',
-          padding: 'clamp(4px, 1vh, 6px) clamp(8px, 2vw, 12px)',
-          borderRadius: '4px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          border: '1px solid rgba(0, 255, 204, 0.4)',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.6)',
-          zIndex: 2,
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <Gauge size={15} color="#00ffcc" />
-          <span
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(0.75rem, 2.3vw, 0.88rem)',
-              color: '#ffffff',
-              letterSpacing: '1px',
-              textTransform: 'uppercase',
-            }}
-          >
-            ODÔMETRO VITAL & CÓSMICO
-          </span>
-        </div>
-        <span
-          style={{
-            fontFamily: 'var(--font-vcr)',
-            color: '#00ffcc',
-            fontSize: 'clamp(0.65rem, 1.9vw, 0.75rem)',
-            fontWeight: 'bold',
-          }}
-        >
-          VFD DISPLAY
-        </span>
-      </div>
-
-      {/* Main Title Banner with Dymo Label */}
-      <div style={{ textAlign: 'center', zIndex: 2, paddingRight: '35px' }}>
-        <div style={{ display: 'inline-block', marginBottom: '2px' }}>
-          <DymoLabel text={`DESDE QUE ${getWhenBornPhrase(data.name, data.gender).toUpperCase()}`} color="blue" />
-        </div>
+      {/* Cosmic Stats Main Header: Synthesized & Clean */}
+      <div style={{ textAlign: 'center', zIndex: 2, marginBottom: '6px' }}>
         <h2
           style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(1.1rem, 3.6vw, 1.45rem)',
+            fontSize: 'clamp(1.2rem, 4.2vw, 1.55rem)',
+            fontWeight: 900,
+            fontFamily: "'Archivo Black', sans-serif",
             color: '#ffffff',
             lineHeight: 1.1,
-            textShadow: '0 2px 8px rgba(0,0,0,0.8), 0 0 10px rgba(0, 255, 204, 0.4)',
-            letterSpacing: '0.5px',
+            letterSpacing: '0.8px',
+            textShadow: '0 2px 6px rgba(0,0,0,0.9), 0 0 12px rgba(0, 255, 204, 0.35)',
             textTransform: 'uppercase',
+            margin: 0,
           }}
         >
-          ODÔMETRO DA SUA JORNADA CÓSMICA
+          ODÔMETRO CÓSMICO
         </h2>
+        <div
+          style={{
+            fontFamily: "'Share Tech Mono', monospace",
+            fontSize: 'clamp(0.68rem, 2vw, 0.76rem)',
+            color: 'var(--vhs-cyan)',
+            letterSpacing: '0.5px',
+            marginTop: '3px',
+            fontWeight: 700,
+          }}
+        >
+          SEUS NÚMEROS DESDE QUE {getWhenBornPhrase(data.name, data.gender).toUpperCase()}
+        </div>
       </div>
 
       {/* VCR Diagnostic Panel - Glowing Vacuum Fluorescent Display */}

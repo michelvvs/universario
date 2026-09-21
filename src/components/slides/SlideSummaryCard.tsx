@@ -15,22 +15,7 @@ export default function SlideSummaryCard({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-summary">
-      {/* Top Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', zIndex: 3 }}>
-        <VcrOsdBadge text="RESUMO FINAL" variant="rec" />
-        <span
-          style={{
-            fontFamily: 'var(--font-vcr)',
-            color: '#ffe600',
-            fontSize: 'clamp(0.72rem, 2.1vw, 0.85rem)',
-            letterSpacing: '1.5px',
-            fontWeight: 'bold',
-          }}
-        >
-          PASSAPORTE VIP • {data.year}
-        </span>
-        <VcrOsdBadge text="COMPLETO" variant="sp" />
-      </div>
+
 
       {/* Deluxe Gold Master Header Strip */}
       <div

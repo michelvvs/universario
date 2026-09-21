@@ -69,34 +69,34 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
 
   return (
     <div className={`slide-vhs-canvas slide-theme-${categoryId === 'billboard' ? 'billboard' : categoryId === 'sales_br' ? 'sales' : 'radio'}`} style={{ position: 'relative' }}>
-      {/* Top Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 2, padding: '0 2px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-          <VcrOsdBadge text="PLAY ▶" variant="play" />
-          <VcrOsdBadge text="TOP PARADAS" variant="sp" />
-        </div>
-        <DymoLabel text={config.categoryName.toUpperCase()} color={config.badgeColor} fontSize="0.60rem" />
-      </div>
-
-      {/* Category Title */}
-      <div style={{ textAlign: 'center', zIndex: 2, margin: '2px 0 6px 0' }}>
-        <div style={{ display: 'inline-block' }}>
-          <div
-            style={{
-              fontSize: 'clamp(1.05rem, 3.8vw, 1.4rem)',
-              fontWeight: 900,
-              fontFamily: "'Archivo Black', sans-serif",
-              color: '#ffffff',
-              lineHeight: 1.1,
-              letterSpacing: '0.5px',
-              textShadow: '0 2px 6px rgba(0,0,0,0.9)',
-            }}
-          >
-            TOP 5 • {config.categoryName.toUpperCase()}
-          </div>
-          <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: '0.64rem', color: 'var(--vhs-gold)', letterSpacing: '0.5px', marginTop: '2px' }}>
-            {dynamicSubtitle.toUpperCase()} ({data.monthName.toUpperCase()} DE {data.year})
-          </div>
+      {/* Category Main Header: Synthesized & Clean */}
+      <div style={{ textAlign: 'center', zIndex: 2, marginBottom: '6px' }}>
+        <h2
+          style={{
+            fontSize: 'clamp(1.2rem, 4.2vw, 1.55rem)',
+            fontWeight: 900,
+            fontFamily: "'Archivo Black', sans-serif",
+            color: '#ffffff',
+            lineHeight: 1.1,
+            letterSpacing: '0.8px',
+            textShadow: '0 2px 6px rgba(0,0,0,0.9), 0 0 12px rgba(255, 230, 0, 0.25)',
+            textTransform: 'uppercase',
+            margin: 0,
+          }}
+        >
+          TOP 5 • {config.categoryName.toUpperCase()}
+        </h2>
+        <div
+          style={{
+            fontFamily: "'Share Tech Mono', monospace",
+            fontSize: 'clamp(0.68rem, 2vw, 0.76rem)',
+            color: 'var(--vhs-gold)',
+            letterSpacing: '0.5px',
+            marginTop: '3px',
+            fontWeight: 700,
+          }}
+        >
+          {dynamicSubtitle.toUpperCase()}
         </div>
       </div>
 

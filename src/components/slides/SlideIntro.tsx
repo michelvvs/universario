@@ -14,28 +14,13 @@ export default function SlideIntro({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-maxell" style={{ position: 'relative' }}>
-      {/* Top Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 2, padding: '0 4px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <VcrOsdBadge text="REC ●" type="rec" glowColor="#ff3b30" />
-          <VcrOsdBadge text="00:00:01" type="time" glowColor="#00ff66" />
-        </div>
-        <VhsGoldSeal title="EDIÇÃO HISTÓRICA" subtitle={`ANO DE ${data.year}`} />
-      </div>
-
       {/* 4-Color Vintage Blank Tape Rainbow Racing Stripes */}
-      <div style={{ zIndex: 2, margin: '3px 0' }}>
+      <div style={{ zIndex: 2, margin: '2px 0 6px 0' }}>
         <VhsRainbowBand height={8} />
       </div>
 
       {/* Main Sleeve Header & Giant Gold Year */}
-      <div style={{ zIndex: 2, textAlign: 'center', marginTop: '1px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '2px' }}>
-          <span style={{ fontFamily: "'Archivo Black', sans-serif", fontSize: '0.72rem', color: '#ffd600', letterSpacing: '1px' }}>
-            ★ EDIÇÃO ESPECIAL DE ANIVERSÁRIO
-          </span>
-        </div>
-
+      <div style={{ zIndex: 2, textAlign: 'center' }}>
         <SharpieLabel
           text={`GRAVAÇÃO ORIGINAL • ${displayName.toUpperCase()}`}
           subtext={`O MUNDO ${getWhenBornPhrase(data.name, data.gender).toUpperCase()} • ${data.year}`}
@@ -43,10 +28,10 @@ export default function SlideIntro({ data }: SlideProps) {
         />
 
         {/* Giant 80s Gold Foil Typography Year with Chromatic Glow */}
-        <div style={{ position: 'relative', display: 'inline-block', margin: '3px 0 1px 0' }}>
+        <div style={{ position: 'relative', display: 'inline-block', margin: '4px 0 2px 0' }}>
           <h1
             style={{
-              fontSize: 'clamp(2.9rem, 10.5vw, 4.4rem)',
+              fontSize: 'clamp(3.0rem, 11vw, 4.4rem)',
               fontWeight: 900,
               fontFamily: "'Archivo Black', sans-serif",
               lineHeight: 0.92,
@@ -59,11 +44,6 @@ export default function SlideIntro({ data }: SlideProps) {
           >
             {data.year}
           </h1>
-        </div>
-
-        {/* Subtitle Tape Spec */}
-        <div style={{ marginTop: '2px' }}>
-          <VhsTapeSpecBadge format={`ANO DE ${data.year}`} grade="EDIÇÃO ESPECIAL" length="UNIVERSÁRIO" />
         </div>
       </div>
 

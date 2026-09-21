@@ -97,48 +97,35 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
       />
       <ScotchTape width={38} height={12} rotate={16} style={{ top: '26%', right: '14px', zIndex: 21 }} />
 
-      {/* Top Fuji & VCR OSD Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 2, padding: '0 4px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <VcrOsdBadge text="ASTRONOMIA" variant="tracking" />
-          <VcrOsdBadge text="CÉU NOTURNO" variant="sp" />
-        </div>
-        <div
-          style={{
-            fontFamily: "'Share Tech Mono', monospace",
-            fontSize: '0.66rem',
-            color: '#ffffff',
-            background: 'linear-gradient(90deg, #e50914, #ff9100, #ffd700, #00e676, #00b0ff, #9c27b0)',
-            padding: '2px 8px',
-            borderRadius: '2px',
-            fontWeight: 900,
-            letterSpacing: '1px',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.5)',
-          }}
-        >
-          MAPA CELESTE
-        </div>
-      </div>
-
-      {/* Title & Moon Phase Dymo */}
-      <div style={{ textAlign: 'center', zIndex: 2, marginTop: '2px' }}>
-        <div style={{ marginBottom: '2px' }}>
-          <DymoLabel text={`O CÉU ${getWhenBornPhrase(data.name, data.gender).toUpperCase()}`} color="blue" rotate={-1} fontSize="0.64rem" />
-        </div>
-
+      {/* Moon Phase Main Header: Synthesized & Clean */}
+      <div style={{ textAlign: 'center', zIndex: 2, marginBottom: '4px' }}>
         <h2
           style={{
-            fontSize: 'clamp(1.2rem, 4.5vw, 1.65rem)',
+            fontSize: 'clamp(1.25rem, 4.5vw, 1.65rem)',
             fontWeight: 900,
             fontFamily: "'Archivo Black', sans-serif",
             lineHeight: 1.1,
             color: '#ffffff',
             textShadow: '0 2px 8px rgba(0, 229, 255, 0.5), 0 0 2px #000',
-            letterSpacing: '0.5px',
+            letterSpacing: '0.8px',
+            textTransform: 'uppercase',
+            margin: 0,
           }}
         >
           {astronomy.moonPhaseName.toUpperCase()}
         </h2>
+        <div
+          style={{
+            fontFamily: "'Share Tech Mono', monospace",
+            fontSize: 'clamp(0.68rem, 2vw, 0.76rem)',
+            color: 'var(--vhs-cyan)',
+            letterSpacing: '0.5px',
+            marginTop: '3px',
+            fontWeight: 700,
+          }}
+        >
+          O CÉU {getWhenBornPhrase(data.name, data.gender).toUpperCase()}
+        </div>
 
         <div
           style={{

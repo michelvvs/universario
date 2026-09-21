@@ -213,10 +213,9 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
           <div className="story-integrated-header">
             <div className="story-integrated-header-left">
               <span className="story-integrated-badge">📼 {data.name ? data.name.toUpperCase() : 'UNIVERSÁRIO'}</span>
-              <span className="story-integrated-sep">•</span>
-              <span className="story-integrated-topic">{slides[currentSlideIndex]?.title || ''}</span>
             </div>
             <div className="story-integrated-header-right">
+              <span className="story-integrated-rec">REC ●</span>
               <span className="story-integrated-date">
                 {data.dayOfMonth} {data.monthName.slice(0, 3).toUpperCase()} {data.year}
               </span>
@@ -355,10 +354,9 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
             <div className="story-integrated-header">
               <div className="story-integrated-header-left">
                 <span className="story-integrated-badge">📼 {data.name ? data.name.toUpperCase() : 'UNIVERSÁRIO'}</span>
-                <span className="story-integrated-sep">•</span>
-                <span className="story-integrated-topic">{slide.title}</span>
               </div>
               <div className="story-integrated-header-right">
+                <span className="story-integrated-rec">REC ●</span>
                 <span className="story-integrated-date">
                   {data.dayOfMonth} {data.monthName.slice(0, 3).toUpperCase()} {data.year}
                 </span>
