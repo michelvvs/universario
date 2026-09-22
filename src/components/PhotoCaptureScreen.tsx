@@ -80,36 +80,56 @@ export default function PhotoCaptureScreen({
       // Dynamic import ensures client-side WebAssembly execution with 0 SSR issues
       const { removeBackground } = await import('@imgly/background-removal');
       const cutoutBlob = await removeBackground(blob);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setCapturedPhoto(reader.result as string);
+
+      // Re-apply the tight oval clip on the cutout to guarantee 0 residual pixels outside the dashed boundary
+      const cutoutImg = new Image();
+      cutoutImg.onload = () => {
+        const w = cutoutImg.width;
+        const h = cutoutImg.height;
+        const finalCanvas = document.createElement('canvas');
+        finalCanvas.width = w;
+        finalCanvas.height = h;
+        const fCtx = finalCanvas.getContext('2d');
+        if (!fCtx) {
+          setIsProcessingBg(false);
+          return;
+        }
+
+        fCtx.save();
+        fCtx.beginPath();
+        fCtx.ellipse(w / 2, h / 2, w / 2, h / 2, 0, 0, Math.PI * 2);
+        fCtx.closePath();
+        fCtx.clip();
+        fCtx.drawImage(cutoutImg, 0, 0);
+        fCtx.restore();
+
+        const dataUrl = finalCanvas.toDataURL('image/png');
+        setCapturedPhoto(dataUrl);
         setIsProcessingBg(false);
       };
-      reader.readAsDataURL(cutoutBlob);
+      cutoutImg.src = URL.createObjectURL(cutoutBlob);
     } catch (err) {
       console.warn('Fallback to canvas cutout without frame:', err);
       const img = new Image();
       img.onload = () => {
-        const size = Math.min(img.width, img.height);
-        const startX = (img.width - size) / 2;
-        const startY = (img.height - size) / 2;
-
+        const w = img.width;
+        const h = img.height;
         const canvas = document.createElement('canvas');
-        canvas.width = 400;
-        canvas.height = 400;
+        canvas.width = w;
+        canvas.height = h;
         const ctx = canvas.getContext('2d');
         if (!ctx) {
           setIsProcessingBg(false);
           return;
         }
 
-        // Clean oval mask without any frame/border
+        // Clean oval mask strictly within the dashed guide, completely without frame/border
         ctx.save();
         ctx.beginPath();
-        ctx.ellipse(200, 200, 160, 185, 0, 0, Math.PI * 2);
+        ctx.ellipse(w / 2, h / 2, w / 2, h / 2, 0, 0, Math.PI * 2);
         ctx.closePath();
         ctx.clip();
-        ctx.drawImage(img, startX, startY, size, size, 0, 0, 400, 400);
+        ctx.drawImage(img, 0, 0);
         ctx.restore();
 
         const dataUrl = canvas.toDataURL('image/png');
@@ -135,20 +155,57 @@ export default function PhotoCaptureScreen({
     const startX = (videoWidth - size) / 2;
     const startY = (videoHeight - size) / 2;
 
-    const canvas = document.createElement('canvas');
-    canvas.width = 512;
-    canvas.height = 512;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    // First render square video
+    const squareCanvas = document.createElement('canvas');
+    squareCanvas.width = 512;
+    squareCanvas.height = 512;
+    const sCtx = squareCanvas.getContext('2d');
+    if (!sCtx) return;
 
     // Flip horizontally for natural selfie reflection
-    ctx.translate(canvas.width, 0);
-    ctx.scale(-1, 1);
-    ctx.drawImage(video, startX, startY, size, size, 0, 0, 512, 512);
+    sCtx.translate(squareCanvas.width, 0);
+    sCtx.scale(-1, 1);
+    sCtx.drawImage(video, startX, startY, size, size, 0, 0, 512, 512);
 
     stopCamera();
 
-    canvas.toBlob((blob) => {
+    // Now extract ONLY the content strictly inside the dashed oval (68% width, 80% height)
+    // rx = 512 * 0.68 / 2 = 174, ry = 512 * 0.80 / 2 = 204
+    const rx = Math.round(512 * 0.68 / 2);
+    const ry = Math.round(512 * 0.80 / 2);
+    const cropW = rx * 2;
+    const cropH = ry * 2;
+    const cropLeft = 256 - rx;
+    const cropTop = 256 - ry;
+
+    const croppedCanvas = document.createElement('canvas');
+    croppedCanvas.width = cropW;
+    croppedCanvas.height = cropH;
+    const cCtx = croppedCanvas.getContext('2d');
+    if (!cCtx) return;
+
+    // Oval clip strictly to dashed guide
+    cCtx.save();
+    cCtx.beginPath();
+    cCtx.ellipse(rx, ry, rx, ry, 0, 0, Math.PI * 2);
+    cCtx.closePath();
+    cCtx.clip();
+
+    // Draw only the dashed area into the cropped canvas
+    cCtx.drawImage(
+      squareCanvas,
+      cropLeft,
+      cropTop,
+      cropW,
+      cropH,
+      0,
+      0,
+      cropW,
+      cropH
+    );
+    cCtx.restore();
+
+    croppedCanvas.toBlob((blob) => {
       if (blob) {
         processImageCutout(blob);
       }
@@ -160,7 +217,64 @@ export default function PhotoCaptureScreen({
     const file = e.target.files?.[0];
     if (!file) return;
     stopCamera();
-    processImageCutout(file);
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        const size = Math.min(img.width, img.height);
+        const startX = (img.width - size) / 2;
+        const startY = (img.height - size) / 2;
+
+        const squareCanvas = document.createElement('canvas');
+        squareCanvas.width = 512;
+        squareCanvas.height = 512;
+        const sCtx = squareCanvas.getContext('2d');
+        if (!sCtx) return;
+
+        sCtx.drawImage(img, startX, startY, size, size, 0, 0, 512, 512);
+
+        const rx = Math.round(512 * 0.68 / 2);
+        const ry = Math.round(512 * 0.80 / 2);
+        const cropW = rx * 2;
+        const cropH = ry * 2;
+        const cropLeft = 256 - rx;
+        const cropTop = 256 - ry;
+
+        const croppedCanvas = document.createElement('canvas');
+        croppedCanvas.width = cropW;
+        croppedCanvas.height = cropH;
+        const cCtx = croppedCanvas.getContext('2d');
+        if (!cCtx) return;
+
+        cCtx.save();
+        cCtx.beginPath();
+        cCtx.ellipse(rx, ry, rx, ry, 0, 0, Math.PI * 2);
+        cCtx.closePath();
+        cCtx.clip();
+
+        cCtx.drawImage(
+          squareCanvas,
+          cropLeft,
+          cropTop,
+          cropW,
+          cropH,
+          0,
+          0,
+          cropW,
+          cropH
+        );
+        cCtx.restore();
+
+        croppedCanvas.toBlob((blob) => {
+          if (blob) {
+            processImageCutout(blob);
+          }
+        }, 'image/png');
+      };
+      img.src = event.target?.result as string;
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleRetake = () => {
