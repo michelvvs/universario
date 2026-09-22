@@ -424,7 +424,7 @@ body {
   position: relative;
   aspect-ratio: 9 / 16;
   width: 100%;
-  max-width: min(440px, calc((100dvh - 135px) * 9 / 16), 96vw);
+  max-width: min(440px, calc((100dvh - 110px) * 9 / 16), 98vw);
   height: auto;
   border-radius: 14px;
   overflow: hidden;
@@ -445,18 +445,71 @@ body {
 
 @media (max-width: 640px) {
   .story-wrapper {
-    max-width: min(420px, calc((100dvh - 110px) * 9 / 16), 96vw);
+    max-width: min(430px, calc((100dvh - 90px) * 9 / 16), 98vw);
     border-radius: 12px;
     border: 2px solid #1a1a22;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 0 2px #2d2d35;
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 395px) {
   .story-wrapper {
-    max-width: min(380px, calc((100dvh - 95px) * 9 / 16), 98vw);
+    max-width: min(390px, calc((100dvh - 80px) * 9 / 16), 100vw);
     border-radius: 10px;
     border: 1.5px solid #1a1a22;
+  }
+}
+
+/* Floating Navigation Buttons (Overlayed on Mobile, Pop-out on Desktop) */
+.story-floating-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(18, 22, 30, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.story-floating-nav-btn:hover {
+  transform: translateY(-50%) scale(1.08);
+  background: rgba(22, 27, 38, 0.92);
+}
+
+.story-floating-nav-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.story-nav-prev {
+  left: 6px;
+  border: 2px solid #00ff88;
+  color: #00ff88;
+  box-shadow: 0 0 14px rgba(0, 255, 136, 0.4), 0 4px 12px rgba(0,0,0,0.8);
+}
+
+.story-nav-next {
+  right: 6px;
+  border: 2px solid #ffe600;
+  color: #ffe600;
+  box-shadow: 0 0 14px rgba(255, 230, 0, 0.4), 0 4px 12px rgba(0,0,0,0.8);
+}
+
+@media (min-width: 580px) {
+  .story-nav-prev {
+    left: -52px;
+  }
+  .story-nav-next {
+    right: -52px;
   }
 }
 

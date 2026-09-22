@@ -89,9 +89,9 @@ export default function StoryCharacter({
         className="story-character-img"
         style={{
           display: 'block',
-          height: 'clamp(115px, 25cqh, 160px)',
+          height: 'clamp(95px, 20cqh, 130px)',
           width: 'auto',
-          maxWidth: '150px',
+          maxWidth: '120px',
           objectFit: 'contain',
           filter: 'drop-shadow(0 6px 16px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.35))',
           userSelect: 'none',

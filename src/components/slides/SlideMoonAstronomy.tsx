@@ -87,14 +87,14 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
       {/* Integrated Retro VCR Header (Safe Story OSD) */}
       <StoryHeader data={data} />
 
-      {/* Moon Phase Main Header: Synthesized & Clean */}
-      <div style={{ textAlign: 'center', zIndex: 2, marginBottom: '4px' }}>
+      {/* Moon Phase Main Header: Left-aligned with clearance for Chibi Caricature */}
+      <div style={{ textAlign: 'left', zIndex: 2, marginBottom: '4px', paddingRight: '110px' }}>
         <h2
           style={{
-            fontSize: 'clamp(1.25rem, 4.5vw, 1.65rem)',
+            fontSize: 'clamp(1.15rem, 4vw, 1.55rem)',
             fontWeight: 900,
             fontFamily: "'Archivo Black', sans-serif",
-            lineHeight: 1.1,
+            lineHeight: 1.12,
             color: '#ffffff',
             textShadow: '0 2px 8px rgba(0, 229, 255, 0.5), 0 0 2px #000',
             letterSpacing: '0.8px',
@@ -107,11 +107,12 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
         <div
           style={{
             fontFamily: "'Share Tech Mono', monospace",
-            fontSize: 'clamp(0.68rem, 2vw, 0.76rem)',
+            fontSize: 'clamp(0.65rem, 1.9vw, 0.74rem)',
             color: 'var(--vhs-cyan)',
             letterSpacing: '0.5px',
             marginTop: '3px',
             fontWeight: 700,
+            lineHeight: 1.25,
           }}
         >
           O CÉU {getWhenBornPhrase(data.name, data.gender).toUpperCase()}
@@ -122,14 +123,14 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
-            padding: '2px 10px',
+            padding: '2px 8px',
             borderRadius: '4px',
             background: 'rgba(10, 12, 18, 0.85)',
             border: '1px solid rgba(0, 229, 255, 0.35)',
-            fontSize: 'clamp(0.66rem, 1.8vw, 0.72rem)',
+            fontSize: 'clamp(0.64rem, 1.8vw, 0.70rem)',
             fontFamily: "'Share Tech Mono', monospace",
             color: 'var(--vhs-cyan)',
-            marginTop: '2px',
+            marginTop: '3px',
           }}
         >
           <span>ILUMINAÇÃO: {astronomy.moonIlluminationPercent}%</span>

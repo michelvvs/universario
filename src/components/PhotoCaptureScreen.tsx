@@ -34,10 +34,11 @@ export default function PhotoCaptureScreen({
         throw new Error('Seu navegador não suporta acesso à câmera.');
       }
 
+      // iOS WebKit flexible constraints
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: 'user',
-          width: { ideal: 720 },
+          width: { ideal: 1280 },
           height: { ideal: 720 },
         },
         audio: false,
@@ -45,10 +46,6 @@ export default function PhotoCaptureScreen({
 
       setStream(mediaStream);
       setIsCameraActive(true);
-
-      if (videoRef.current) {
-        videoRef.current.srcObject = mediaStream;
-      }
     } catch (err: unknown) {
       console.warn('Câmera indisponível ou permissão negada:', err);
       const msg = err instanceof Error ? err.message : 'Permissão para usar a câmera foi negada.';
@@ -56,6 +53,23 @@ export default function PhotoCaptureScreen({
       setIsCameraActive(false);
     }
   }, []);
+
+  // Safely attach stream to video element and handle iOS Safari autoplay
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video && stream) {
+      video.srcObject = stream;
+      video.setAttribute('playsinline', 'true');
+      video.setAttribute('webkit-playsinline', 'true');
+      video.muted = true;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          console.warn('iOS video.play() notice:', err);
+        });
+      }
+    }
+  }, [stream]);
 
   // Stop camera tracks cleanly
   const stopCamera = useCallback(() => {
@@ -148,8 +162,13 @@ export default function PhotoCaptureScreen({
     setTimeout(() => setIsFlashActive(false), 200);
 
     const video = videoRef.current;
-    const videoWidth = video.videoWidth || 640;
-    const videoHeight = video.videoHeight || 640;
+    const videoWidth = video.videoWidth;
+    const videoHeight = video.videoHeight;
+
+    if (!videoWidth || !videoHeight) {
+      console.warn('Vídeo ainda não pronto para captura');
+      return;
+    }
 
     const size = Math.min(videoWidth, videoHeight);
     const startX = (videoWidth - size) / 2;
@@ -397,55 +416,58 @@ export default function PhotoCaptureScreen({
           </span>
         </div>
 
-        {/* State A: Live Video Stream */}
-        {!capturedPhoto && isCameraActive && (
-          <>
-            <video
-              ref={videoRef}
-              autoPlay
-              playsInline
-              muted
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                transform: 'scaleX(-1)', // Mirror effect
-              }}
-            />
+        {/* Live Video Stream Element (Always in DOM for reliable iOS WebKit stream binding) */}
+        <video
+          ref={videoRef}
+          autoPlay
+          playsInline
+          muted
+          onLoadedMetadata={(e) => {
+            const target = e.target as HTMLVideoElement;
+            target.play().catch(() => {});
+          }}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            transform: 'scaleX(-1)', // Mirror effect
+            display: !capturedPhoto && isCameraActive ? 'block' : 'none',
+          }}
+        />
 
-            {/* Oval Face Guide Contour */}
+        {/* State A: Oval Face Guide Contour when camera is active */}
+        {!capturedPhoto && isCameraActive && (
+          <div
+            style={{
+              position: 'absolute',
+              width: '68%',
+              height: '80%',
+              borderRadius: '50%',
+              border: '2.5px dashed rgba(255, 230, 0, 0.85)',
+              boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.38)',
+              zIndex: 10,
+              pointerEvents: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <div
               style={{
-                position: 'absolute',
-                width: '68%',
-                height: '80%',
-                borderRadius: '50%',
-                border: '2.5px dashed rgba(255, 230, 0, 0.85)',
-                boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.38)',
-                zIndex: 10,
-                pointerEvents: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                fontFamily: 'var(--font-vcr)',
+                fontSize: '0.64rem',
+                color: '#ffe600',
+                letterSpacing: '1px',
+                textAlign: 'center',
+                background: 'rgba(0,0,0,0.6)',
+                padding: '2px 8px',
+                borderRadius: '4px',
+                marginBottom: '10px',
               }}
             >
-              <div
-                style={{
-                  fontFamily: 'var(--font-vcr)',
-                  fontSize: '0.64rem',
-                  color: '#ffe600',
-                  letterSpacing: '1px',
-                  textAlign: 'center',
-                  background: 'rgba(0,0,0,0.6)',
-                  padding: '2px 8px',
-                  borderRadius: '4px',
-                  marginBottom: '10px',
-                }}
-              >
-                ENQUADRE SEU ROSTO
-              </div>
+              ENQUADRE SEU ROSTO
             </div>
-          </>
+          </div>
         )}
 
         {/* State B: Captured Photo Preview */}

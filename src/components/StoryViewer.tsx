@@ -147,23 +147,8 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
             aria-label="Story anterior"
             title="Voltar ao story anterior"
             className="story-floating-nav-btn story-nav-prev"
-            style={{
-              zIndex: 50,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '46px',
-              height: '46px',
-              borderRadius: '50%',
-              background: '#161922',
-              border: '2px solid #00ff88',
-              color: '#00ff88',
-              boxShadow: '0 0 16px rgba(0, 255, 136, 0.4), 0 4px 12px rgba(0,0,0,0.8)',
-              cursor: 'pointer',
-              transition: 'all 0.15s ease',
-            }}
           >
-            <ChevronLeft size={28} color="#00ff88" />
+            <ChevronLeft size={26} color="#00ff88" />
           </button>
         )}
 
@@ -250,23 +235,8 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
             aria-label="Próximo story"
             title="Avançar para o próximo story"
             className={`story-floating-nav-btn story-nav-next ${isTimeComplete ? 'pulse-ready' : ''}`}
-            style={{
-              zIndex: 50,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '46px',
-              height: '46px',
-              borderRadius: '50%',
-              background: '#161922',
-              border: '2px solid #ffe600',
-              color: '#ffe600',
-              boxShadow: '0 0 16px rgba(255, 230, 0, 0.4), 0 4px 12px rgba(0,0,0,0.8)',
-              cursor: 'pointer',
-              transition: 'all 0.15s ease',
-            }}
           >
-            <ChevronRight size={28} color="#ffe600" />
+            <ChevronRight size={26} color="#ffe600" />
           </button>
         )}
       </div>

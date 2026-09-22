@@ -244,7 +244,7 @@ export default function HomePage() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: viewState === 'stories' ? '8px 10px' : '20px 16px',
+            padding: viewState === 'stories' ? '4px 2px' : '20px 16px',
             width: '100%',
           }}
         >
@@ -291,39 +291,41 @@ export default function HomePage() {
           )}
         </div>
 
-        {/* Retro 80s VCR Studio Footer */}
-        <footer
-          style={{
-            padding: viewState === 'stories' ? '10px 14px' : '16px 20px',
-            textAlign: 'center',
-            color: '#ffffff',
-            borderTop: '1px solid #1f2533',
-            background: 'rgba(9, 11, 16, 0.88)',
-            backdropFilter: 'blur(8px)',
-          }}
-        >
-          <div
+        {/* Retro 80s VCR Studio Footer (Hidden in stories mode for maximum 9:16 vertical headroom) */}
+        {viewState !== 'stories' && (
+          <footer
             style={{
-              fontFamily: 'var(--font-vcr)',
-              fontSize: viewState === 'stories' ? '0.90rem' : '1.05rem',
-              color: '#ffe600',
-              letterSpacing: '1.5px',
-              marginBottom: '2px',
+              padding: '16px 20px',
+              textAlign: 'center',
+              color: '#ffffff',
+              borderTop: '1px solid #1f2533',
+              background: 'rgba(9, 11, 16, 0.88)',
+              backdropFilter: 'blur(8px)',
             }}
           >
-            ★ UNIVERSÁRIO • VCR ARCHIVE ENGINE ★
-          </div>
-          <p
-            style={{
-              color: '#8b9bb4',
-              fontSize: viewState === 'stories' ? '0.76rem' : '0.84rem',
-              fontFamily: 'var(--font-mono)',
-              letterSpacing: '0.5px',
-            }}
-          >
-            Paradas Nacionais & Internacionais, Astronomia & Arquivos Históricos em Stories 9:16
-          </p>
-        </footer>
+            <div
+              style={{
+                fontFamily: 'var(--font-vcr)',
+                fontSize: '1.05rem',
+                color: '#ffe600',
+                letterSpacing: '1.5px',
+                marginBottom: '2px',
+              }}
+            >
+              ★ UNIVERSÁRIO • VCR ARCHIVE ENGINE ★
+            </div>
+            <p
+              style={{
+                color: '#8b9bb4',
+                fontSize: '0.84rem',
+                fontFamily: 'var(--font-mono)',
+                letterSpacing: '0.5px',
+              }}
+            >
+              Paradas Nacionais & Internacionais, Astronomia & Arquivos Históricos em Stories 9:16
+            </p>
+          </footer>
+        )}
       </div>
     </main>
   );

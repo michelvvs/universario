@@ -20,15 +20,15 @@ export default function SlideCosmicStats({ data }: SlideProps) {
       {/* Integrated Retro VCR Header (Safe Story OSD) */}
       <StoryHeader data={data} />
 
-      {/* Cosmic Stats Main Header: Synthesized & Clean */}
-      <div style={{ textAlign: 'center', zIndex: 2, marginBottom: '6px' }}>
+      {/* Cosmic Stats Main Header: Left-aligned with clearance for Chibi Caricature */}
+      <div style={{ textAlign: 'left', zIndex: 2, marginBottom: '6px', paddingRight: '110px' }}>
         <h2
           style={{
-            fontSize: 'clamp(1.2rem, 4.2vw, 1.55rem)',
+            fontSize: 'clamp(1.15rem, 3.8vw, 1.45rem)',
             fontWeight: 900,
             fontFamily: "'Archivo Black', sans-serif",
             color: '#ffffff',
-            lineHeight: 1.1,
+            lineHeight: 1.12,
             letterSpacing: '0.8px',
             textShadow: '0 2px 6px rgba(0,0,0,0.9), 0 0 12px rgba(0, 255, 204, 0.35)',
             textTransform: 'uppercase',
@@ -40,11 +40,12 @@ export default function SlideCosmicStats({ data }: SlideProps) {
         <div
           style={{
             fontFamily: "'Share Tech Mono', monospace",
-            fontSize: 'clamp(0.68rem, 2vw, 0.76rem)',
+            fontSize: 'clamp(0.65rem, 1.9vw, 0.74rem)',
             color: 'var(--vhs-cyan)',
             letterSpacing: '0.5px',
             marginTop: '3px',
             fontWeight: 700,
+            lineHeight: 1.25,
           }}
         >
           SEUS NÚMEROS DESDE QUE {getWhenBornPhrase(data.name, data.gender).toUpperCase()}

@@ -18,26 +18,63 @@ const PRESET_DATES = [
   { label: '⭐ Penta Brasil (2002)', date: '2002-06-30', name: 'Penta 2002', gender: 'neutro' as const },
 ];
 
+// Helper functions for numeric date input
+function formatToDisplayDate(isoDate: string): string {
+  if (!isoDate || !/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return '';
+  const [yyyy, mm, dd] = isoDate.split('-');
+  return `${dd}/${mm}/${yyyy}`;
+}
+
+function parseDisplayToIso(display: string): string | null {
+  const clean = display.replace(/\D/g, '');
+  if (clean.length !== 8) return null;
+  const dd = clean.slice(0, 2);
+  const mm = clean.slice(2, 4);
+  const yyyy = clean.slice(4, 8);
+  const d = parseInt(dd, 10);
+  const m = parseInt(mm, 10);
+  const y = parseInt(yyyy, 10);
+  const currentYear = new Date().getFullYear();
+  if (d < 1 || d > 31 || m < 1 || m > 12 || y < 1920 || y > currentYear) {
+    return null;
+  }
+  return `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`;
+}
+
+function applyDateMask(value: string): string {
+  const digits = value.replace(/\D/g, '').slice(0, 8);
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 4) return `${digits.slice(0, 2)}/${digits.slice(2)}`;
+  return `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`;
+}
+
 export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProps) {
-  const [date, setDate] = useState<string>('1989-05-25');
+  const [dateDisplay, setDateDisplay] = useState<string>('25/05/1989');
+  const [dateError, setDateError] = useState<string | null>(null);
   const [name, setName] = useState<string>('');
   const [gender, setGender] = useState<'masculino' | 'feminino' | 'neutro'>('masculino');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!date) return;
-    onSubmit(date, name, gender);
+    const iso = parseDisplayToIso(dateDisplay);
+    if (!iso) {
+      setDateError('Digite uma data válida no formato DD/MM/AAAA (ex: 25/05/1989)');
+      return;
+    }
+    setDateError(null);
+    onSubmit(iso, name, gender);
   };
 
   const handlePreset = (presetDate: string, presetName: string, presetGender: 'masculino' | 'feminino' | 'neutro' = 'neutro') => {
-    setDate(presetDate);
+    setDateDisplay(formatToDisplayDate(presetDate));
     setName(presetName);
     setGender(presetGender);
+    setDateError(null);
     onSubmit(presetDate, presetName, presetGender);
   };
 
   return (
-    <div style={{ width: '100%', maxWidth: '540px', margin: '0 auto', position: 'relative' }}>
+    <div style={{ width: '100%', maxWidth: '540px', margin: '0 auto', position: 'relative', boxSizing: 'border-box' }}>
       {/* Scotch Tape on corners */}
       <ScotchTape angle={-12} width={56} style={{ top: '-10px', left: '16px' }} />
       <ScotchTape angle={14} width={56} style={{ top: '-10px', right: '16px' }} />
@@ -48,13 +85,15 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
           background: 'linear-gradient(180deg, #181b22 0%, #0d1016 100%)',
           border: '3px solid #333d52',
           borderRadius: '14px',
-          padding: 'clamp(20px, 4.5vw, 28px) clamp(16px, 3.5vw, 24px)',
+          padding: 'clamp(16px, 4vw, 26px) clamp(12px, 3.2vw, 22px)',
           boxShadow: '0 20px 50px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.15)',
           position: 'relative',
+          boxSizing: 'border-box',
+          width: '100%',
         }}
       >
         {/* VCR Header OSD Row */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '6px' }}>
           <VcrOsdBadge text="VCR DECK • STANDBY" variant="tracking" />
           <div style={{ display: 'flex', gap: '6px' }}>
             <DymoLabel text="TAPE E-180" color="red" />
@@ -71,6 +110,8 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
             padding: '12px 14px',
             marginBottom: '20px',
             boxShadow: 'inset 0 4px 16px rgba(0,0,0,0.95)',
+            boxSizing: 'border-box',
+            width: '100%',
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
@@ -130,9 +171,9 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
         </div>
 
         {/* Form Controls */}
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', boxSizing: 'border-box' }}>
           {/* Date Input */}
-          <div>
+          <div style={{ width: '100%', boxSizing: 'border-box' }}>
             <label
               style={{
                 display: 'flex',
@@ -149,27 +190,49 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
               <span>DATA DE NASCIMENTO (DD/MM/AAAA) *</span>
             </label>
             <input
-              type="date"
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9/]*"
+              autoComplete="bday"
               required
-              max={new Date().toISOString().split('T')[0]}
-              min="1920-01-01"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
+              placeholder="DD/MM/AAAA (ex: 25/05/1989)"
+              maxLength={10}
+              value={dateDisplay}
+              onChange={(e) => {
+                const masked = applyDateMask(e.target.value);
+                setDateDisplay(masked);
+                if (dateError) setDateError(null);
+              }}
               style={{
                 width: '100%',
-                padding: '12px 16px',
+                maxWidth: '100%',
+                boxSizing: 'border-box',
+                padding: '12px 14px',
                 background: '#07090e',
-                border: '2px solid #3d465c',
+                border: dateError ? '2px solid #ff3b30' : '2px solid #3d465c',
                 borderRadius: '6px',
                 color: '#00ff88',
                 fontFamily: 'var(--font-vcr)',
-                fontSize: '1.3rem',
+                fontSize: 'clamp(1.1rem, 4vw, 1.3rem)',
                 letterSpacing: '2px',
                 outline: 'none',
                 boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.95)',
-                cursor: 'pointer',
+                WebkitAppearance: 'none',
               }}
             />
+            {dateError && (
+              <div
+                style={{
+                  fontFamily: 'var(--font-vcr)',
+                  color: '#ff6666',
+                  fontSize: '0.82rem',
+                  marginTop: '5px',
+                  letterSpacing: '0.5px',
+                }}
+              >
+                ⚠ {dateError}
+              </div>
+            )}
           </div>
 
           {/* Name Input */}
@@ -197,7 +260,9 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
               onChange={(e) => setName(e.target.value)}
               style={{
                 width: '100%',
-                padding: '12px 16px',
+                maxWidth: '100%',
+                boxSizing: 'border-box',
+                padding: '12px 14px',
                 background: '#07090e',
                 border: '2px solid #3d465c',
                 borderRadius: '6px',
@@ -207,6 +272,7 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
                 letterSpacing: '1px',
                 outline: 'none',
                 boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.95)',
+                WebkitAppearance: 'none',
               }}
             />
           </div>
@@ -297,7 +363,7 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
           {/* Authentic Tactile VCR Keycap CTA Button */}
           <button
             type="submit"
-            disabled={isLoading || !date}
+            disabled={isLoading || !dateDisplay || dateDisplay.length < 10}
             className="btn-vcr-keycap"
             style={{
               width: '100%',

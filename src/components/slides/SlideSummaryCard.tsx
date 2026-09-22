@@ -61,12 +61,12 @@ export default function SlideSummaryCard({ data }: SlideProps) {
         </span>
       </div>
 
-      {/* Name and Date Section */}
-      <div style={{ textAlign: 'center', zIndex: 2, width: '100%' }}>
+      {/* Name and Date Section: Left-aligned with clearance for Chibi Caricature */}
+      <div style={{ textAlign: 'left', zIndex: 2, width: '100%', paddingRight: '110px' }}>
         <h2
           style={{
             fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(1.4rem, 5vw, 2.0rem)',
+            fontSize: 'clamp(1.3rem, 4.5vw, 1.85rem)',
             color: '#ffffff',
             lineHeight: 1.05,
             textShadow: '0 3px 12px rgba(0,0,0,0.9), 0 0 16px rgba(255, 215, 0, 0.4)',
@@ -77,7 +77,7 @@ export default function SlideSummaryCard({ data }: SlideProps) {
           {displayName}
         </h2>
 
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginTop: '3px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-start', gap: '6px', marginTop: '3px', flexWrap: 'wrap' }}>
           <DymoLabel text={data.formattedDate} color="red" />
           <DymoLabel text={data.dayOfWeek} color="blue" />
         </div>
