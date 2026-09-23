@@ -10,6 +10,49 @@ interface PhotoCaptureScreenProps {
   onSkip: () => void;
 }
 
+// Anatomical Head + Ears contour centered in a 512x512 coordinate box
+export const HEAD_AND_EARS_PATH_D =
+  'M 256 86 C 335 86, 376 135, 376 195 C 376 205, 395 205, 412 220 C 424 230, 424 260, 412 272 C 398 286, 376 286, 372 286 C 365 345, 325 412, 275 424 C 265 426, 256 426, 256 426 C 256 426, 247 426, 237 424 C 187 412, 147 345, 140 286 C 136 286, 114 286, 100 272 C 88 260, 88 230, 100 220 C 117 205, 136 205, 136 195 C 136 135, 177 86, 256 86 Z';
+
+// Instantly cut out head + ears from 512x512 canvas and tightly crop
+function extractHeadCutout(sourceCanvas: HTMLCanvasElement): string {
+  const clipCanvas = document.createElement('canvas');
+  clipCanvas.width = 512;
+  clipCanvas.height = 512;
+  const ctx = clipCanvas.getContext('2d');
+  if (!ctx) return '';
+
+  try {
+    const path = new Path2D(HEAD_AND_EARS_PATH_D);
+    ctx.save();
+    ctx.clip(path);
+    ctx.drawImage(sourceCanvas, 0, 0, 512, 512);
+    ctx.restore();
+  } catch {
+    ctx.save();
+    ctx.beginPath();
+    ctx.ellipse(256, 256, 160, 170, 0, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.clip();
+    ctx.drawImage(sourceCanvas, 0, 0, 512, 512);
+    ctx.restore();
+  }
+
+  const cropCanvas = document.createElement('canvas');
+  cropCanvas.width = 330;
+  cropCanvas.height = 340;
+  const cropCtx = cropCanvas.getContext('2d');
+  if (!cropCtx) return clipCanvas.toDataURL('image/png');
+
+  cropCtx.drawImage(
+    clipCanvas,
+    91, 86, 330, 340,
+    0, 0, 330, 340
+  );
+
+  return cropCanvas.toDataURL('image/png');
+}
+
 export default function PhotoCaptureScreen({
   userName,
   onPhotoConfirmed,
@@ -20,7 +63,6 @@ export default function PhotoCaptureScreen({
   const [cameraError, setCameraError] = useState<string | null>(null);
   const [isCameraActive, setIsCameraActive] = useState<boolean>(false);
   const [isFlashActive, setIsFlashActive] = useState<boolean>(false);
-  const [isProcessingBg, setIsProcessingBg] = useState<boolean>(false);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -87,72 +129,7 @@ export default function PhotoCaptureScreen({
     };
   }, []);
 
-  // Process image: remove background with @imgly/background-removal, fallback to borderless oval mask
-  const processImageCutout = async (blob: Blob) => {
-    setIsProcessingBg(true);
-    try {
-      // Dynamic import ensures client-side WebAssembly execution with 0 SSR issues
-      const { removeBackground } = await import('@imgly/background-removal');
-      const cutoutBlob = await removeBackground(blob);
 
-      // Re-apply the tight oval clip on the cutout to guarantee 0 residual pixels outside the dashed boundary
-      const cutoutImg = new Image();
-      cutoutImg.onload = () => {
-        const w = cutoutImg.width;
-        const h = cutoutImg.height;
-        const finalCanvas = document.createElement('canvas');
-        finalCanvas.width = w;
-        finalCanvas.height = h;
-        const fCtx = finalCanvas.getContext('2d');
-        if (!fCtx) {
-          setIsProcessingBg(false);
-          return;
-        }
-
-        fCtx.save();
-        fCtx.beginPath();
-        fCtx.ellipse(w / 2, h / 2, w / 2, h / 2, 0, 0, Math.PI * 2);
-        fCtx.closePath();
-        fCtx.clip();
-        fCtx.drawImage(cutoutImg, 0, 0);
-        fCtx.restore();
-
-        const dataUrl = finalCanvas.toDataURL('image/png');
-        setCapturedPhoto(dataUrl);
-        setIsProcessingBg(false);
-      };
-      cutoutImg.src = URL.createObjectURL(cutoutBlob);
-    } catch (err) {
-      console.warn('Fallback to canvas cutout without frame:', err);
-      const img = new Image();
-      img.onload = () => {
-        const w = img.width;
-        const h = img.height;
-        const canvas = document.createElement('canvas');
-        canvas.width = w;
-        canvas.height = h;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) {
-          setIsProcessingBg(false);
-          return;
-        }
-
-        // Clean oval mask strictly within the dashed guide, completely without frame/border
-        ctx.save();
-        ctx.beginPath();
-        ctx.ellipse(w / 2, h / 2, w / 2, h / 2, 0, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.clip();
-        ctx.drawImage(img, 0, 0);
-        ctx.restore();
-
-        const dataUrl = canvas.toDataURL('image/png');
-        setCapturedPhoto(dataUrl);
-        setIsProcessingBg(false);
-      };
-      img.src = URL.createObjectURL(blob);
-    }
-  };
 
   // Handle capture from live video stream
   const handleCapture = () => {
@@ -188,47 +165,8 @@ export default function PhotoCaptureScreen({
 
     stopCamera();
 
-    // Now extract ONLY the content strictly inside the dashed oval (68% width, 80% height)
-    // rx = 512 * 0.68 / 2 = 174, ry = 512 * 0.80 / 2 = 204
-    const rx = Math.round(512 * 0.68 / 2);
-    const ry = Math.round(512 * 0.80 / 2);
-    const cropW = rx * 2;
-    const cropH = ry * 2;
-    const cropLeft = 256 - rx;
-    const cropTop = 256 - ry;
-
-    const croppedCanvas = document.createElement('canvas');
-    croppedCanvas.width = cropW;
-    croppedCanvas.height = cropH;
-    const cCtx = croppedCanvas.getContext('2d');
-    if (!cCtx) return;
-
-    // Oval clip strictly to dashed guide
-    cCtx.save();
-    cCtx.beginPath();
-    cCtx.ellipse(rx, ry, rx, ry, 0, 0, Math.PI * 2);
-    cCtx.closePath();
-    cCtx.clip();
-
-    // Draw only the dashed area into the cropped canvas
-    cCtx.drawImage(
-      squareCanvas,
-      cropLeft,
-      cropTop,
-      cropW,
-      cropH,
-      0,
-      0,
-      cropW,
-      cropH
-    );
-    cCtx.restore();
-
-    croppedCanvas.toBlob((blob) => {
-      if (blob) {
-        processImageCutout(blob);
-      }
-    }, 'image/png');
+    const dataUrl = extractHeadCutout(squareCanvas);
+    setCapturedPhoto(dataUrl);
   };
 
   // Handle file upload
@@ -253,43 +191,8 @@ export default function PhotoCaptureScreen({
 
         sCtx.drawImage(img, startX, startY, size, size, 0, 0, 512, 512);
 
-        const rx = Math.round(512 * 0.68 / 2);
-        const ry = Math.round(512 * 0.80 / 2);
-        const cropW = rx * 2;
-        const cropH = ry * 2;
-        const cropLeft = 256 - rx;
-        const cropTop = 256 - ry;
-
-        const croppedCanvas = document.createElement('canvas');
-        croppedCanvas.width = cropW;
-        croppedCanvas.height = cropH;
-        const cCtx = croppedCanvas.getContext('2d');
-        if (!cCtx) return;
-
-        cCtx.save();
-        cCtx.beginPath();
-        cCtx.ellipse(rx, ry, rx, ry, 0, 0, Math.PI * 2);
-        cCtx.closePath();
-        cCtx.clip();
-
-        cCtx.drawImage(
-          squareCanvas,
-          cropLeft,
-          cropTop,
-          cropW,
-          cropH,
-          0,
-          0,
-          cropW,
-          cropH
-        );
-        cCtx.restore();
-
-        croppedCanvas.toBlob((blob) => {
-          if (blob) {
-            processImageCutout(blob);
-          }
-        }, 'image/png');
+        const dataUrl = extractHeadCutout(squareCanvas);
+        setCapturedPhoto(dataUrl);
       };
       img.src = event.target?.result as string;
     };
@@ -346,7 +249,7 @@ export default function PhotoCaptureScreen({
             lineHeight: 1.3,
           }}
         >
-          Enquadre seu rosto para estampar as caricaturas dos seus Stories!
+          Enquadre sua cabeça e orelhas na área demarcada para estampar as caricaturas!
         </p>
       </div>
 
@@ -435,37 +338,111 @@ export default function PhotoCaptureScreen({
           }}
         />
 
-        {/* State A: Oval Face Guide Contour when camera is active */}
+        {/* State A: Head + Ears Silhouette Guide when camera is active */}
         {!capturedPhoto && isCameraActive && (
           <div
             style={{
               position: 'absolute',
-              width: '68%',
-              height: '80%',
-              borderRadius: '50%',
-              border: '2.5px dashed rgba(255, 230, 0, 0.85)',
-              boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.38)',
-              zIndex: 10,
+              inset: 0,
               pointerEvents: 'none',
+              zIndex: 10,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
+            <svg
+              viewBox="0 0 512 512"
+              style={{
+                width: '100%',
+                height: '100%',
+                display: 'block',
+              }}
+            >
+              <defs>
+                {/* Mask: black cutout hole reveals the live camera, white surrounds with dark vignette */}
+                <mask id="headEarsViewfinderMask">
+                  <rect x="0" y="0" width="512" height="512" fill="white" />
+                  <path d={HEAD_AND_EARS_PATH_D} fill="black" />
+                </mask>
+              </defs>
+
+              {/* Translucent vignette darkening everything outside the head+ears area */}
+              <rect
+                x="0"
+                y="0"
+                width="512"
+                height="512"
+                fill="rgba(0, 0, 0, 0.45)"
+                mask="url(#headEarsViewfinderMask)"
+              />
+
+              {/* Neon Dashed Contour for Head + Ears */}
+              <path
+                d={HEAD_AND_EARS_PATH_D}
+                fill="none"
+                stroke="#ffe600"
+                strokeWidth="3.5"
+                strokeDasharray="9 7"
+                style={{
+                  filter: 'drop-shadow(0 0 8px rgba(255, 230, 0, 0.8))',
+                }}
+              />
+
+              {/* Visual guidance labels */}
+              <text
+                x="256"
+                y="65"
+                textAnchor="middle"
+                fill="#ffe600"
+                fontFamily="var(--font-vcr)"
+                fontSize="18"
+                letterSpacing="1.5"
+                fontWeight="900"
+                style={{
+                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.9))',
+                }}
+              >
+                ▲ CABEÇA ▲
+              </text>
+
+              <text
+                x="256"
+                y="455"
+                textAnchor="middle"
+                fill="#ffe600"
+                fontFamily="var(--font-vcr)"
+                fontSize="18"
+                letterSpacing="1.5"
+                fontWeight="900"
+                style={{
+                  filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.9))',
+                }}
+              >
+                ▼ QUEIXO ▼
+              </text>
+            </svg>
+
+            {/* Central OSD Badge */}
             <div
               style={{
+                position: 'absolute',
+                top: '47%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
                 fontFamily: 'var(--font-vcr)',
-                fontSize: '0.64rem',
+                fontSize: '0.68rem',
                 color: '#ffe600',
                 letterSpacing: '1px',
                 textAlign: 'center',
-                background: 'rgba(0,0,0,0.6)',
-                padding: '2px 8px',
+                background: 'rgba(0,0,0,0.7)',
+                border: '1px solid rgba(255, 230, 0, 0.4)',
+                padding: '3px 10px',
                 borderRadius: '4px',
-                marginBottom: '10px',
+                pointerEvents: 'none',
               }}
             >
-              ENQUADRE SEU ROSTO
+              ENQUADRE CABEÇA E ORELHAS
             </div>
           </div>
         )}
@@ -486,7 +463,7 @@ export default function PhotoCaptureScreen({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={capturedPhoto}
-              alt="Seu rosto recortado"
+              alt="Sua cabeça recortada"
               style={{
                 width: '74%',
                 height: '74%',
@@ -519,58 +496,6 @@ export default function PhotoCaptureScreen({
             </p>
           </div>
         )}
-
-        {/* State D: AI Background Removal Processing Overlay */}
-        {isProcessingBg && (
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              backgroundColor: 'rgba(10, 12, 18, 0.94)',
-              zIndex: 35,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '20px',
-              textAlign: 'center',
-            }}
-          >
-            <div
-              style={{
-                width: '38px',
-                height: '38px',
-                border: '3px solid rgba(0, 255, 136, 0.2)',
-                borderTopColor: '#00ff88',
-                borderRadius: '50%',
-                animation: 'spin 0.8s linear infinite',
-                marginBottom: '14px',
-              }}
-            />
-            <div
-              style={{
-                fontFamily: 'var(--font-vcr)',
-                fontSize: '0.92rem',
-                color: '#00ff88',
-                letterSpacing: '1px',
-                fontWeight: 700,
-                textShadow: '0 0 8px rgba(0, 255, 136, 0.6)',
-              }}
-            >
-              RECORTANDO FUNDO COM IA...
-            </div>
-            <div
-              style={{
-                fontFamily: "'Share Tech Mono', monospace",
-                fontSize: '0.74rem',
-                color: '#94a3b8',
-                marginTop: '6px',
-              }}
-            >
-              Isolando o rosto para encaixar perfeitamente na caricatura sem moldura
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Hidden File Input for Gallery Upload */}
@@ -597,7 +522,6 @@ export default function PhotoCaptureScreen({
         {!capturedPhoto ? (
           <button
             type="button"
-            disabled={isProcessingBg}
             onClick={isCameraActive ? handleCapture : () => fileInputRef.current?.click()}
             className="btn-vhs-regenerate"
             style={{
@@ -608,17 +532,12 @@ export default function PhotoCaptureScreen({
               alignItems: 'center',
               justifyContent: 'center',
               gap: '8px',
-              opacity: isProcessingBg ? 0.5 : 1,
-              cursor: isProcessingBg ? 'not-allowed' : 'pointer',
+              cursor: 'pointer',
             }}
           >
             <Camera size={20} />
             <span>
-              {isProcessingBg
-                ? 'RECORTANDO FUNDO...'
-                : isCameraActive
-                ? 'CAPTURAR ROSTO 📸'
-                : 'ESCOLHER FOTO 📁'}
+              {isCameraActive ? 'CAPTURAR FOTO 📸' : 'ESCOLHER DA GALERIA 📁'}
             </span>
           </button>
         ) : (
@@ -670,7 +589,6 @@ export default function PhotoCaptureScreen({
         {!capturedPhoto && isCameraActive && (
           <button
             type="button"
-            disabled={isProcessingBg}
             onClick={() => fileInputRef.current?.click()}
             style={{
               width: '100%',
@@ -681,12 +599,11 @@ export default function PhotoCaptureScreen({
               borderRadius: '6px',
               fontFamily: "'Share Tech Mono', monospace",
               fontSize: '0.78rem',
-              cursor: isProcessingBg ? 'not-allowed' : 'pointer',
+              cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '6px',
-              opacity: isProcessingBg ? 0.4 : 1,
               transition: 'background 0.15s ease',
             }}
           >
@@ -698,17 +615,16 @@ export default function PhotoCaptureScreen({
         {/* Action 3: Skip Photo Button */}
         <button
           type="button"
-          disabled={isProcessingBg}
           onClick={onSkip}
           style={{
             width: '100%',
             padding: '8px 14px',
             background: 'transparent',
-            color: isProcessingBg ? '#444' : '#8b949e',
+            color: '#8b949e',
             border: 'none',
             fontFamily: "'Share Tech Mono', monospace",
             fontSize: '0.76rem',
-            cursor: isProcessingBg ? 'not-allowed' : 'pointer',
+            cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
