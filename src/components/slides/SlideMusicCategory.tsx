@@ -108,12 +108,14 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
 
       {/* Main Content: #1 Torn Photo Album Card + Lined J-Card Top 2-5 (Aligned to Bottom) */}
       <div style={{ marginTop: 'auto', position: 'relative', display: 'flex', flexDirection: 'column', gap: 'clamp(3px, 0.9vh, 5px)', zIndex: 5 }}>
-        {/* 3D Themed Chibi Caricature resting directly on top of the #1 Hit card */}
-        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '4px', zIndex: 12, pointerEvents: 'none' }}>
+        {/* Themed Polaroid Photo Card pinned to top-right of the #1 Hit card */}
+        <div style={{ position: 'absolute', top: '-36px', right: '6px', zIndex: 15, pointerEvents: 'none' }}>
           <StoryCharacter
             theme={categoryId === 'billboard' ? 'billboard' : categoryId === 'sales_br' ? 'sales' : 'radio'}
             gender={data.gender}
             userPhotoUrl={data.userPhotoUrl}
+            year={data.year}
+            name={data.name}
           />
         </div>
 

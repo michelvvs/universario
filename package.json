@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@google/genai": "^2.23.0",
-    "@imgly/background-removal": "^1.7.0",
     "canvas-confetti": "^1.9.4",
     "html-to-image": "^1.11.13",
     "jszip": "^3.10.2",

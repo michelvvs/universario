@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Camera, RefreshCw, Upload, SkipForward, Check, Sparkles, AlertCircle } from 'lucide-react';
+import { Camera, RefreshCw, Upload, SkipForward, Check, AlertCircle } from 'lucide-react';
 import { DymoLabel, VhsGoldSeal } from './VhsGraphics';
 
 interface PhotoCaptureScreenProps {
@@ -10,12 +10,12 @@ interface PhotoCaptureScreenProps {
   onSkip: () => void;
 }
 
-// Anatomical Head + Ears contour centered in a 512x512 coordinate box
-export const HEAD_AND_EARS_PATH_D =
-  'M 256 86 C 335 86, 376 135, 376 195 C 376 205, 395 205, 412 220 C 424 230, 424 260, 412 272 C 398 286, 376 286, 372 286 C 365 345, 325 412, 275 424 C 265 426, 256 426, 256 426 C 256 426, 247 426, 237 424 C 187 412, 147 345, 140 286 C 136 286, 114 286, 100 272 C 88 260, 88 230, 100 220 C 117 205, 136 205, 136 195 C 136 135, 177 86, 256 86 Z';
+// Snug Ergonomic Head Silhouette: hugs temples, cheeks, and jaw closely to eliminate background wall and clothing
+export const HEAD_ANATOMICAL_PATH_D =
+  'M 256 78 C 336 78, 386 128, 386 220 C 386 310, 328 395, 268 410 C 260 412, 256 412, 256 412 C 256 412, 252 412, 244 410 C 184 395, 126 310, 126 220 C 126 128, 176 78, 256 78 Z';
 
-// Instantly cut out head + ears from 512x512 canvas and tightly crop
-function extractHeadCutout(sourceCanvas: HTMLCanvasElement): string {
+// Instantly cut out head from 512x512 canvas and tightly crop
+export function extractHeadCutout(sourceCanvas: HTMLCanvasElement): string {
   const clipCanvas = document.createElement('canvas');
   clipCanvas.width = 512;
   clipCanvas.height = 512;
@@ -23,7 +23,7 @@ function extractHeadCutout(sourceCanvas: HTMLCanvasElement): string {
   if (!ctx) return '';
 
   try {
-    const path = new Path2D(HEAD_AND_EARS_PATH_D);
+    const path = new Path2D(HEAD_ANATOMICAL_PATH_D);
     ctx.save();
     ctx.clip(path);
     ctx.drawImage(sourceCanvas, 0, 0, 512, 512);
@@ -31,7 +31,7 @@ function extractHeadCutout(sourceCanvas: HTMLCanvasElement): string {
   } catch {
     ctx.save();
     ctx.beginPath();
-    ctx.ellipse(256, 256, 160, 170, 0, 0, Math.PI * 2);
+    ctx.ellipse(256, 245, 130, 167, 0, 0, Math.PI * 2);
     ctx.closePath();
     ctx.clip();
     ctx.drawImage(sourceCanvas, 0, 0, 512, 512);
@@ -39,15 +39,15 @@ function extractHeadCutout(sourceCanvas: HTMLCanvasElement): string {
   }
 
   const cropCanvas = document.createElement('canvas');
-  cropCanvas.width = 330;
-  cropCanvas.height = 340;
+  cropCanvas.width = 300;
+  cropCanvas.height = 372;
   const cropCtx = cropCanvas.getContext('2d');
   if (!cropCtx) return clipCanvas.toDataURL('image/png');
 
   cropCtx.drawImage(
     clipCanvas,
-    91, 86, 330, 340,
-    0, 0, 330, 340
+    106, 60, 300, 372,
+    0, 0, 300, 372
   );
 
   return cropCanvas.toDataURL('image/png');
@@ -165,8 +165,10 @@ export default function PhotoCaptureScreen({
 
     stopCamera();
 
-    const dataUrl = extractHeadCutout(squareCanvas);
-    setCapturedPhoto(dataUrl);
+    // Step 1: Instant Anatomical Cutout (0ms)
+    const step1Cutout = extractHeadCutout(squareCanvas);
+    const headCutout = extractHeadCutout(squareCanvas);
+    setCapturedPhoto(headCutout);
   };
 
   // Handle file upload
@@ -191,8 +193,8 @@ export default function PhotoCaptureScreen({
 
         sCtx.drawImage(img, startX, startY, size, size, 0, 0, 512, 512);
 
-        const dataUrl = extractHeadCutout(squareCanvas);
-        setCapturedPhoto(dataUrl);
+        const headCutout = extractHeadCutout(squareCanvas);
+        setCapturedPhoto(headCutout);
       };
       img.src = event.target?.result as string;
     };
@@ -249,7 +251,7 @@ export default function PhotoCaptureScreen({
             lineHeight: 1.3,
           }}
         >
-          Enquadre sua cabeça e orelhas na área demarcada para estampar as caricaturas!
+          Enquadre seu rosto na área demarcada para estampar a sua foto na Polaroid vintage!
         </p>
       </div>
 
@@ -338,7 +340,7 @@ export default function PhotoCaptureScreen({
           }}
         />
 
-        {/* State A: Head + Ears Silhouette Guide when camera is active */}
+        {/* State A: Head Contour Guide when camera is active */}
         {!capturedPhoto && isCameraActive && (
           <div
             style={{
@@ -363,11 +365,11 @@ export default function PhotoCaptureScreen({
                 {/* Mask: black cutout hole reveals the live camera, white surrounds with dark vignette */}
                 <mask id="headEarsViewfinderMask">
                   <rect x="0" y="0" width="512" height="512" fill="white" />
-                  <path d={HEAD_AND_EARS_PATH_D} fill="black" />
+                  <path d={HEAD_ANATOMICAL_PATH_D} fill="black" />
                 </mask>
               </defs>
 
-              {/* Translucent vignette darkening everything outside the head+ears area */}
+              {/* Translucent vignette darkening everything outside the head area */}
               <rect
                 x="0"
                 y="0"
@@ -377,13 +379,13 @@ export default function PhotoCaptureScreen({
                 mask="url(#headEarsViewfinderMask)"
               />
 
-              {/* Neon Dashed Contour for Head + Ears */}
+              {/* Neon Dashed Contour for Head */}
               <path
-                d={HEAD_AND_EARS_PATH_D}
+                d={HEAD_ANATOMICAL_PATH_D}
                 fill="none"
                 stroke="#ffe600"
-                strokeWidth="3.5"
-                strokeDasharray="9 7"
+                strokeWidth="3"
+                strokeDasharray="8 6"
                 style={{
                   filter: 'drop-shadow(0 0 8px rgba(255, 230, 0, 0.8))',
                 }}
@@ -392,27 +394,27 @@ export default function PhotoCaptureScreen({
               {/* Visual guidance labels */}
               <text
                 x="256"
-                y="65"
+                y="55"
                 textAnchor="middle"
                 fill="#ffe600"
                 fontFamily="var(--font-vcr)"
-                fontSize="18"
+                fontSize="17"
                 letterSpacing="1.5"
                 fontWeight="900"
                 style={{
                   filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.9))',
                 }}
               >
-                ▲ CABEÇA ▲
+                ▲ TOPO DA CABEÇA ▲
               </text>
 
               <text
                 x="256"
-                y="455"
+                y="438"
                 textAnchor="middle"
                 fill="#ffe600"
                 fontFamily="var(--font-vcr)"
-                fontSize="18"
+                fontSize="17"
                 letterSpacing="1.5"
                 fontWeight="900"
                 style={{
@@ -442,7 +444,7 @@ export default function PhotoCaptureScreen({
                 pointerEvents: 'none',
               }}
             >
-              ENQUADRE CABEÇA E ORELHAS
+              ENQUADRE SEU ROSTO
             </div>
           </div>
         )}
@@ -496,6 +498,7 @@ export default function PhotoCaptureScreen({
             </p>
           </div>
         )}
+
       </div>
 
       {/* Hidden File Input for Gallery Upload */}
@@ -537,7 +540,9 @@ export default function PhotoCaptureScreen({
           >
             <Camera size={20} />
             <span>
-              {isCameraActive ? 'CAPTURAR FOTO 📸' : 'ESCOLHER DA GALERIA 📁'}
+              {isCameraActive
+                ? 'CAPTURAR FOTO 📸'
+                : 'ESCOLHER DA GALERIA 📁'}
             </span>
           </button>
         ) : (

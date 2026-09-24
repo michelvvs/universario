@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Calendar, User, History, ArrowRight, Play, RotateCcw, Sparkles } from 'lucide-react';
-import { VcrOsdBadge, VhsTapeWindow, DymoLabel, SharpieLabel, ScotchTape } from './VhsGraphics';
+import { Calendar, User, History, ArrowRight, RotateCcw, Sparkles } from 'lucide-react';
 
 interface DateInputFormProps {
   onSubmit: (date: string, name?: string, gender?: 'masculino' | 'feminino' | 'neutro') => void;
@@ -10,15 +9,14 @@ interface DateInputFormProps {
 }
 
 const PRESET_DATES = [
-  { label: '📼 25/05/1989 (Teste 80s)', date: '1989-05-25', name: 'Michel', gender: 'masculino' as const },
-  { label: '🚀 Pouso na Lua (1969)', date: '1969-07-20', name: 'Neil Armstrong', gender: 'masculino' as const },
-  { label: '🏆 Tetra do Brasil (1994)', date: '1994-07-17', name: 'Geração 94', gender: 'neutro' as const },
-  { label: '🚢 Titanic (1997)', date: '1997-12-19', name: 'Rose DeWitt', gender: 'feminino' as const },
-  { label: '🌟 Virada 2000', date: '2000-01-01', name: 'Millennium', gender: 'neutro' as const },
-  { label: '⭐ Penta Brasil (2002)', date: '2002-06-30', name: 'Penta 2002', gender: 'neutro' as const },
+  { label: '25/05/1989 • MICHEL (80s)', date: '1989-05-25', name: 'Michel', gender: 'masculino' as const },
+  { label: '20/07/1969 • POUSO NA LUA', date: '1969-07-20', name: 'Neil Armstrong', gender: 'masculino' as const },
+  { label: '17/07/1994 • TETRA BRASIL', date: '1994-07-17', name: 'Geração 94', gender: 'neutro' as const },
+  { label: '19/12/1997 • TITANIC', date: '1997-12-19', name: 'Rose DeWitt', gender: 'feminino' as const },
+  { label: '01/01/2000 • VIRADA 2000', date: '2000-01-01', name: 'Millennium', gender: 'neutro' as const },
+  { label: '30/06/2002 • PENTA BRASIL', date: '2002-06-30', name: 'Penta 2002', gender: 'neutro' as const },
 ];
 
-// Helper functions for numeric date input
 function formatToDisplayDate(isoDate: string): string {
   if (!isoDate || !/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return '';
   const [yyyy, mm, dd] = isoDate.split('-');
@@ -74,158 +72,188 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
   };
 
   return (
-    <div style={{ width: '100%', maxWidth: '540px', margin: '0 auto', position: 'relative', boxSizing: 'border-box' }}>
-      {/* Scotch Tape on corners */}
-      <ScotchTape angle={-12} width={56} style={{ top: '-10px', left: '16px' }} />
-      <ScotchTape angle={14} width={56} style={{ top: '-10px', right: '16px' }} />
-
-      {/* Main 80s VCR Chassis Deck */}
+    <div style={{ width: '100%', maxWidth: '820px', margin: '0 auto', position: 'relative', boxSizing: 'border-box' }}>
+      {/* Thermal Gradient Aura Glow centered directly behind the card */}
       <div
+        className="acid-thermal-aura"
         style={{
-          background: 'linear-gradient(180deg, #181b22 0%, #0d1016 100%)',
-          border: '3px solid #333d52',
-          borderRadius: '14px',
-          padding: 'clamp(16px, 4vw, 26px) clamp(12px, 3.2vw, 22px)',
-          boxShadow: '0 20px 50px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.15)',
-          position: 'relative',
+          position: 'absolute',
+          width: 'min(500px, 90vw)',
+          height: 'min(360px, 65vw)',
+          top: '5%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          pointerEvents: 'none',
+        }}
+      />
+
+      {/* Main Acid Editorial Brutalist Card */}
+      <div
+        className="acid-card"
+        style={{
+          background: '#0c0d11',
+          color: '#ffffff',
+          border: '3px solid #0c0d11',
+          boxShadow: '5px 5px 0px #d4ff00',
+          padding: 'clamp(14px, 3.5vw, 24px)',
+          borderRadius: '4px',
           boxSizing: 'border-box',
           width: '100%',
+          position: 'relative',
+          zIndex: 2,
         }}
       >
-        {/* VCR Header OSD Row */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '6px' }}>
-          <VcrOsdBadge text="VCR DECK • STANDBY" variant="tracking" />
-          <div style={{ display: 'flex', gap: '6px' }}>
-            <DymoLabel text="TAPE E-180" color="red" />
-            <DymoLabel text="HI-FI STEREO" color="blue" />
-          </div>
-        </div>
-
-        {/* Cassette Insertion Well with Rotating Spools */}
+        {/* Technical Top Row */}
         <div
           style={{
-            background: '#090b10',
-            border: '2px solid #232733',
-            borderRadius: '8px',
-            padding: '12px 14px',
-            marginBottom: '20px',
-            boxShadow: 'inset 0 4px 16px rgba(0,0,0,0.95)',
-            boxSizing: 'border-box',
-            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '14px',
+            flexWrap: 'wrap',
+            gap: '6px',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-            <span
-              style={{
-                fontFamily: 'var(--font-vcr)',
-                fontSize: '0.82rem',
-                color: '#00ff88',
-                letterSpacing: '1.5px',
-              }}
-            >
-              CASSETTE INSERTION WELL
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span className="acid-tag acid-tag-lime" style={{ fontSize: '0.62rem', padding: '2px 6px' }}>
+              [ ARCHIVE // 01 ]
             </span>
             <span
               style={{
-                fontFamily: 'var(--font-vcr)',
-                fontSize: '0.78rem',
-                color: '#ffe600',
-                letterSpacing: '1px',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.65rem',
+                color: 'rgba(255,255,255,0.7)',
+                letterSpacing: '0.5px',
               }}
             >
-              AUTO TRACKING LOCK
+              TIME CAPSULE
             </span>
           </div>
 
-          <VhsTapeWindow label="UNIVERSÁRIO MASTER" timecode="00:25:89" spinning={isLoading} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#ffffff' }}>
+            <div className="acid-barcode" style={{ height: '14px' }}>
+              <span /><span /><span /><span /><span /><span />
+            </div>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: '#d4ff00', fontWeight: 800 }}>
+              REC ● NTSC
+            </span>
+          </div>
         </div>
 
-        {/* Title Header */}
-        <div style={{ textAlign: 'center', marginBottom: '22px' }}>
+        {/* Maximalist Title Header */}
+        <div style={{ marginBottom: '16px' }}>
           <h1
             style={{
-              fontSize: 'clamp(2.1rem, 6vw, 2.75rem)',
-              fontFamily: 'var(--font-heading)',
-              lineHeight: 1.05,
-              marginBottom: '6px',
+              fontSize: 'clamp(1.55rem, 5.8vw, 2.4rem)',
+              fontFamily: 'var(--font-maximalist)',
+              fontWeight: 900,
+              lineHeight: 1.02,
               color: '#ffffff',
-              letterSpacing: '1.5px',
-              textShadow: '0 0 16px rgba(0, 229, 255, 0.4), 0 3px 10px rgba(0,0,0,0.95)',
+              letterSpacing: '-0.5px',
               textTransform: 'uppercase',
+              marginBottom: '6px',
             }}
           >
-            UNIVERSÁRIO
+            QUAL É O SEU UNIVERSÁRIO?
           </h1>
 
           <p
             style={{
-              color: '#00ff88',
-              fontSize: '0.94rem',
-              lineHeight: 1.3,
-              fontFamily: 'var(--font-vcr)',
-              letterSpacing: '1px',
+              color: '#d4ff00',
+              fontSize: 'clamp(0.70rem, 2.4vw, 0.82rem)',
+              fontFamily: 'var(--font-mono)',
+              letterSpacing: '0.8px',
+              fontWeight: 700,
+              textTransform: 'uppercase',
             }}
           >
-            ► INSIRA SUA DATA PARA REBOBINAR O TEMPO EM STORIES 9:16
+            → O QUE ACONTECIA NO DIA EM QUE VOCÊ CHEGOU AO MUNDO
           </p>
         </div>
 
         {/* Form Controls */}
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', boxSizing: 'border-box' }}>
-          {/* Date Input */}
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px', width: '100%', boxSizing: 'border-box' }}>
+          {/* Date Input with Maximalist styling */}
           <div style={{ width: '100%', boxSizing: 'border-box' }}>
-            <label
+            <div
               style={{
                 display: 'flex',
+                justifyContent: 'space-between',
                 alignItems: 'center',
-                gap: '6px',
-                fontSize: '0.88rem',
-                color: '#d0d6e2',
-                fontFamily: 'var(--font-vcr)',
-                letterSpacing: '1.2px',
                 marginBottom: '6px',
               }}
             >
-              <Calendar size={15} color="#ffe600" />
-              <span>DATA DE NASCIMENTO (DD/MM/AAAA) *</span>
-            </label>
-            <input
-              type="text"
-              inputMode="numeric"
-              pattern="[0-9/]*"
-              autoComplete="bday"
-              required
-              placeholder="DD/MM/AAAA (ex: 25/05/1989)"
-              maxLength={10}
-              value={dateDisplay}
-              onChange={(e) => {
-                const masked = applyDateMask(e.target.value);
-                setDateDisplay(masked);
-                if (dateError) setDateError(null);
-              }}
-              style={{
-                width: '100%',
-                maxWidth: '100%',
-                boxSizing: 'border-box',
-                padding: '12px 14px',
-                background: '#07090e',
-                border: dateError ? '2px solid #ff3b30' : '2px solid #3d465c',
-                borderRadius: '6px',
-                color: '#00ff88',
-                fontFamily: 'var(--font-vcr)',
-                fontSize: 'clamp(1.1rem, 4vw, 1.3rem)',
-                letterSpacing: '2px',
-                outline: 'none',
-                boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.95)',
-                WebkitAppearance: 'none',
-              }}
-            />
+              <label
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '0.74rem',
+                  color: '#ffffff',
+                  fontFamily: 'var(--font-mono)',
+                  fontWeight: 800,
+                  letterSpacing: '0.5px',
+                  textTransform: 'uppercase',
+                }}
+              >
+                <Calendar size={13} color="#d4ff00" />
+                <span>DATA DE NASCIMENTO *</span>
+              </label>
+
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.62rem',
+                  color: '#d4ff00',
+                  fontWeight: 800,
+                  letterSpacing: '0.5px',
+                }}
+              >
+                [ DD/MM/AAAA ]
+              </span>
+            </div>
+
+            <div style={{ position: 'relative' }}>
+              <input
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9/]*"
+                autoComplete="bday"
+                required
+                placeholder="25/05/1989"
+                maxLength={10}
+                value={dateDisplay}
+                onChange={(e) => {
+                  const masked = applyDateMask(e.target.value);
+                  setDateDisplay(masked);
+                  if (dateError) setDateError(null);
+                }}
+                style={{
+                  width: '100%',
+                  maxWidth: '100%',
+                  boxSizing: 'border-box',
+                  padding: '11px 14px',
+                  background: '#000000',
+                  border: dateError ? '2px solid #ff0077' : '2px solid #ffffff',
+                  borderRadius: '2px',
+                  color: '#d4ff00',
+                  fontFamily: 'var(--font-maximalist)',
+                  fontSize: 'clamp(1.35rem, 5.0vw, 1.8rem)',
+                  fontWeight: 900,
+                  letterSpacing: '2px',
+                  outline: 'none',
+                  boxShadow: 'inset 0 2px 6px rgba(0,0,0,0.8)',
+                  WebkitAppearance: 'none',
+                }}
+              />
+            </div>
             {dateError && (
               <div
                 style={{
-                  fontFamily: 'var(--font-vcr)',
-                  color: '#ff6666',
-                  fontSize: '0.82rem',
+                  fontFamily: 'var(--font-mono)',
+                  color: '#ff0077',
+                  fontSize: '0.76rem',
+                  fontWeight: 800,
                   marginTop: '5px',
                   letterSpacing: '0.5px',
                 }}
@@ -242,14 +270,16 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
-                fontSize: '0.88rem',
-                color: '#d0d6e2',
-                fontFamily: 'var(--font-vcr)',
-                letterSpacing: '1.2px',
+                fontSize: '0.74rem',
+                color: '#ffffff',
+                fontFamily: 'var(--font-mono)',
+                fontWeight: 800,
+                letterSpacing: '0.5px',
+                textTransform: 'uppercase',
                 marginBottom: '6px',
               }}
             >
-              <User size={15} color="#00e5ff" />
+              <User size={13} color="#00ff2a" />
               <span>NOME / APELIDO (OPCIONAL)</span>
             </label>
             <input
@@ -262,50 +292,52 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
                 width: '100%',
                 maxWidth: '100%',
                 boxSizing: 'border-box',
-                padding: '12px 14px',
-                background: '#07090e',
-                border: '2px solid #3d465c',
-                borderRadius: '6px',
+                padding: '10px 14px',
+                background: '#000000',
+                border: '1.5px solid rgba(255, 255, 255, 0.4)',
+                borderRadius: '2px',
                 color: '#ffffff',
-                fontFamily: 'var(--font-vcr)',
-                fontSize: '1.15rem',
-                letterSpacing: '1px',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.95rem',
+                fontWeight: 700,
+                letterSpacing: '0.5px',
                 outline: 'none',
-                boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.95)',
                 WebkitAppearance: 'none',
               }}
             />
           </div>
 
-          {/* Gender / Grammatical Article Selection */}
+          {/* Gender / Article Selection */}
           <div>
             <label
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
-                fontSize: '0.88rem',
-                color: '#d0d6e2',
-                fontFamily: 'var(--font-vcr)',
-                letterSpacing: '1.2px',
-                marginBottom: '8px',
+                fontSize: '0.74rem',
+                color: '#ffffff',
+                fontFamily: 'var(--font-mono)',
+                fontWeight: 800,
+                letterSpacing: '0.5px',
+                textTransform: 'uppercase',
+                marginBottom: '6px',
               }}
             >
-              <Sparkles size={14} color="#ffe600" />
-              <span>GÊNERO / ARTIGO PARA AS HISTÓRIAS:</span>
+              <Sparkles size={13} color="#ff0077" />
+              <span>GÊNERO PARA AS HISTÓRIAS:</span>
             </label>
 
             <div
               style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr 1fr',
-                gap: '8px',
+                gap: '6px',
               }}
             >
               {[
-                { id: 'masculino', label: '♂ ELE', desc: name ? `o ${name}` : 'o aniversariante' },
-                { id: 'feminino', label: '♀ ELA', desc: name ? `a ${name}` : 'a aniversariante' },
-                { id: 'neutro', label: '✦ NEUTRO', desc: name ? `${name}` : 'neutro' },
+                { id: 'masculino', label: 'ELE', desc: name ? `o ${name}` : 'masculino' },
+                { id: 'feminino', label: 'ELA', desc: name ? `a ${name}` : 'feminino' },
+                { id: 'neutro', label: 'NEUTRO', desc: name ? `${name}` : 'neutro' },
               ].map((opt) => {
                 const isSelected = gender === opt.id;
                 return (
@@ -314,42 +346,39 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
                     type="button"
                     onClick={() => setGender(opt.id as 'masculino' | 'feminino' | 'neutro')}
                     style={{
-                      padding: '9px 6px',
-                      borderRadius: '6px',
-                      background: isSelected
-                        ? 'linear-gradient(180deg, #1f2738 0%, #131924 100%)'
-                        : '#090b10',
-                      border: isSelected
-                        ? '2px solid #00ff88'
-                        : '1.5px solid #283042',
-                      boxShadow: isSelected
-                        ? '0 0 12px rgba(0, 255, 136, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
-                        : 'none',
+                      padding: '8px 4px',
+                      borderRadius: '2px',
+                      background: isSelected ? 'var(--acid-chartreuse)' : '#000000',
+                      color: isSelected ? '#0a0a0c' : '#ffffff',
+                      border: isSelected ? '2px solid #0a0a0c' : '1.5px solid rgba(255, 255, 255, 0.25)',
+                      boxShadow: isSelected ? '2px 2px 0px #ffffff' : 'none',
                       cursor: 'pointer',
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
-                      gap: '2px',
-                      transition: 'all 0.15s ease',
+                      gap: '1px',
+                      transition: 'all 0.1s ease',
                     }}
                   >
                     <span
                       style={{
-                        fontFamily: 'var(--font-heading)',
-                        fontSize: '0.86rem',
-                        fontWeight: 800,
+                        fontFamily: 'var(--font-maximalist)',
+                        fontSize: '0.88rem',
+                        fontWeight: 900,
                         letterSpacing: '0.5px',
-                        color: isSelected ? '#ffffff' : '#9ca3af',
                       }}
                     >
                       {opt.label}
                     </span>
                     <span
                       style={{
-                        fontFamily: 'var(--font-vcr)',
-                        fontSize: '0.72rem',
-                        color: isSelected ? '#00ff88' : '#6b7280',
-                        letterSpacing: '0.5px',
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.62rem',
+                        opacity: isSelected ? 0.9 : 0.6,
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        maxWidth: '100%',
                       }}
                     >
                       {opt.desc}
@@ -360,96 +389,97 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
             </div>
           </div>
 
-          {/* Authentic Tactile VCR Keycap CTA Button */}
+          {/* Maximalist CTA Button */}
           <button
             type="submit"
             disabled={isLoading || !dateDisplay || dateDisplay.length < 10}
-            className="btn-vcr-keycap"
+            className="acid-btn-primary"
             style={{
               width: '100%',
-              marginTop: '6px',
-              padding: '16px 20px',
-              background: 'linear-gradient(180deg, #d81414 0%, #a00d0d 60%, #750808 100%)',
-              border: '2px solid #ff6666',
-              borderRadius: '8px',
-              color: '#ffffff',
-              fontFamily: 'var(--font-vcr)',
-              fontSize: '1.35rem',
-              letterSpacing: '2px',
-              textTransform: 'uppercase',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '12px',
+              marginTop: '4px',
+              padding: '13px 20px',
+              fontSize: '1.05rem',
               cursor: isLoading ? 'not-allowed' : 'pointer',
-              boxShadow: '0 6px 0 #5c0707, 0 12px 24px rgba(0, 0, 0, 0.8), inset 0 2px 0 rgba(255, 255, 255, 0.3)',
-              position: 'relative',
-              transition: 'all 0.1s ease',
             }}
           >
             {isLoading ? (
               <>
-                <RotateCcw size={22} className="animate-spin" />
-                <span>REBOBINANDO FITA...</span>
+                <RotateCcw size={18} className="animate-spin" />
+                <span>RECUPERANDO ARQUIVOS...</span>
               </>
             ) : (
               <>
-                <Play size={24} fill="#ffffff" />
-                <span>GERAR UNIVERSÁRIO</span>
-                <ArrowRight size={20} />
+                <span>GERAR STORIES</span>
+                <ArrowRight size={18} />
               </>
             )}
           </button>
         </form>
 
-        {/* Preset Tape Selections */}
-        <div style={{ marginTop: '22px', borderTop: '1px dashed #2d3545', paddingTop: '16px' }}>
+        {/* Preset Selections in a clean, compact 2-column grid */}
+        <div style={{ marginTop: '16px', borderTop: '1px solid rgba(255, 255, 255, 0.15)', paddingTop: '12px' }}>
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
-              fontSize: '0.78rem',
-              color: '#a0a8ba',
-              fontFamily: 'var(--font-vcr)',
-              letterSpacing: '1px',
-              marginBottom: '10px',
+              fontSize: '0.68rem',
+              color: 'rgba(255, 255, 255, 0.75)',
+              fontFamily: 'var(--font-mono)',
+              letterSpacing: '0.8px',
+              textTransform: 'uppercase',
+              marginBottom: '8px',
             }}
           >
-            <History size={15} color="#ffe600" />
-            <span>[OK] SELECIONE UMA FITA HISTÓRICA DO ARQUIVO:</span>
+            <History size={12} color="#d4ff00" />
+            <span>[ PRESETS HISTÓRICOS DE TESTE RÁPIDO ]</span>
           </div>
 
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-            {PRESET_DATES.map((preset) => (
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
+              gap: '6px',
+            }}
+          >
+            {[
+              { label: '★ 1989 MICHEL', date: '1989-05-25', name: 'Michel', gender: 'masculino' as const },
+              { label: '★ 1969 APOLLO 11', date: '1969-07-20', name: 'Neil Armstrong', gender: 'masculino' as const },
+              { label: '★ 1994 TETRA BR', date: '1994-07-17', name: 'Geração 94', gender: 'neutro' as const },
+              { label: '★ 1997 TITANIC', date: '1997-12-19', name: 'Rose', gender: 'feminino' as const },
+              { label: '★ 2000 VIRADA', date: '2000-01-01', name: 'Millennium', gender: 'neutro' as const },
+              { label: '★ 2002 PENTA BR', date: '2002-06-30', name: 'Penta 2002', gender: 'neutro' as const },
+            ].map((preset) => (
               <button
                 key={preset.date}
                 type="button"
                 onClick={() => handlePreset(preset.date, preset.name, preset.gender)}
                 style={{
-                  background: '#12161f',
-                  border: '1.5px solid #2f384c',
-                  borderRadius: '4px',
-                  padding: '6px 12px',
-                  fontSize: '0.86rem',
-                  fontFamily: 'var(--font-vcr)',
+                  background: '#000000',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  padding: '7px 8px',
+                  fontSize: '0.72rem',
+                  fontFamily: 'var(--font-mono)',
+                  fontWeight: 800,
                   letterSpacing: '0.5px',
-                  color: '#d0d8e8',
+                  color: '#ffffff',
                   cursor: 'pointer',
-                  boxShadow: '0 2px 6px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05)',
-                  transition: 'all 0.15s ease',
+                  borderRadius: '2px',
+                  textAlign: 'center',
+                  transition: 'all 0.12s ease',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#00ff88';
-                  e.currentTarget.style.color = '#00ff88';
-                  e.currentTarget.style.background = '#1a2230';
-                  e.currentTarget.style.boxShadow = '0 0 10px rgba(0, 255, 136, 0.4)';
+                  e.currentTarget.style.borderColor = '#d4ff00';
+                  e.currentTarget.style.color = '#0a0a0c';
+                  e.currentTarget.style.background = '#d4ff00';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = '#2f384c';
-                  e.currentTarget.style.color = '#d0d8e8';
-                  e.currentTarget.style.background = '#12161f';
-                  e.currentTarget.style.boxShadow = '0 2px 6px rgba(0,0,0,0.6)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                  e.currentTarget.style.color = '#ffffff';
+                  e.currentTarget.style.background = '#000000';
                 }}
               >
                 {preset.label}
@@ -458,18 +488,6 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        .btn-vcr-keycap:hover:not(:disabled) {
-          transform: translateY(2px);
-          box-shadow: 0 4px 0 #4a0505, 0 8px 18px rgba(0, 0, 0, 0.9), inset 0 2px 0 rgba(255, 255, 255, 0.4);
-        }
-
-        .btn-vcr-keycap:active:not(:disabled) {
-          transform: translateY(5px);
-          box-shadow: 0 1px 0 #4a0505, 0 2px 8px rgba(0, 0, 0, 0.9), inset 0 2px 0 rgba(255, 255, 255, 0.4);
-        }
-      `}</style>
     </div>
   );
 }

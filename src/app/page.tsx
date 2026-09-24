@@ -150,8 +150,9 @@ export default function HomePage() {
 
   return (
     <main style={{ minHeight: '100dvh', position: 'relative', width: '100%', overflowX: 'hidden' }}>
-      {/* 80s VCR Studio Ambient Background */}
-      <div className="vhs-bg-studio" />
+      {/* Modern Acid / Electric Cobalt Studio Ambient Background */}
+      <div className="acid-bg-studio" />
+      <div className="acid-grid-overlay" />
 
       {/* Main Content Container */}
       <div
@@ -161,20 +162,23 @@ export default function HomePage() {
           minHeight: '100dvh',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between',
+          justifyContent: viewState === 'stories' ? 'center' : 'flex-start',
+          gap: viewState === 'stories' ? '0px' : '8px',
         }}
       >
-        {/* Retro VCR Header Topbar (Visible on landing/form, hidden in stories for immersive integrated header) */}
+        {/* Modern Acid Editorial Header Topbar */}
         {viewState !== 'stories' && (
           <header
             style={{
-              padding: '16px 24px',
+              padding: 'clamp(8px, 1.5vh, 14px) clamp(12px, 3vw, 24px)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              maxWidth: '1100px',
+              maxWidth: '860px',
               margin: '0 auto',
               width: '100%',
+              boxSizing: 'border-box',
+              gap: '10px',
             }}
           >
             <div
@@ -182,57 +186,73 @@ export default function HomePage() {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px',
+                gap: 'clamp(8px, 2.5vw, 14px)',
                 cursor: 'pointer',
                 userSelect: 'none',
+                minWidth: 0,
+                flex: 1,
               }}
             >
               <div
                 style={{
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: '8px',
-                  background: 'linear-gradient(135deg, #1c202a 0%, #0d1016 100%)',
-                  border: '2px solid #3d465c',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.2)',
+                  width: 'clamp(30px, 7vw, 38px)',
+                  height: 'clamp(30px, 7vw, 38px)',
+                  flexShrink: 0,
+                  background: '#0c0d11',
+                  border: '2px solid #0c0d11',
+                  boxShadow: '2.5px 2.5px 0px rgba(0,0,0,0.15)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '1.4rem',
+                  color: '#d4ff00',
+                  fontFamily: 'var(--font-maximalist)',
+                  fontWeight: 900,
+                  fontSize: 'clamp(1.0rem, 2.8vw, 1.3rem)',
                 }}
               >
-                📼
+                ★
               </div>
-              <div>
+              <div style={{ minWidth: 0, overflow: 'hidden' }}>
                 <span
                   style={{
-                    fontSize: '1.75rem',
+                    fontSize: 'clamp(1.15rem, 5.2vw, 1.9rem)',
                     fontWeight: 900,
-                    fontFamily: 'var(--font-heading)',
-                    color: '#ffffff',
-                    letterSpacing: '1.5px',
+                    fontFamily: 'var(--font-maximalist)',
+                    color: '#0c0d11',
+                    letterSpacing: '-0.5px',
                     textTransform: 'uppercase',
+                    lineHeight: 1,
+                    display: 'block',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
                   }}
                 >
                   UNIVERSÁRIO
                 </span>
                 <div
                   style={{
-                    fontFamily: 'var(--font-vcr)',
-                    fontSize: '0.96rem',
-                    color: '#00ff88',
-                    letterSpacing: '1.5px',
-                    lineHeight: 1,
-                    fontWeight: 700,
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: 'clamp(0.52rem, 2.0vw, 0.68rem)',
+                    color: '#ff5500',
+                    letterSpacing: '1px',
+                    lineHeight: 1.2,
+                    fontWeight: 800,
+                    marginTop: '2px',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
                   }}
                 >
-                  VHS / VCR RETRO ENGINE • NTSC HI-FI
+                  [ TIME CAPSULE // ARCHIVE ENGINE ]
                 </div>
               </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <VcrOsdBadge text="REC ● NTSC" variant="rec" />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+              <span className="acid-tag acid-tag-lime" style={{ fontSize: '0.62rem', padding: '2px 6px' }}>
+                VOL. 01
+              </span>
             </div>
           </header>
         )}
@@ -240,12 +260,15 @@ export default function HomePage() {
         {/* Dynamic Body Content */}
         <div
           style={{
-            flex: 1,
+            flex: viewState === 'stories' ? 1 : '0 1 auto',
             display: 'flex',
-            alignItems: 'center',
+            alignItems: viewState === 'stories' ? 'center' : 'flex-start',
             justifyContent: 'center',
-            padding: viewState === 'stories' ? '4px 2px' : '20px 16px',
+            padding: viewState === 'stories' ? '2px' : '2px clamp(10px, 3vw, 20px) 16px clamp(10px, 3vw, 20px)',
             width: '100%',
+            maxWidth: viewState === 'stories' ? '560px' : '840px',
+            margin: '0 auto',
+            boxSizing: 'border-box',
           }}
         >
           {viewState === 'idle' && (
@@ -291,39 +314,49 @@ export default function HomePage() {
           )}
         </div>
 
-        {/* Retro 80s VCR Studio Footer (Hidden in stories mode for maximum 9:16 vertical headroom) */}
+        {/* Acid Editorial Footer (Hidden in stories mode for maximum 9:16 vertical headroom) */}
         {viewState !== 'stories' && (
           <footer
             style={{
-              padding: '16px 20px',
-              textAlign: 'center',
-              color: '#ffffff',
-              borderTop: '1px solid #1f2533',
-              background: 'rgba(9, 11, 16, 0.88)',
-              backdropFilter: 'blur(8px)',
+              padding: '16px 24px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              maxWidth: '1100px',
+              margin: '0 auto',
+              width: '100%',
+              flexWrap: 'wrap',
+              gap: '10px',
+              boxSizing: 'border-box',
             }}
           >
             <div
               style={{
-                fontFamily: 'var(--font-vcr)',
-                fontSize: '1.05rem',
-                color: '#ffe600',
-                letterSpacing: '1.5px',
-                marginBottom: '2px',
-              }}
-            >
-              ★ UNIVERSÁRIO • VCR ARCHIVE ENGINE ★
-            </div>
-            <p
-              style={{
-                color: '#8b9bb4',
-                fontSize: '0.84rem',
                 fontFamily: 'var(--font-mono)',
-                letterSpacing: '0.5px',
+                fontSize: '0.78rem',
+                color: '#0c0d11',
+                letterSpacing: '1px',
+                fontWeight: 700,
               }}
             >
-              Paradas Nacionais & Internacionais, Astronomia & Arquivos Históricos em Stories 9:16
-            </p>
+              [ ARCHIVE DECK // TIME MACHINE // 1920—2025 ]
+            </div>
+
+            <div
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.72rem',
+                color: '#555562',
+                display: 'flex',
+                gap: '12px',
+                alignItems: 'center',
+                fontWeight: 700,
+              }}
+            >
+              <span>MADE FOR STORIES 9:16</span>
+              <span>•</span>
+              <span style={{ color: '#0c0d11', fontWeight: 900 }}>TYPE 01</span>
+            </div>
           </footer>
         )}
       </div>

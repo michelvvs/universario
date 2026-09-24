@@ -1,135 +1,64 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
+import PolaroidCard, { StoryTheme } from './PolaroidCard';
 
-export type CharacterTheme =
-  | 'intro'
-  | 'moon'
-  | 'radio'
-  | 'sales'
-  | 'billboard'
-  | 'news'
-  | 'cinema'
-  | 'stats'
-  | 'summary';
+export type CharacterTheme = StoryTheme;
 
 interface StoryCharacterProps {
   theme: CharacterTheme;
   gender?: 'masculino' | 'feminino' | 'neutro';
   userPhotoUrl?: string;
+  name?: string;
+  year?: number | string;
   style?: React.CSSProperties;
   className?: string;
+  variant?: 'color' | 'halftone';
 }
 
-// Measured neck and head centers (in % of width) and sizes for each unique chibi render
-const HEAD_OFFSETS: Record<'boy' | 'girl', Record<CharacterTheme, { centerX: number; top: number; size: number }>> = {
-  boy: {
-    moon: { centerX: 34, top: 1, size: 52 },
-    radio: { centerX: 61, top: 5, size: 54 },
-    sales: { centerX: 71, top: 5, size: 56 },
-    billboard: { centerX: 52, top: 5, size: 56 },
-    news: { centerX: 46, top: 1, size: 52 },
-    cinema: { centerX: 50, top: 14, size: 56 },
-    stats: { centerX: 40, top: 1, size: 52 },
-    intro: { centerX: 56, top: 2, size: 42 },
-    summary: { centerX: 59, top: 12, size: 54 },
-  },
-  girl: {
-    moon: { centerX: 35, top: 1, size: 52 },
-    radio: { centerX: 58, top: 4, size: 54 },
-    sales: { centerX: 60, top: 2, size: 52 },
-    billboard: { centerX: 53, top: 5, size: 56 },
-    news: { centerX: 45, top: 1, size: 50 },
-    cinema: { centerX: 49, top: 8, size: 56 },
-    stats: { centerX: 39, top: 1, size: 50 },
-    intro: { centerX: 55, top: 2, size: 48 },
-    summary: { centerX: 61, top: 14, size: 56 },
-  },
+const THEME_ROTATIONS: Record<CharacterTheme, number> = {
+  intro: -2,
+  moon: 2.2,
+  radio: -2,
+  sales: 1.8,
+  billboard: -1.5,
+  news: 2.0,
+  cinema: -2.4,
+  stats: 2.5,
+  summary: -1.8,
 };
 
 export default function StoryCharacter({
   theme,
   gender = 'masculino',
   userPhotoUrl,
+  name,
+  year,
   style,
   className = '',
 }: StoryCharacterProps) {
-  const [hasError, setHasError] = useState(false);
-
-  const genderFolder: 'boy' | 'girl' = gender === 'feminino' ? 'girl' : 'boy';
-  // If user provided their photo, use the headless body so their head fits naturally on the neck collar
-  const imageSrc = userPhotoUrl
-    ? `/characters/headless/${genderFolder}/${theme}.png`
-    : `/characters/${genderFolder}/${theme}.png`;
-
-  if (hasError) {
-    return null;
-  }
-
-  const offset = HEAD_OFFSETS[genderFolder]?.[theme] || { centerX: 50, top: 5, size: 50 };
+  const rotation = THEME_ROTATIONS[theme] ?? -1.5;
 
   return (
     <div
-      className={`story-character-wrapper ${className}`}
+      className={`story-character-polaroid-wrapper ${className}`}
       style={{
-        position: 'relative',
-        display: 'inline-flex',
-        justifyContent: 'flex-end',
-        alignItems: 'flex-end',
+        display: 'inline-block',
         pointerEvents: 'none',
-        zIndex: 10,
+        zIndex: 15,
+        overflow: 'visible',
         ...style,
       }}
     >
-      {/* 3D Chibi Cartoon Body */}
-      <img
-        src={imageSrc}
-        alt={`Caricatura Chibi 3D ${theme}`}
-        onError={() => setHasError(true)}
-        className="story-character-img"
-        style={{
-          display: 'block',
-          height: 'clamp(95px, 20cqh, 130px)',
-          width: 'auto',
-          maxWidth: '120px',
-          objectFit: 'contain',
-          filter: 'drop-shadow(0 6px 16px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.35))',
-          userSelect: 'none',
-        }}
+      <PolaroidCard
+        theme={theme}
+        gender={gender}
+        userPhotoUrl={userPhotoUrl}
+        name={name}
+        year={year}
+        width="clamp(76px, 22cqw, 88px)"
+        rotation={rotation}
       />
-
-      {/* Real User Face Cutout Layer (Seamlessly seated on the neck collar without frame) */}
-      {userPhotoUrl && (
-        <div
-          className="story-character-face-overlay"
-          style={{
-            position: 'absolute',
-            top: `${offset.top}%`,
-            left: `${offset.centerX}%`,
-            transform: 'translateX(-50%)',
-            width: `${offset.size}%`,
-            zIndex: 15,
-            pointerEvents: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={userPhotoUrl}
-            alt="Rosto recortado da pessoa"
-            style={{
-              width: '100%',
-              height: 'auto',
-              maxHeight: '100%',
-              objectFit: 'contain',
-              filter: 'drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45)) contrast(1.05) saturate(1.1)',
-              display: 'block',
-            }}
-          />
-        </div>
-      )}
     </div>
   );
 }
