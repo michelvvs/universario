@@ -108,8 +108,8 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
 
       {/* Main Content: #1 Torn Photo Album Card + Lined J-Card Top 2-5 (Aligned to Bottom) */}
       <div style={{ marginTop: 'auto', position: 'relative', display: 'flex', flexDirection: 'column', gap: 'clamp(3px, 0.9vh, 5px)', zIndex: 5 }}>
-        {/* Themed Polaroid Photo Card pinned to top-right of the #1 Hit card */}
-        <div style={{ position: 'absolute', top: '-36px', right: '6px', zIndex: 15, pointerEvents: 'none' }}>
+        {/* Themed 1:1 Square Polaroid Mascot pinned above the #1 Hit card with subtle depth overlap */}
+        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '10px', zIndex: 15, pointerEvents: 'none' }}>
           <StoryCharacter
             theme={categoryId === 'billboard' ? 'billboard' : categoryId === 'sales_br' ? 'sales' : 'radio'}
             gender={data.gender}
@@ -128,7 +128,7 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
             transform: 'rotate(-0.5deg)',
           }}
         >
-          <ScotchTape width={46} height={14} rotate={-5} style={{ top: '-6px', right: '10%' }} />
+          <ScotchTape width={46} height={14} rotate={-5} style={{ top: '-6px', left: '8%' }} />
 
           {/* Top Row: #1 Gold Badge & Category Info */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2px' }}>

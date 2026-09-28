@@ -70,8 +70,8 @@ export default function SlideNewsHistory({ data }: SlideProps) {
           zIndex: 5,
         }}
       >
-        {/* Themed Polaroid Photo Card pinned to top-right of the first newspaper card */}
-        <div style={{ position: 'absolute', top: '-36px', right: '6px', zIndex: 15, pointerEvents: 'none' }}>
+        {/* Themed 1:1 Square Polaroid Mascot pinned above the first newspaper card with subtle depth overlap */}
+        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '10px', zIndex: 15, pointerEvents: 'none' }}>
           <StoryCharacter theme="news" gender={data.gender} userPhotoUrl={data.userPhotoUrl} year={data.year} name={data.name} />
         </div>
         {news.slice(0, 3).map((item, index) => {
@@ -99,8 +99,8 @@ export default function SlideNewsHistory({ data }: SlideProps) {
                 width={48}
                 style={{
                   top: '-7px',
-                  right: index % 2 === 0 ? '12px' : 'auto',
-                  left: index % 2 !== 0 ? '12px' : 'auto',
+                  left: index === 0 ? '12px' : index % 2 === 0 ? 'auto' : '12px',
+                  right: index === 0 ? 'auto' : index % 2 === 0 ? '12px' : 'auto',
                 }}
               />
 

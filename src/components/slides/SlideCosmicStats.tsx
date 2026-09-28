@@ -64,8 +64,8 @@ export default function SlideCosmicStats({ data }: SlideProps) {
           zIndex: 5,
         }}
       >
-        {/* Themed Polaroid Photo Card pinned to top-right of the stats panel */}
-        <div style={{ position: 'absolute', top: '-36px', right: '6px', zIndex: 15, pointerEvents: 'none' }}>
+        {/* Themed 1:1 Square Polaroid Mascot pinned above the stats panel with subtle depth overlap */}
+        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '10px', zIndex: 15, pointerEvents: 'none' }}>
           <StoryCharacter theme="stats" gender={data.gender} userPhotoUrl={data.userPhotoUrl} year={data.year} name={data.name} />
         </div>
         {/* Heartbeats Counter */}

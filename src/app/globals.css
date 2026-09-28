@@ -1582,7 +1582,7 @@ body {
     0 2px 6px rgba(0, 0, 0, 0.1),
     4px 4px 0px rgba(12, 13, 17, 0.18) !important;
   border-radius: 2px;
-  padding: 5px 5px 14px 5px !important;
+  padding: 5px 5px 14px 5px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -1592,17 +1592,29 @@ body {
   max-width: 100% !important;
 }
 
-/* Photo Viewport inside Polaroid */
+/* Compact padding for square polaroid */
+.acid-polaroid-square .acid-polaroid-frame {
+  padding: 4px 4px 6px 4px !important;
+}
+
+/* Photo Viewport inside Polaroid: STRICT 1:1 SQUARE ASPECT RATIO */
 .acid-polaroid-photo-viewport {
   position: relative;
   width: 100% !important;
   max-width: 100% !important;
-  height: 145px !important;
-  max-height: 145px !important;
+  aspect-ratio: 1 / 1 !important;
+  height: auto !important;
+  max-height: none !important;
   background: #111216;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.15);
   box-sizing: border-box !important;
+}
+
+.acid-polaroid-square .acid-polaroid-photo-viewport {
+  aspect-ratio: 1 / 1 !important;
+  height: auto !important;
+  max-height: none !important;
 }
 
 /* Vintage body image */

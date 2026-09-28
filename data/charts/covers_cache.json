@@ -40,5 +40,23 @@
     "youtubeVideoId": "QeyvpzWYJh4",
     "youtubeUrl": "https://www.youtube.com/watch?v=ytId",
     "audioPreviewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b7/34/28/b7342808-6d0e-8243-14e6-41f94d451ba6/mzaf_1609102338410084672.plus.aac.p.m4a"
+  },
+  "taylor swift:cruel summer / fortnight": {
+    "coverUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a8/45/fd/a845fd82-d5c1-bffe-806a-ed0700b1c589/24UMGIM29563.rgb.jpg/600x600bb.jpg",
+    "youtubeVideoId": "ic8j13piAhQ",
+    "youtubeUrl": "https://www.youtube.com/watch?v=ytId",
+    "audioPreviewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/81/dd/8c/81dd8cab-d9ef-2f39-3d7b-69ad2c9510eb/mzaf_3608641701483306759.plus.aac.p.m4a"
+  },
+  "ana castela:nosso quadro": {
+    "coverUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f2/b1/94/f2b19424-e65f-0e6c-4d09-a45c8e324069/8720996554524.png/600x600bb.jpg",
+    "youtubeVideoId": "r9GrcxTGNWg",
+    "youtubeUrl": "https://www.youtube.com/watch?v=ytId",
+    "audioPreviewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/79/ad/24/79ad24d9-37dd-8c2b-54b3-82aaa092c295/mzaf_4666589295884828987.plus.aac.p.m4a"
+  },
+  "zé neto & cristiano:barulho do foguete": {
+    "coverUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/20/d4/70/20d470c4-315c-fde2-d0bd-b3e99d140854/7891430814472.jpg/600x600bb.jpg",
+    "youtubeVideoId": "7t5mi3M_lAY",
+    "youtubeUrl": "https://www.youtube.com/watch?v=ytId",
+    "audioPreviewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c5/a3/1d/c5a31d63-2007-6ba9-16af-b415859ad261/mzaf_5133627934176311202.plus.aac.p.m4a"
   }
 }

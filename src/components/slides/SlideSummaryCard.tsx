@@ -103,13 +103,12 @@ export default function SlideSummaryCard({ data }: SlideProps) {
           zIndex: 5,
         }}
       >
-        {/* Themed Polaroid Photo Card pinned to top-right of the VIP passport card */}
-        <div style={{ position: 'absolute', top: '-36px', right: '6px', zIndex: 15, pointerEvents: 'none' }}>
+        {/* Themed 1:1 Square Polaroid Mascot pinned above the VIP passport card with subtle depth overlap */}
+        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '10px', zIndex: 15, pointerEvents: 'none' }}>
           <StoryCharacter theme="summary" gender={data.gender} userPhotoUrl={data.userPhotoUrl} year={data.year} name={data.name} />
         </div>
-        {/* Corner Scotch Tapes */}
+        {/* Corner Scotch Tape on Left */}
         <ScotchTape angle={-15} width={42} style={{ top: '-8px', left: '12px' }} />
-        <ScotchTape angle={15} width={42} style={{ top: '-8px', right: '12px' }} />
 
         {/* Row 1: Sign & Moon */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(6px, 1.5vw, 8px)' }}>

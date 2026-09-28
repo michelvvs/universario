@@ -87,8 +87,8 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
       {/* Integrated Retro VCR Header (Safe Story OSD) */}
       <StoryHeader data={data} />
 
-      {/* Moon Phase Main Header: Left-aligned with clearance for Chibi Caricature */}
-      <div style={{ textAlign: 'left', zIndex: 2, marginBottom: '4px', paddingRight: '110px' }}>
+      {/* Moon Phase Main Header: Left-aligned */}
+      <div style={{ textAlign: 'left', zIndex: 2, marginBottom: '4px', paddingRight: '16px' }}>
         <h2
           style={{
             fontSize: 'clamp(1.15rem, 4vw, 1.55rem)',
@@ -144,10 +144,10 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
         {renderMoonSvg()}
       </div>
 
-      {/* Torn Paper Photo-Collage Cards: Aligned to bottom with Chibi Character resting on top edge */}
+      {/* Torn Paper Photo-Collage Cards: Aligned to bottom with Polaroid Mascot resting on top edge */}
       <div style={{ marginTop: 'auto', position: 'relative', display: 'flex', flexDirection: 'column', gap: 'clamp(5px, 1.2vh, 7px)', zIndex: 5 }}>
-        {/* Themed Polaroid Photo Card pinned to top-right of the observation card */}
-        <div style={{ position: 'absolute', top: '-36px', right: '6px', zIndex: 15, pointerEvents: 'none' }}>
+        {/* Themed 1:1 Square Polaroid Mascot pinned above the observation card with light depth overlap */}
+        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '10px', zIndex: 15, pointerEvents: 'none' }}>
           <StoryCharacter theme="moon" gender={data.gender} userPhotoUrl={data.userPhotoUrl} year={data.year} name={data.name} />
         </div>
 
@@ -160,7 +160,7 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
             transform: 'rotate(0.5deg)',
           }}
         >
-          <ScotchTape width={50} height={15} rotate={-4} style={{ top: '-7px', right: '12%' }} />
+          <ScotchTape width={50} height={15} rotate={-4} style={{ top: '-7px', left: '8%' }} />
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '2px' }}>
             <span style={{ fontSize: '0.62rem', fontWeight: 900, fontFamily: "'Share Tech Mono', monospace", color: '#e50914', letterSpacing: '0.5px' }}>
