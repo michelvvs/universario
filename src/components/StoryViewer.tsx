@@ -282,7 +282,8 @@ export default function StoryViewer({ data, onClose }: StoryViewerProps) {
           position: 'fixed',
           left: '-9999px',
           top: 0,
-          opacity: 0,
+          opacity: 1,
+          visibility: 'visible',
           pointerEvents: 'none',
           zIndex: -9999,
         }}
