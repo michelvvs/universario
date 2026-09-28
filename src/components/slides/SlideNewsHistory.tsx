@@ -27,7 +27,7 @@ export default function SlideNewsHistory({ data }: SlideProps) {
       <StoryHeader data={data} />
 
       {/* News Main Header: Left-aligned with clearance for Chibi Caricature */}
-      <div style={{ textAlign: 'left', zIndex: 2, marginBottom: '6px', paddingRight: '110px' }}>
+      <div style={{ textAlign: 'left', zIndex: 2, marginBottom: '6px', paddingRight: 'clamp(118px, 32cqw, 138px)' }}>
         <h2
           style={{
             fontSize: 'clamp(1.15rem, 3.8vw, 1.45rem)',

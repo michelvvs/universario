@@ -103,42 +103,7 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
           zIndex: 2,
         }}
       >
-        {/* Technical Top Row */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '14px',
-            flexWrap: 'wrap',
-            gap: '6px',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span className="acid-tag acid-tag-lime" style={{ fontSize: '0.62rem', padding: '2px 6px' }}>
-              [ ARCHIVE // 01 ]
-            </span>
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.65rem',
-                color: 'rgba(255,255,255,0.7)',
-                letterSpacing: '0.5px',
-              }}
-            >
-              TIME CAPSULE
-            </span>
-          </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#ffffff' }}>
-            <div className="acid-barcode" style={{ height: '14px' }}>
-              <span /><span /><span /><span /><span /><span />
-            </div>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: '#d4ff00', fontWeight: 800 }}>
-              REC ● NTSC
-            </span>
-          </div>
-        </div>
 
         {/* Maximalist Title Header */}
         <div style={{ marginBottom: '16px' }}>

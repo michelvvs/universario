@@ -75,7 +75,7 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
       <StoryHeader data={data} />
 
       {/* Category Main Header: Left-aligned with clearance for Chibi Caricature */}
-      <div style={{ textAlign: 'left', zIndex: 2, marginBottom: '6px', paddingRight: '110px' }}>
+      <div style={{ textAlign: 'left', zIndex: 2, marginBottom: '6px', paddingRight: 'clamp(118px, 32cqw, 138px)' }}>
         <h2
           style={{
             fontSize: 'clamp(1.15rem, 3.8vw, 1.45rem)',
@@ -156,8 +156,9 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
               {hasValidCover ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={coverUrl}
+                  src={coverUrl.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(coverUrl)}` : coverUrl}
                   alt={top1.title}
+                  crossOrigin="anonymous"
                   onError={() => setImageError(true)}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />

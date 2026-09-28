@@ -68,7 +68,7 @@ export default function SlideIntro({ data }: SlideProps) {
             textTransform: 'uppercase',
           }}
         >
-          ARCHIVE // 1710 — 2025
+          UNIVERSÁRIO • EDIÇÃO ESPECIAL
         </span>
       </div>
 
@@ -103,28 +103,7 @@ export default function SlideIntro({ data }: SlideProps) {
         }}
       />
 
-      {/* Vertical Margin Barcode & Coordinates (From Ref 2) */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '22%',
-          left: '6px',
-          transform: 'rotate(-90deg) translateX(0%)',
-          transformOrigin: 'left bottom',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '6px',
-          pointerEvents: 'none',
-          zIndex: 5,
-        }}
-      >
-        <div className="acid-barcode" style={{ height: '9px', color: '#0c0d11' }}>
-          <span /><span /><span /><span /><span /><span />
-        </div>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.48rem', fontWeight: 900, color: '#0c0d11', letterSpacing: '0.8px' }}>
-          87 896 5663 // ARCHIVE
-        </span>
-      </div>
+
 
       {/* Center Hero: Giant Maximalist Year with Explosive Thermal Heat-Map Aura */}
       <div
@@ -242,13 +221,13 @@ export default function SlideIntro({ data }: SlideProps) {
           <ellipse cx="160" cy="90" rx="112" ry="26" fill="none" stroke="#0038ff" strokeWidth="1.5" strokeDasharray="4 3" />
         </svg>
 
-        {/* Editorial Micro-quote on the left side of polaroid (From Ref 2) */}
+        {/* Editorial Micro-quote on the left side of polaroid */}
         <div
           style={{
             position: 'absolute',
-            left: '4px',
-            top: '30%',
-            width: 'clamp(54px, 17cqw, 72px)',
+            left: '6px',
+            top: '32%',
+            width: 'clamp(50px, 15cqw, 66px)',
             fontFamily: 'var(--font-mono)',
             fontSize: 'clamp(0.44rem, 1.4cqw, 0.52rem)',
             color: '#0c0d11',
@@ -257,42 +236,18 @@ export default function SlideIntro({ data }: SlideProps) {
             zIndex: 8,
           }}
         >
-          <span style={{ fontWeight: 900, color: '#ff0077' }}>[ ARCHIVE ]</span>
-          <br />
-          O universo registrava a sua chegada em fita master.
+          O universo registrava sua chegada.
         </div>
 
-        {/* Polaroid Instant Photo Card */}
+        {/* Polaroid Instant Photo Card (Enlarged) */}
         <PolaroidCard
           year={data.year}
           name={data.name}
           gender={data.gender}
           userPhotoUrl={data.userPhotoUrl}
           rotation={-2}
-          width="clamp(112px, 32cqw, 132px)"
+          width="clamp(126px, 36cqw, 148px)"
         />
-
-        {/* Right side technical coordinate badge */}
-        <div
-          style={{
-            position: 'absolute',
-            right: '4px',
-            top: '34%',
-            fontFamily: 'var(--font-mono)',
-            fontSize: 'clamp(0.44rem, 1.4cqw, 0.52rem)',
-            color: '#0c0d11',
-            textAlign: 'right',
-            pointerEvents: 'none',
-            zIndex: 8,
-            lineHeight: 1.2,
-          }}
-        >
-          <span style={{ fontWeight: 900, color: '#0038ff' }}>[ SPEC 9:16 ]</span>
-          <br />
-          VOL. 01 // HD
-          <br />
-          TRACKING [OK]
-        </div>
       </div>
 
       {/* Bottom Editorial Content Section */}

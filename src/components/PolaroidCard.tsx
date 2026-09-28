@@ -27,27 +27,27 @@ export interface PolaroidCardProps {
 }
 
 export function getThemedCaption(theme: StoryTheme = 'intro', name?: string, year?: number | string): string {
-  const upperName = (name || 'VIP').toUpperCase();
+  const upperName = (name || 'VOCÊ').toUpperCase();
   switch (theme) {
     case 'moon':
-      return name ? `★ ${upperName} // APOLLO` : `★ LUNAR ARCHIVE // ${year || '1989'}`;
+      return name ? `★ ${upperName} • ASTRONAUTA` : `★ LUA • ${year || '1989'}`;
     case 'radio':
-      return `★ ${upperName} // FM AIRPLAY`;
+      return `★ ${upperName} • RÁDIO FM`;
     case 'sales':
-      return `★ ${upperName} // GOLD LP #1`;
+      return `★ ${upperName} • DISCO DE OURO`;
     case 'billboard':
-      return `★ ${upperName} // BILLBOARD HOT`;
+      return `★ ${upperName} • BILLBOARD HOT`;
     case 'news':
-      return `★ ${upperName} // DAILY NEWS`;
+      return `★ ${upperName} • NOTÍCIAS`;
     case 'cinema':
-      return `★ ${upperName} // BLOCKBUSTER`;
+      return `★ ${upperName} • CINEMA`;
     case 'stats':
-      return `★ ${upperName} // TELEMETRY`;
+      return `★ ${upperName} • TELEMETRIA`;
     case 'summary':
-      return `★ ${upperName} // VIP ARCHIVE`;
+      return `★ ${upperName} • CAMPEÃO`;
     case 'intro':
     default:
-      return name ? `★ ${upperName} // ${year || ''}` : `★ TIME ARCHIVE // ${year || ''}`;
+      return name ? `★ ${upperName} • ${year || ''}` : `★ ESPECIAL • ${year || ''}`;
   }
 }
 
@@ -996,20 +996,20 @@ export function ThemedMascotPolaroid({
   caption,
   theme = 'intro',
   rotation = 0,
-  width = 'clamp(80px, 22cqw, 92px)',
+  width = 'clamp(104px, 30cqw, 124px)',
   className = '',
   style,
 }: PolaroidCardProps) {
   const defaultCaption = caption || getThemedCaption(theme, name, year);
   const themeMeta = getThemeMeta(theme, year);
-  const layout = THEME_HEAD_LAYOUTS[theme] || { top: '33%', left: '50%', width: '33%' };
+  const layout = THEME_HEAD_LAYOUTS[theme] || { top: '33%', left: '50%', width: '42%' };
 
   return (
     <div
       className={`acid-polaroid-container acid-polaroid-square ${className}`}
       style={{
-        width: width || '88px',
-        maxWidth: '120px',
+        width: width || '114px',
+        maxWidth: '145px',
         transform: `rotate(${rotation}deg)`,
         margin: '0 auto',
         display: 'block',
@@ -1061,6 +1061,9 @@ export function ThemedMascotPolaroid({
             src={`/characters/mascots/${theme}.jpg`}
             alt={`Cenário e corpo temático ${theme}`}
             className="acid-polaroid-ai-backdrop"
+            crossOrigin="anonymous"
+            loading="eager"
+            decoding="sync"
             style={{
               position: 'absolute',
               inset: 0,
@@ -1092,9 +1095,12 @@ export function ThemedMascotPolaroid({
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={userPhotoUrl}
+                src={userPhotoUrl.startsWith('http') ? `/api/image-proxy?url=${encodeURIComponent(userPhotoUrl)}` : userPhotoUrl}
                 alt="Rosto recortado do personagem"
                 className="acid-polaroid-face-img"
+                crossOrigin="anonymous"
+                loading="eager"
+                decoding="sync"
                 style={{
                   width: '100%',
                   height: 'auto',

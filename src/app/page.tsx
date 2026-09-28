@@ -244,15 +244,9 @@ export default function HomePage() {
                     textOverflow: 'ellipsis',
                   }}
                 >
-                  [ TIME CAPSULE // ARCHIVE ENGINE ]
+                  O DIA EM QUE VOCÊ NASCEU
                 </div>
               </div>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
-              <span className="acid-tag acid-tag-lime" style={{ fontSize: '0.62rem', padding: '2px 6px' }}>
-                VOL. 01
-              </span>
             </div>
           </header>
         )}
@@ -335,27 +329,11 @@ export default function HomePage() {
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.78rem',
                 color: '#0c0d11',
-                letterSpacing: '1px',
-                fontWeight: 700,
+                letterSpacing: '0.5px',
+                fontWeight: 800,
               }}
             >
-              [ ARCHIVE DECK // TIME MACHINE // 1920—2025 ]
-            </div>
-
-            <div
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.72rem',
-                color: '#555562',
-                display: 'flex',
-                gap: '12px',
-                alignItems: 'center',
-                fontWeight: 700,
-              }}
-            >
-              <span>MADE FOR STORIES 9:16</span>
-              <span>•</span>
-              <span style={{ color: '#0c0d11', fontWeight: 900 }}>TYPE 01</span>
+              FORMATO STORIES • 9:16
             </div>
           </footer>
         )}

@@ -10,6 +10,32 @@ export interface ShareResult {
 }
 
 /**
+ * Pre-checks and ensures all <img> tags inside element are fully loaded and decoded
+ * before canvas capture to prevent blank or black placeholders.
+ */
+async function ensureImagesLoaded(element: HTMLElement): Promise<void> {
+  const images = Array.from(element.querySelectorAll('img'));
+  await Promise.all(
+    images.map((img) => {
+      if (img.complete && img.naturalWidth > 0) {
+        return Promise.resolve();
+      }
+      return new Promise((resolve) => {
+        const timer = setTimeout(resolve, 1500);
+        img.onload = () => {
+          clearTimeout(timer);
+          resolve(null);
+        };
+        img.onerror = () => {
+          clearTimeout(timer);
+          resolve(null);
+        };
+      });
+    })
+  );
+}
+
+/**
  * Calculates export options tailored for exact 1080x1920 Instagram Story resolution (9:16 ratio)
  * without multiplying canvas dimensions into iOS Safari memory crash limits.
  */
@@ -22,7 +48,9 @@ function getExportOptions(element: HTMLElement, quality: number = 0.95) {
   return {
     quality,
     pixelRatio,
-    cacheBust: true,
+    // Do NOT enable cacheBust: true, as it forces extra HTTP requests bypassing cached base64/memory images
+    cacheBust: false,
+    backgroundColor: '#08080c',
     filter: (node: Node) => {
       if (node instanceof HTMLElement) {
         if (
@@ -67,6 +95,7 @@ export async function captureElementAsBlob(
   element: HTMLElement,
   quality: number = 0.95
 ): Promise<Blob> {
+  await ensureImagesLoaded(element);
   const blob = await toBlob(element, getExportOptions(element, quality));
   if (!blob) throw new Error('Não foi possível gerar a imagem em alta resolução.');
   return blob;
@@ -80,6 +109,7 @@ export async function captureElementAsPng(
   fileName: string = 'story-universario.png'
 ): Promise<string> {
   try {
+    await ensureImagesLoaded(element);
     const dataUrl = await toPng(element, getExportOptions(element, 0.95));
     return dataUrl;
   } catch (error) {
@@ -121,7 +151,7 @@ export async function shareStoryToInstagram(
     }
 
     // 2. Fallback: generate dataUrl for direct download or mobile preview modal
-    const dataUrl = await toPng(element, getExportOptions(element, 0.95));
+    const dataUrl = await captureElementAsPng(element, fileName);
     const isMobile = typeof navigator !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     if (isMobile) {
