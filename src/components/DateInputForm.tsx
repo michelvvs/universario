@@ -272,31 +272,54 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
             />
           </div>
 
-          {/* Gender / Article Selection */}
+          {/* Gender / Article Selection (Subdued Segmented Control to maintain strict CTA dominance) */}
           <div>
-            <label
+            <div
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '6px',
-                fontSize: '0.74rem',
-                color: '#ffffff',
-                fontFamily: 'var(--font-mono)',
-                fontWeight: 800,
-                letterSpacing: '0.5px',
-                textTransform: 'uppercase',
+                justifyContent: 'space-between',
                 marginBottom: '6px',
               }}
             >
-              <Sparkles size={13} color="#ff0077" />
-              <span>GÊNERO PARA AS HISTÓRIAS:</span>
-            </label>
+              <label
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '0.74rem',
+                  color: 'rgba(255, 255, 255, 0.9)',
+                  fontFamily: 'var(--font-mono)',
+                  fontWeight: 800,
+                  letterSpacing: '0.5px',
+                  textTransform: 'uppercase',
+                }}
+              >
+                <Sparkles size={13} color="#a1a1aa" />
+                <span>GÊNERO PARA AS HISTÓRIAS:</span>
+              </label>
+
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.60rem',
+                  color: 'rgba(255, 255, 255, 0.5)',
+                  letterSpacing: '0.5px',
+                }}
+              >
+                (CONCORDÂNCIA)
+              </span>
+            </div>
 
             <div
               style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr 1fr',
-                gap: '6px',
+                gap: '5px',
+                background: '#12151d',
+                padding: '4px',
+                borderRadius: '4px',
+                border: '1.5px solid rgba(255, 255, 255, 0.15)',
               }}
             >
               {[
@@ -312,34 +335,48 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
                     onClick={() => setGender(opt.id as 'masculino' | 'feminino' | 'neutro')}
                     style={{
                       padding: '8px 4px',
-                      borderRadius: '2px',
-                      background: isSelected ? 'var(--acid-chartreuse)' : '#000000',
-                      color: isSelected ? '#0a0a0c' : '#ffffff',
-                      border: isSelected ? '2px solid #0a0a0c' : '1.5px solid rgba(255, 255, 255, 0.25)',
-                      boxShadow: isSelected ? '2px 2px 0px #ffffff' : 'none',
+                      borderRadius: '3px',
+                      background: isSelected ? 'rgba(255, 255, 255, 0.16)' : 'transparent',
+                      color: isSelected ? '#ffffff' : '#8e96a4',
+                      border: isSelected ? '1.5px solid #ffffff' : '1.5px solid transparent',
+                      boxShadow: isSelected ? '0 2px 8px rgba(0, 0, 0, 0.5)' : 'none',
                       cursor: 'pointer',
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
-                      gap: '1px',
-                      transition: 'all 0.1s ease',
+                      gap: '2px',
+                      transition: 'all 0.12s ease',
                     }}
                   >
                     <span
                       style={{
                         fontFamily: 'var(--font-maximalist)',
                         fontSize: '0.88rem',
-                        fontWeight: 900,
+                        fontWeight: isSelected ? 900 : 700,
                         letterSpacing: '0.5px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '5px',
                       }}
                     >
+                      {isSelected && (
+                        <span
+                          style={{
+                            display: 'inline-block',
+                            width: '6px',
+                            height: '6px',
+                            borderRadius: '50%',
+                            background: '#00ff88',
+                          }}
+                        />
+                      )}
                       {opt.label}
                     </span>
                     <span
                       style={{
                         fontFamily: 'var(--font-mono)',
                         fontSize: '0.62rem',
-                        opacity: isSelected ? 0.9 : 0.6,
+                        color: isSelected ? 'rgba(255, 255, 255, 0.85)' : '#606775',
                         whiteSpace: 'nowrap',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
@@ -354,49 +391,49 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
             </div>
           </div>
 
-          {/* Maximalist CTA Button */}
+          {/* Maximalist Primary CTA Button: Maximum prominence, focal point of the screen */}
           <button
             type="submit"
             disabled={isLoading || !dateDisplay || dateDisplay.length < 10}
             className="acid-btn-primary"
             style={{
               width: '100%',
-              marginTop: '4px',
-              padding: '13px 20px',
-              fontSize: '1.05rem',
-              cursor: isLoading ? 'not-allowed' : 'pointer',
+              marginTop: '8px',
+              padding: '16px 20px',
+              fontSize: 'clamp(1.15rem, 4.2vw, 1.35rem)',
+              cursor: isLoading || !dateDisplay || dateDisplay.length < 10 ? 'not-allowed' : 'pointer',
             }}
           >
             {isLoading ? (
               <>
-                <RotateCcw size={18} className="animate-spin" />
+                <RotateCcw size={22} className="animate-spin" />
                 <span>RECUPERANDO ARQUIVOS...</span>
               </>
             ) : (
               <>
                 <span>GERAR STORIES</span>
-                <ArrowRight size={18} />
+                <ArrowRight size={22} strokeWidth={3} />
               </>
             )}
           </button>
         </form>
 
         {/* Preset Selections in a clean, compact 2-column grid */}
-        <div style={{ marginTop: '16px', borderTop: '1px solid rgba(255, 255, 255, 0.15)', paddingTop: '12px' }}>
+        <div style={{ marginTop: '16px', borderTop: '1px solid rgba(255, 255, 255, 0.12)', paddingTop: '12px' }}>
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
               fontSize: '0.68rem',
-              color: 'rgba(255, 255, 255, 0.75)',
+              color: 'rgba(255, 255, 255, 0.6)',
               fontFamily: 'var(--font-mono)',
               letterSpacing: '0.8px',
               textTransform: 'uppercase',
               marginBottom: '8px',
             }}
           >
-            <History size={12} color="#d4ff00" />
+            <History size={12} color="#a1a1aa" />
             <span>[ PRESETS HISTÓRICOS DE TESTE RÁPIDO ]</span>
           </div>
 
@@ -420,16 +457,16 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
                 type="button"
                 onClick={() => handlePreset(preset.date, preset.name, preset.gender)}
                 style={{
-                  background: '#000000',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  background: '#090a0e',
+                  border: '1px solid rgba(255, 255, 255, 0.22)',
                   padding: '7px 8px',
                   fontSize: '0.72rem',
                   fontFamily: 'var(--font-mono)',
                   fontWeight: 800,
                   letterSpacing: '0.5px',
-                  color: '#ffffff',
+                  color: 'rgba(255, 255, 255, 0.85)',
                   cursor: 'pointer',
-                  borderRadius: '2px',
+                  borderRadius: '3px',
                   textAlign: 'center',
                   transition: 'all 0.12s ease',
                   whiteSpace: 'nowrap',
@@ -437,14 +474,14 @@ export default function DateInputForm({ onSubmit, isLoading }: DateInputFormProp
                   textOverflow: 'ellipsis',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#d4ff00';
-                  e.currentTarget.style.color = '#0a0a0c';
-                  e.currentTarget.style.background = '#d4ff00';
+                  e.currentTarget.style.borderColor = '#ffffff';
+                  e.currentTarget.style.color = '#ffffff';
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-                  e.currentTarget.style.color = '#ffffff';
-                  e.currentTarget.style.background = '#000000';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.22)';
+                  e.currentTarget.style.color = 'rgba(255, 255, 255, 0.85)';
+                  e.currentTarget.style.background = '#090a0e';
                 }}
               >
                 {preset.label}

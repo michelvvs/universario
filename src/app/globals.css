@@ -1699,32 +1699,52 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  background: #0c0d11;
-  color: #ffffff;
+  gap: 12px;
+  background: var(--acid-chartreuse);
+  color: #0c0d11;
   font-family: var(--font-maximalist);
   font-weight: 900;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   padding: 16px 28px;
   border: 2.5px solid #0c0d11;
-  box-shadow: 6px 6px 0px var(--acid-chartreuse);
+  box-shadow: 5px 5px 0px #ffffff;
   cursor: pointer;
   position: relative;
-  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s ease;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s ease;
   user-select: none;
+  animation: ctaPulse 2.4s infinite ease-in-out;
 }
 
-.acid-btn-primary:hover {
+@keyframes ctaPulse {
+  0%, 100% {
+    box-shadow: 5px 5px 0px #ffffff, 0 0 16px rgba(212, 255, 0, 0.35);
+  }
+  50% {
+    box-shadow: 5px 5px 0px #ffffff, 0 0 28px rgba(212, 255, 0, 0.7);
+  }
+}
+
+.acid-btn-primary:hover:not(:disabled) {
   transform: translate(-2px, -2px);
-  box-shadow: 8px 8px 0px var(--acid-chartreuse);
-  background: #000000;
+  box-shadow: 7px 7px 0px #ffffff, 0 0 32px rgba(212, 255, 0, 0.85);
+  background: #e4ff33;
 }
 
-.acid-btn-primary:active {
+.acid-btn-primary:active:not(:disabled) {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px var(--acid-chartreuse);
+  box-shadow: 2px 2px 0px #ffffff;
+}
+
+.acid-btn-primary:disabled {
+  background: #1a1d26 !important;
+  color: #555c6d !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  animation: none !important;
 }
 
 /* ==========================================================================
