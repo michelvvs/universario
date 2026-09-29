@@ -17,11 +17,36 @@ export default function SlidePopCulture({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-pop" style={{ position: 'relative' }}>
+      {/* Movie Theater Projector Animated Background */}
+      <div className="bg-anim-cinema">
+        {/* Soft Projector Cone Beam */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '-20px',
+            left: '50%',
+            width: '200px',
+            height: '360px',
+            background: 'linear-gradient(180deg, rgba(255, 230, 0, 0.15) 0%, rgba(0, 229, 255, 0.06) 60%, transparent 100%)',
+            clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+            transformOrigin: 'top center',
+            filter: 'blur(10px)',
+            pointerEvents: 'none',
+          }}
+        />
+        {/* Floating Projector Dust Motes */}
+        <svg viewBox="0 0 360 640" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
+          <circle cx="80" cy="160" r="1.5" fill="#ffffff" style={{ animation: 'projectorDustMote 4.5s ease-in-out infinite' }} />
+          <circle cx="260" cy="220" r="1.2" fill="#ffd700" style={{ animation: 'projectorDustMote 3.8s ease-in-out infinite 1s' }} />
+          <circle cx="140" cy="340" r="1.8" fill="#ffffff" style={{ animation: 'projectorDustMote 5.2s ease-in-out infinite 0.5s' }} />
+        </svg>
+      </div>
+
       {/* Integrated Retro VCR Header (Safe Story OSD) */}
       <StoryHeader data={data} />
 
-      {/* Cinema & Pop Culture Main Header: Left-aligned with clearance for Chibi Caricature */}
-      <div style={{ textAlign: 'left', zIndex: 2, marginBottom: '6px', paddingRight: 'clamp(118px, 32cqw, 138px)' }}>
+      {/* Cinema & Pop Culture Main Header: Centered */}
+      <div className="story-anim-header" style={{ textAlign: 'center', zIndex: 2, marginBottom: '4px' }}>
         <h2
           style={{
             fontSize: 'clamp(1.15rem, 3.8vw, 1.45rem)',
@@ -52,8 +77,14 @@ export default function SlidePopCulture({ data }: SlideProps) {
         </div>
       </div>
 
+      {/* Centered Themed 1:1 Square Polaroid Mascot */}
+      <div className="story-anim-polaroid" style={{ display: 'flex', justifyContent: 'center', margin: '2px auto', zIndex: 6 }}>
+        <StoryCharacter theme="cinema" gender={data.gender} userPhotoUrl={data.userPhotoUrl} year={data.year} name={data.name} />
+      </div>
+
       {/* Blockbuster Cinema Champion Tape Box (Aligned to Bottom) */}
       <div
+        className="story-anim-card-1"
         style={{
           marginTop: 'auto',
           position: 'relative',
@@ -66,10 +97,6 @@ export default function SlidePopCulture({ data }: SlideProps) {
           zIndex: 5,
         }}
       >
-        {/* Themed 1:1 Square Polaroid Mascot pinned above cinema box with subtle depth overlap */}
-        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '10px', zIndex: 15, pointerEvents: 'none' }}>
-          <StoryCharacter theme="cinema" gender={data.gender} userPhotoUrl={data.userPhotoUrl} year={data.year} name={data.name} />
-        </div>
         {/* Top Stickers Row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
           <DymoLabel text="CAMPEÃO DE CINEMA" color="yellow" fontSize="0.60rem" />
@@ -258,42 +285,6 @@ export default function SlidePopCulture({ data }: SlideProps) {
             );
           })}
         </div>
-      </div>
-
-      {/* Bottom VCR Telemetry */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          width: '100%',
-          padding: 'clamp(4px, 0.9vh, 6px) clamp(8px, 2vw, 12px)',
-          background: 'rgba(0, 0, 0, 0.65)',
-          borderRadius: '4px',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-          zIndex: 2,
-        }}
-      >
-        <span
-          style={{
-            fontFamily: 'var(--font-vcr)',
-            fontSize: 'clamp(0.62rem, 1.7vw, 0.70rem)',
-            color: '#a0a5b5',
-            letterSpacing: '0.5px',
-          }}
-        >
-          POP CULTURE VCR CASSETTE
-        </span>
-        <span
-          style={{
-            fontFamily: 'var(--font-vcr)',
-            fontSize: 'clamp(0.66rem, 1.8vw, 0.74rem)',
-            color: '#00ffcc',
-            letterSpacing: '1px',
-          }}
-        >
-          01:54:10 STOP ■
-        </span>
       </div>
     </div>
   );

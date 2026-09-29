@@ -16,12 +16,30 @@ export default function SlideSummaryCard({ data }: SlideProps) {
   const displayName = data.name ? data.name : 'VOCÊ';
 
   return (
-    <div className="slide-vhs-canvas slide-theme-summary">
+    <div className="slide-vhs-canvas slide-theme-summary" style={{ position: 'relative' }}>
+      {/* VIP Gold Foil Holographic Animated Background */}
+      <div className="bg-anim-summary">
+        {/* Sweeping Holographic Foil Rainbow Sheen */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '-50%',
+            left: '-50%',
+            width: '200%',
+            height: '200%',
+            background: 'linear-gradient(115deg, transparent 40%, rgba(255, 215, 0, 0.12) 48%, rgba(0, 229, 255, 0.15) 52%, transparent 60%)',
+            animation: 'holoRainbowSweep 6s ease-in-out infinite',
+            pointerEvents: 'none',
+          }}
+        />
+      </div>
+
       {/* Integrated Retro VCR Header (Safe Story OSD) */}
       <StoryHeader data={data} />
 
       {/* Deluxe Gold Master Header Strip */}
       <div
+        className="story-anim-header"
         style={{
           width: '100%',
           background: 'linear-gradient(90deg, #d4af37 0%, #fff2a1 35%, #ffd700 65%, #aa820a 100%)',
@@ -61,8 +79,8 @@ export default function SlideSummaryCard({ data }: SlideProps) {
         </span>
       </div>
 
-      {/* Name and Date Section: Left-aligned with clearance for Chibi Caricature */}
-      <div style={{ textAlign: 'left', zIndex: 2, width: '100%', paddingRight: 'clamp(118px, 32cqw, 138px)' }}>
+      {/* Name and Date Section: Centered */}
+      <div className="story-anim-header" style={{ textAlign: 'center', zIndex: 2, width: '100%', marginTop: '2px' }}>
         <h2
           style={{
             fontFamily: 'var(--font-heading)',
@@ -72,22 +90,29 @@ export default function SlideSummaryCard({ data }: SlideProps) {
             textShadow: '0 3px 12px rgba(0,0,0,0.9), 0 0 16px rgba(255, 215, 0, 0.4)',
             letterSpacing: '0.8px',
             textTransform: 'uppercase',
+            margin: '0 auto',
           }}
         >
           {displayName}
         </h2>
 
-        <div style={{ display: 'flex', justifyContent: 'flex-start', gap: '6px', marginTop: '3px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '6px', marginTop: '3px', flexWrap: 'wrap' }}>
           <DymoLabel text={data.formattedDate} color="red" />
           <DymoLabel text={data.dayOfWeek} color="blue" />
         </div>
-        <div style={{ fontFamily: 'var(--font-vcr)', fontSize: '0.72rem', color: 'var(--vhs-gold)', letterSpacing: '0.8px', marginTop: '4px' }}>
+        <div style={{ fontFamily: 'var(--font-vcr)', fontSize: '0.72rem', color: 'var(--vhs-gold)', letterSpacing: '0.8px', marginTop: '3px' }}>
           ★ COMO ESTAVA O MUNDO {getWhenBornPhrase(data.name, data.gender).toUpperCase()}
         </div>
       </div>
 
+      {/* Centered Themed 1:1 Square Polaroid Mascot */}
+      <div className="story-anim-polaroid" style={{ display: 'flex', justifyContent: 'center', margin: '2px auto', zIndex: 6 }}>
+        <StoryCharacter theme="summary" gender={data.gender} userPhotoUrl={data.userPhotoUrl} year={data.year} name={data.name} />
+      </div>
+
       {/* Collector's J-Card / Photo-Collage Passport (Aligned to Bottom) */}
       <div
+        className="story-anim-card-1"
         style={{
           marginTop: 'auto',
           position: 'relative',
@@ -103,10 +128,6 @@ export default function SlideSummaryCard({ data }: SlideProps) {
           zIndex: 5,
         }}
       >
-        {/* Themed 1:1 Square Polaroid Mascot pinned above the VIP passport card with subtle depth overlap */}
-        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '10px', zIndex: 15, pointerEvents: 'none' }}>
-          <StoryCharacter theme="summary" gender={data.gender} userPhotoUrl={data.userPhotoUrl} year={data.year} name={data.name} />
-        </div>
         {/* Corner Scotch Tape on Left */}
         <ScotchTape angle={-15} width={42} style={{ top: '-8px', left: '12px' }} />
 

@@ -157,13 +157,13 @@ export default function SlideIntro({ data }: SlideProps) {
         </div>
 
         {/* GIGANTIC Maximalist Year Headline (Dominating and impactful!) */}
-        <div style={{ position: 'relative', zIndex: 6, display: 'inline-block' }}>
+        <div className="story-anim-header" style={{ position: 'relative', zIndex: 6, display: 'inline-block' }}>
           <h1
             style={{
-              fontSize: 'clamp(4.2rem, 18cqw, 5.6rem)',
+              fontSize: 'clamp(3.8rem, 16cqw, 5.2rem)',
               fontWeight: 900,
               fontFamily: 'var(--font-maximalist)',
-              lineHeight: 0.82,
+              lineHeight: 0.85,
               letterSpacing: '-2px',
               color: '#0c0d11',
               textTransform: 'uppercase',
@@ -173,63 +173,65 @@ export default function SlideIntro({ data }: SlideProps) {
           >
             {data.year}
           </h1>
-
-          <div
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 'clamp(0.60rem, 2.0cqw, 0.72rem)',
-              color: '#0c0d11',
-              fontWeight: 900,
-              letterSpacing: '1.5px',
-              marginTop: '2px',
-              textTransform: 'uppercase',
-            }}
-          >
-            [ REBOBINANDO O TEMPO EM 9:16 ]
-          </div>
         </div>
       </div>
 
-      {/* Central Interactive Artifact: Polaroid Card + Orbital Wireframe Rings */}
+      {/* Central Interactive Artifact: Extra-Large Polaroid Card + Radiant Retro Sunburst & Framing */}
       <div
+        className="story-anim-polaroid"
         style={{
           position: 'relative',
           zIndex: 9,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          margin: 'clamp(20px, 4.5cqh, 32px) 0 clamp(8px, 1.8cqh, 14px)',
+          margin: 'clamp(14px, 3.5cqh, 24px) 0 clamp(8px, 1.8cqh, 14px)',
         }}
       >
-        {/* Wireframe Orbital Ellipse Rings (Directly from Ref 2 - BLUBBY) */}
+        {/* Retro Radiant Sunburst & Starburst Accents behind Polaroid */}
         <svg
-          viewBox="0 0 320 180"
+          viewBox="0 0 320 240"
           style={{
             position: 'absolute',
-            width: 'clamp(250px, 78cqw, 320px)',
-            height: 'clamp(135px, 44cqw, 180px)',
+            width: 'clamp(260px, 82cqw, 340px)',
+            height: 'clamp(200px, 60cqw, 260px)',
             top: '50%',
             left: '50%',
-            transform: 'translate(-50%, -50%) rotate(-6deg)',
+            transform: 'translate(-50%, -50%)',
             pointerEvents: 'none',
-            zIndex: 4,
-            opacity: 0.90,
+            zIndex: 3,
+            opacity: 0.85,
           }}
         >
-          <ellipse cx="160" cy="90" rx="145" ry="38" fill="none" stroke="#0c0d11" strokeWidth="1.5" strokeDasharray="6 4" />
-          <ellipse cx="160" cy="90" rx="128" ry="32" fill="none" stroke="#ff0077" strokeWidth="1.6" />
-          <ellipse cx="160" cy="90" rx="112" ry="26" fill="none" stroke="#0038ff" strokeWidth="1.5" strokeDasharray="4 3" />
+          {/* Subtle Geometric Corner Framing Brackets */}
+          <path d="M 35 45 L 20 45 L 20 60" stroke="#0c0d11" strokeWidth="2.5" fill="none" />
+          <path d="M 285 45 L 300 45 L 300 60" stroke="#0c0d11" strokeWidth="2.5" fill="none" />
+          <path d="M 35 195 L 20 195 L 20 180" stroke="#0c0d11" strokeWidth="2.5" fill="none" />
+          <path d="M 285 195 L 300 195 L 300 180" stroke="#0c0d11" strokeWidth="2.5" fill="none" />
+
+          {/* Retro Holographic Starburst Rays */}
+          <g transform="translate(160, 120)">
+            <line x1="-135" y1="0" x2="-105" y2="0" stroke="var(--acid-chartreuse)" strokeWidth="2" strokeDasharray="3 3" />
+            <line x1="105" y1="0" x2="135" y2="0" stroke="var(--acid-chartreuse)" strokeWidth="2" strokeDasharray="3 3" />
+            <line x1="0" y1="-85" x2="0" y2="-65" stroke="#ff0077" strokeWidth="2" strokeDasharray="3 3" />
+            <line x1="0" y1="65" x2="0" y2="85" stroke="#ff0077" strokeWidth="2" strokeDasharray="3 3" />
+            {/* 4-point Diamond Sparkles */}
+            <path d="M -90 -60 Q -90 -55 -85 -55 Q -90 -55 -90 -50 Q -90 -55 -95 -55 Q -90 -55 -90 -60 Z" fill="#ffd700" />
+            <path d="M 90 -60 Q 90 -55 95 -55 Q 90 -55 90 -50 Q 90 -55 85 -55 Q 90 -55 90 -60 Z" fill="#0038ff" />
+            <path d="M -90 60 Q -90 65 -85 65 Q -90 65 -90 70 Q -90 65 -95 65 Q -90 65 -90 60 Z" fill="#ff0077" />
+            <path d="M 90 60 Q 90 65 95 65 Q 90 65 90 70 Q 90 65 85 65 Q 90 65 90 60 Z" fill="var(--acid-chartreuse)" />
+          </g>
         </svg>
 
         {/* Editorial Micro-quote on the left side of polaroid */}
         <div
           style={{
             position: 'absolute',
-            left: '6px',
-            top: '32%',
-            width: 'clamp(50px, 15cqw, 66px)',
+            left: '4px',
+            top: '28%',
+            width: 'clamp(48px, 14cqw, 62px)',
             fontFamily: 'var(--font-mono)',
-            fontSize: 'clamp(0.44rem, 1.4cqw, 0.52rem)',
+            fontSize: 'clamp(0.42rem, 1.3cqw, 0.50rem)',
             color: '#0c0d11',
             lineHeight: 1.2,
             pointerEvents: 'none',
@@ -239,14 +241,14 @@ export default function SlideIntro({ data }: SlideProps) {
           O universo registrava sua chegada.
         </div>
 
-        {/* Polaroid Instant Photo Card (Enlarged) */}
+        {/* Polaroid Instant Photo Card (Grandona / Extra-Large) */}
         <PolaroidCard
           year={data.year}
           name={data.name}
           gender={data.gender}
           userPhotoUrl={data.userPhotoUrl}
-          rotation={-2}
-          width="clamp(126px, 36cqw, 148px)"
+          rotation={-1.5}
+          width="clamp(165px, 48cqw, 205px)"
         />
       </div>
 
@@ -262,7 +264,7 @@ export default function SlideIntro({ data }: SlideProps) {
       >
         {/* Date Card - Crisp White Paper Poster Style */}
         <div
-          className="acid-card-paper"
+          className="acid-card-paper story-anim-card-1"
           style={{
             padding: 'clamp(5px, 1.4cqw, 8px) clamp(8px, 2.2cqw, 12px)',
             borderRadius: '2px',
@@ -314,7 +316,7 @@ export default function SlideIntro({ data }: SlideProps) {
         </div>
 
         {/* Dual Technical Cards: Zodiac & Chinese Year */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(4px, 1.2cqw, 6px)' }}>
+        <div className="story-anim-card-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(4px, 1.2cqw, 6px)' }}>
           {/* Signo Solar */}
           <div
             className="acid-card-paper"
@@ -379,9 +381,9 @@ export default function SlideIntro({ data }: SlideProps) {
           </span>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'var(--acid-chartreuse)', border: '1px solid #0c0d11' }} />
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--acid-chartreuse)', border: '1px solid #0c0d11' }} />
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(0.52rem, 1.7cqw, 0.62rem)', color: '#0c0d11', letterSpacing: '1px', fontWeight: 900 }}>
-              TYPE 01 // 9:16 HD
+              UNIVERSÁRIO
             </span>
           </div>
         </div>

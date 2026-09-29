@@ -23,11 +23,29 @@ export default function SlideNewsHistory({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-news" style={{ position: 'relative' }}>
+      {/* Vintage Newsprint Animated Background */}
+      <div className="bg-anim-news">
+        {/* Soft Warm Incandescent Desk Lamp Glow */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '10%',
+            left: '50%',
+            width: '260px',
+            height: '260px',
+            transform: 'translate(-50%, -50%)',
+            background: 'radial-gradient(circle, rgba(255, 200, 100, 0.15) 0%, transparent 70%)',
+            filter: 'blur(30px)',
+            pointerEvents: 'none',
+          }}
+        />
+      </div>
+
       {/* Integrated Retro VCR Header (Safe Story OSD) */}
       <StoryHeader data={data} />
 
-      {/* News Main Header: Left-aligned with clearance for Chibi Caricature */}
-      <div style={{ textAlign: 'left', zIndex: 2, marginBottom: '6px', paddingRight: 'clamp(118px, 32cqw, 138px)' }}>
+      {/* News Main Header: Centered */}
+      <div className="story-anim-header" style={{ textAlign: 'center', zIndex: 2, marginBottom: '4px' }}>
         <h2
           style={{
             fontSize: 'clamp(1.15rem, 3.8vw, 1.45rem)',
@@ -58,6 +76,11 @@ export default function SlideNewsHistory({ data }: SlideProps) {
         </div>
       </div>
 
+      {/* Centered Themed 1:1 Square Polaroid Mascot */}
+      <div className="story-anim-polaroid" style={{ display: 'flex', justifyContent: 'center', margin: '2px auto', zIndex: 6 }}>
+        <StoryCharacter theme="news" gender={data.gender} userPhotoUrl={data.userPhotoUrl} year={data.year} name={data.name} />
+      </div>
+
       {/* Photo-Collage Newspaper Clippings (Aligned to Bottom) */}
       <div
         style={{
@@ -70,10 +93,6 @@ export default function SlideNewsHistory({ data }: SlideProps) {
           zIndex: 5,
         }}
       >
-        {/* Themed 1:1 Square Polaroid Mascot pinned above the first newspaper card with subtle depth overlap */}
-        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '10px', zIndex: 15, pointerEvents: 'none' }}>
-          <StoryCharacter theme="news" gender={data.gender} userPhotoUrl={data.userPhotoUrl} year={data.year} name={data.name} />
-        </div>
         {news.slice(0, 3).map((item, index) => {
           const stamp = stamps[index % stamps.length];
           const rotation = index === 0 ? '-0.8deg' : index === 1 ? '0.8deg' : '-0.5deg';
@@ -81,6 +100,7 @@ export default function SlideNewsHistory({ data }: SlideProps) {
           return (
             <div
               key={index}
+              className={`story-anim-item-${index + 1}`}
               style={{
                 position: 'relative',
                 background: 'linear-gradient(135deg, #f9f7f1 0%, #eee9dc 100%)',

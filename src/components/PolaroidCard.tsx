@@ -803,48 +803,43 @@ function ThemedAccessory({ theme }: { theme: StoryTheme }) {
         </svg>
       );
 
-    /* 2. MOON: Bubble Visor Sheen, Sun Shield & Antenna */
+    /* 2. MOON: Subtle Astronaut Glass Rim Sheen & Apollo Mission Patch (Clean & Natural) */
     case 'moon':
       return (
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 16 }}>
           <defs>
-            <linearGradient id="bubbleVisorSheen" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.85" />
-              <stop offset="35%" stopColor="#00e5ff" stopOpacity="0.45" />
-              <stop offset="70%" stopColor="#ffffff" stopOpacity="0.1" />
-              <stop offset="100%" stopColor="#00e5ff" stopOpacity="0" />
+            <linearGradient id="moonGlassRimSheen" x1="0.2" y1="0" x2="0.8" y2="1">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.4" />
+              <stop offset="40%" stopColor="#00e5ff" stopOpacity="0.15" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
             </linearGradient>
           </defs>
-          <path d="M 64 34 C 82 22, 118 22, 136 34 C 130 38, 70 38, 64 34 Z" fill="url(#bubbleVisorSheen)" />
-          <path d="M 72 38 C 88 28, 112 28, 128 38" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" opacity="0.9" />
-          <path d="M 62 38 C 84 18, 116 18, 138 38 C 132 44, 68 44, 62 38 Z" fill="#ffd700" stroke="#0b0d13" strokeWidth="2.2" strokeLinejoin="round" />
-          <path d="M 74 32 C 90 24, 110 24, 126 32" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" />
-          <line x1="134" y1="30" x2="152" y2="10" stroke="#0b0d13" strokeWidth="2.6" strokeLinecap="round" />
-          <line x1="134" y1="30" x2="152" y2="10" stroke="#e2e8f0" strokeWidth="1.2" strokeLinecap="round" />
-          <circle cx="152" cy="10" r="5.5" fill="#00e5ff" stroke="#0b0d13" strokeWidth="1.8" />
-          <circle cx="150.5" cy="8.5" r="1.8" fill="#ffffff" />
-          <path d="M 65 96 C 68 106, 76 112, 88 114" fill="none" stroke="#0b0d13" strokeWidth="2.2" strokeLinecap="round" />
-          <ellipse cx="88" cy="114" rx="3.5" ry="2.5" fill="#1e293b" stroke="#0b0d13" strokeWidth="1.4" />
+          {/* Subtle outer reflection along helmet ring */}
+          <path d="M 52 50 C 72 24, 128 24, 148 50 C 138 42, 62 42, 52 50 Z" fill="url(#moonGlassRimSheen)" />
+          {/* Miniature Golden Star Badge pinned to collar */}
+          <g transform="translate(142, 138) scale(0.7)">
+            <path d="M 10 0 L 13 7 L 20 7 L 15 12 L 17 19 L 10 15 L 3 19 L 5 12 L 0 7 L 7 7 Z" fill="#ffd700" stroke="#0b0d13" strokeWidth="1.2" />
+          </g>
         </svg>
       );
 
-    /* 3. RADIO: Retro 80s Orange Walkman Headphones */
+    /* 3. RADIO: Retro 80s Orange Walkman Headphones (Arch OUTSIDE and ABOVE the Head) */
     case 'radio':
       return (
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 16 }}>
-          {/* Metal Headband */}
-          <path d="M 64 68 C 64 26, 136 26, 136 68" stroke="#94a3b8" strokeWidth="3" strokeLinecap="round" fill="none" />
-          <path d="M 64 68 C 64 26, 136 26, 136 68" stroke="#e2e8f0" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+          {/* Metal Headband Arched OUTSIDE and ABOVE the Head */}
+          <path d="M 32 86 C 32 4, 168 4, 168 86" stroke="#94a3b8" strokeWidth="3.2" strokeLinecap="round" fill="none" />
+          <path d="M 32 86 C 32 4, 168 4, 168 86" stroke="#e2e8f0" strokeWidth="1.6" strokeLinecap="round" fill="none" />
           {/* Left Orange Foam Earpad */}
-          <g transform="translate(64, 68)">
-            <ellipse cx="0" cy="0" rx="8" ry="12" fill="#f97316" stroke="#0b0d13" strokeWidth="2" />
-            <ellipse cx="0" cy="0" rx="4.5" ry="7" fill="#ea580c" />
+          <g transform="translate(32, 86)">
+            <ellipse cx="0" cy="0" rx="9" ry="14" fill="#f97316" stroke="#0b0d13" strokeWidth="2" />
+            <ellipse cx="0" cy="0" rx="5" ry="8" fill="#ea580c" />
             <circle cx="2" cy="-3" r="1.5" fill="#ffffff" opacity="0.6" />
           </g>
           {/* Right Orange Foam Earpad */}
-          <g transform="translate(136, 68)">
-            <ellipse cx="0" cy="0" rx="8" ry="12" fill="#f97316" stroke="#0b0d13" strokeWidth="2" />
-            <ellipse cx="0" cy="0" rx="4.5" ry="7" fill="#ea580c" />
+          <g transform="translate(168, 86)">
+            <ellipse cx="0" cy="0" rx="9" ry="14" fill="#f97316" stroke="#0b0d13" strokeWidth="2" />
+            <ellipse cx="0" cy="0" rx="5" ry="8" fill="#ea580c" />
             <circle cx="-2" cy="-3" r="1.5" fill="#ffffff" opacity="0.6" />
           </g>
         </svg>
@@ -866,18 +861,18 @@ function ThemedAccessory({ theme }: { theme: StoryTheme }) {
         </svg>
       );
 
-    /* 5. BILLBOARD: DJ Over-Ear Studio Headphones */
+    /* 5. BILLBOARD: DJ Over-Ear Studio Headphones (Arch OUTSIDE and ABOVE the Head) */
     case 'billboard':
       return (
         <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 16 }}>
-          {/* Chunky Headband */}
-          <path d="M 62 60 C 62 16, 138 16, 138 60" stroke="#0f172a" strokeWidth="5" strokeLinecap="round" fill="none" />
-          <path d="M 62 60 C 62 16, 138 16, 138 60" stroke="#ff0077" strokeWidth="2" strokeLinecap="round" fill="none" />
+          {/* Chunky Headband Arched OUTSIDE and ABOVE the Head */}
+          <path d="M 30 82 C 30 2, 170 2, 170 82" stroke="#0f172a" strokeWidth="6" strokeLinecap="round" fill="none" />
+          <path d="M 30 82 C 30 2, 170 2, 170 82" stroke="#ff0077" strokeWidth="2.4" strokeLinecap="round" fill="none" />
           {/* Large Over-Ear Cushions */}
-          <ellipse cx="62" cy="62" rx="7" ry="14" fill="#1e293b" stroke="#0b0d13" strokeWidth="2" />
-          <ellipse cx="62" cy="62" rx="3.5" ry="8" fill="#00e5ff" />
-          <ellipse cx="138" cy="62" rx="7" ry="14" fill="#1e293b" stroke="#0b0d13" strokeWidth="2" />
-          <ellipse cx="138" cy="62" rx="3.5" ry="8" fill="#00e5ff" />
+          <ellipse cx="30" cy="84" rx="9" ry="16" fill="#1e293b" stroke="#0b0d13" strokeWidth="2.2" />
+          <ellipse cx="30" cy="84" rx="4" ry="9" fill="#00e5ff" />
+          <ellipse cx="170" cy="84" rx="9" ry="16" fill="#1e293b" stroke="#0b0d13" strokeWidth="2.2" />
+          <ellipse cx="170" cy="84" rx="4" ry="9" fill="#00e5ff" />
         </svg>
       );
 
@@ -974,12 +969,12 @@ export interface ThemeHeadLayout {
 export const THEME_HEAD_LAYOUTS: Record<StoryTheme, ThemeHeadLayout> = {
   intro: { top: '33%', left: '50.5%', width: '42%' },
   moon: { top: '43%', left: '50%', width: '58%' },
-  radio: { top: '34%', left: '51%', width: '42%' },
+  radio: { top: '45%', left: '50.5%', width: '56%' },
   sales: { top: '33%', left: '50%', width: '42%' },
-  billboard: { top: '28%', left: '51%', width: '42%' },
-  news: { top: '22%', left: '50%', width: '42%' },
+  billboard: { top: '40%', left: '50%', width: '58%' },
+  news: { top: '31%', left: '50%', width: '52%' },
   cinema: { top: '34%', left: '50%', width: '42%' },
-  stats: { top: '24.5%', left: '50%', width: '42%' },
+  stats: { top: '44%', left: '50%', width: '56%' },
   summary: { top: '46%', left: '50%', width: '42%' },
 };
 
@@ -1008,8 +1003,8 @@ export function ThemedMascotPolaroid({
     <div
       className={`acid-polaroid-container acid-polaroid-square ${className}`}
       style={{
-        width: width || '114px',
-        maxWidth: '145px',
+        width: width || '120px',
+        maxWidth: '170px',
         transform: `rotate(${rotation}deg)`,
         margin: '0 auto',
         display: 'block',

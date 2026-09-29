@@ -56,7 +56,7 @@ export default function StoryCharacter({
         userPhotoUrl={userPhotoUrl}
         name={name}
         year={year}
-        width="clamp(104px, 30cqw, 124px)"
+        width="clamp(120px, 35cqw, 148px)"
         rotation={rotation}
       />
     </div>

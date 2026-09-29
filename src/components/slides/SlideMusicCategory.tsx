@@ -71,11 +71,87 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
 
   return (
     <div className={`slide-vhs-canvas slide-theme-${categoryId === 'billboard' ? 'billboard' : categoryId === 'sales_br' ? 'sales' : 'radio'}`} style={{ position: 'relative' }}>
+      {/* Themed Animated Background Layer */}
+      {categoryId === 'radio_br' && (
+        <div className="bg-anim-radio">
+          {/* Sweeping Disco Light Beam */}
+          <div
+            style={{
+              position: 'absolute',
+              top: '-20px',
+              left: '50%',
+              width: '180px',
+              height: '350px',
+              background: 'linear-gradient(180deg, rgba(255, 0, 119, 0.22) 0%, rgba(0, 229, 255, 0.08) 60%, transparent 100%)',
+              clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+              transformOrigin: 'top center',
+              animation: 'discoBeamSweep 5s ease-in-out infinite',
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              bottom: '15%',
+              right: '10%',
+              width: '120px',
+              height: '120px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, rgba(0, 229, 255, 0.15) 0%, transparent 70%)',
+              animation: 'discoGlowPulse 3s ease-in-out infinite',
+            }}
+          />
+        </div>
+      )}
+
+      {categoryId === 'sales_br' && (
+        <div className="bg-anim-sales">
+          {/* Floating Gold Shimmer Specks */}
+          <svg viewBox="0 0 360 640" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
+            <circle cx="60" cy="180" r="1.5" fill="#ffd700" style={{ animation: 'goldDustFloat 4s ease-in-out infinite' }} />
+            <circle cx="280" cy="240" r="2" fill="#ffd700" style={{ animation: 'goldDustFloat 3.2s ease-in-out infinite 1s' }} />
+            <circle cx="110" cy="360" r="1.2" fill="#ffd700" style={{ animation: 'goldDustFloat 5s ease-in-out infinite 0.5s' }} />
+            <circle cx="310" cy="460" r="1.8" fill="#ffd700" style={{ animation: 'goldDustFloat 4.2s ease-in-out infinite 2s' }} />
+          </svg>
+        </div>
+      )}
+
+      {categoryId === 'billboard' && (
+        <div className="bg-anim-billboard">
+          {/* Swaying Concert Arena Stage Lights */}
+          <div
+            style={{
+              position: 'absolute',
+              top: '-10px',
+              left: '15%',
+              width: '140px',
+              height: '320px',
+              background: 'linear-gradient(180deg, rgba(0, 229, 255, 0.25) 0%, transparent 100%)',
+              clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+              transformOrigin: 'top center',
+              animation: 'stageLightSwayLeft 4.5s ease-in-out infinite',
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              top: '-10px',
+              right: '15%',
+              width: '140px',
+              height: '320px',
+              background: 'linear-gradient(180deg, rgba(255, 0, 119, 0.25) 0%, transparent 100%)',
+              clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+              transformOrigin: 'top center',
+              animation: 'stageLightSwayRight 4.5s ease-in-out infinite 0.6s',
+            }}
+          />
+        </div>
+      )}
+
       {/* Integrated Retro VCR Header (Safe Story OSD) */}
       <StoryHeader data={data} />
 
-      {/* Category Main Header: Left-aligned with clearance for Chibi Caricature */}
-      <div style={{ textAlign: 'left', zIndex: 2, marginBottom: '6px', paddingRight: 'clamp(118px, 32cqw, 138px)' }}>
+      {/* Category Main Header: Centered */}
+      <div className="story-anim-header" style={{ textAlign: 'center', zIndex: 2, marginBottom: '4px' }}>
         <h2
           style={{
             fontSize: 'clamp(1.15rem, 3.8vw, 1.45rem)',
@@ -106,22 +182,22 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
         </div>
       </div>
 
+      {/* Centered Themed 1:1 Square Polaroid Mascot */}
+      <div className="story-anim-polaroid" style={{ display: 'flex', justifyContent: 'center', margin: '2px auto', zIndex: 6 }}>
+        <StoryCharacter
+          theme={categoryId === 'billboard' ? 'billboard' : categoryId === 'sales_br' ? 'sales' : 'radio'}
+          gender={data.gender}
+          userPhotoUrl={data.userPhotoUrl}
+          year={data.year}
+          name={data.name}
+        />
+      </div>
+
       {/* Main Content: #1 Torn Photo Album Card + Lined J-Card Top 2-5 (Aligned to Bottom) */}
       <div style={{ marginTop: 'auto', position: 'relative', display: 'flex', flexDirection: 'column', gap: 'clamp(3px, 0.9vh, 5px)', zIndex: 5 }}>
-        {/* Themed 1:1 Square Polaroid Mascot pinned above the #1 Hit card with subtle depth overlap */}
-        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '10px', zIndex: 15, pointerEvents: 'none' }}>
-          <StoryCharacter
-            theme={categoryId === 'billboard' ? 'billboard' : categoryId === 'sales_br' ? 'sales' : 'radio'}
-            gender={data.gender}
-            userPhotoUrl={data.userPhotoUrl}
-            year={data.year}
-            name={data.name}
-          />
-        </div>
-
         {/* #1 Torn Photo Album Cover Card */}
         <div
-          className="torn-photo-card"
+          className="torn-photo-card story-anim-card-1"
           style={{
             padding: 'clamp(5px, 1.4vw, 7px) clamp(7px, 1.8vw, 10px)',
             background: '#fffdf4',
@@ -256,6 +332,7 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
             return (
               <div
                 key={idx}
+                className={`story-anim-item-${idx + 1}`}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -311,9 +388,8 @@ export default function SlideMusicCategory({ data, categoryId }: SlideProps) {
         </div>
       </div>
 
-      {/* Footer VCR VU Meter & Audio Specifications */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', zIndex: 2, padding: '0 2px' }}>
-        <VcrVuMeter />
+      {/* Footer Audio Source Specifications */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', zIndex: 2, padding: '0 2px' }}>
         <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: '0.58rem', color: '#9ca3af' }}>
           FONTE: {config.source}
         </div>

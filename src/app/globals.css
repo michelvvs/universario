@@ -1726,3 +1726,200 @@ body {
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0px var(--acid-chartreuse);
 }
+
+/* ==========================================================================
+   STAGGERED STORY PRESENTATION ANIMATIONS
+   Displays elements one by one with varied presentation effects
+   ========================================================================== */
+
+@keyframes storyHeaderEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes storyPolaroidPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.72) translateY(24px) rotate(4deg);
+    filter: brightness(1.6) drop-shadow(0 0 16px rgba(255, 255, 255, 0.7));
+  }
+  65% {
+    opacity: 1;
+    transform: scale(1.04) translateY(-2px) rotate(-1deg);
+    filter: brightness(1.08) drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5));
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(0deg);
+    filter: brightness(1) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.4));
+  }
+}
+
+@keyframes storyCardSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes storyItemCascade {
+  0% {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes storyBadgeStamp {
+  0% {
+    opacity: 0;
+    transform: scale(1.8) rotate(-15deg);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(0.94) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.story-anim-header {
+  animation: storyHeaderEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.08s;
+}
+
+.story-anim-polaroid {
+  animation: storyPolaroidPop 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  animation-delay: 0.20s;
+}
+
+.story-anim-card-1 {
+  animation: storyCardSlideUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.40s;
+}
+
+.story-anim-card-2 {
+  animation: storyCardSlideUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.56s;
+}
+
+.story-anim-item-1 { animation: storyItemCascade 0.35s ease-out both; animation-delay: 0.48s; }
+.story-anim-item-2 { animation: storyItemCascade 0.35s ease-out both; animation-delay: 0.60s; }
+.story-anim-item-3 { animation: storyItemCascade 0.35s ease-out both; animation-delay: 0.72s; }
+.story-anim-item-4 { animation: storyItemCascade 0.35s ease-out both; animation-delay: 0.84s; }
+.story-anim-badge  { animation: storyBadgeStamp 0.4s cubic-bezier(0.2, 1.2, 0.4, 1) both; animation-delay: 0.90s; }
+
+/* Instant full-opacity rendering for export and print */
+.is-exporting,
+.is-exporting * {
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+/* ==========================================================================
+   SUBTLE THEMED ANIMATED BACKGROUNDS (PER SCREEN)
+   ========================================================================== */
+
+/* 1. INTRO: Animated Thermal Aura & Floating Micro-Specks */
+@keyframes thermalAuraBreathe {
+  0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 0.85; }
+  50% { transform: translate(-50%, -50%) scale(1.08) rotate(3deg); opacity: 0.98; }
+}
+
+/* 2. MOON: Deep Galactic Space with Twinkling Stars & Nebula Breathing */
+@keyframes nebulaBreathe {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(1.12); }
+}
+@keyframes starTwinkleFast {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+@keyframes starTwinkleSlow {
+  0%, 100% { opacity: 0.8; transform: scale(1.1); }
+  50% { opacity: 0.2; transform: scale(0.7); }
+}
+@keyframes shootingStarStreak {
+  0%, 75% { transform: translate(120px, -60px) rotate(-35deg); opacity: 0; }
+  80% { opacity: 1; }
+  92% { transform: translate(-140px, 120px) rotate(-35deg); opacity: 0; }
+  100% { transform: translate(-140px, 120px) rotate(-35deg); opacity: 0; }
+}
+
+.bg-anim-moon-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* 3. RADIO: 80s Danceteria Sweeping Disco Lights & Neon Beam */
+@keyframes discoBeamSweep {
+  0%, 100% { transform: rotate(-22deg); opacity: 0.25; }
+  50% { transform: rotate(22deg); opacity: 0.5; }
+}
+@keyframes discoGlowPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+/* 4. SALES: Vinyl Gold Sheen & Floating Musical Shimmer */
+@keyframes goldDustFloat {
+  0% { transform: translateY(0); opacity: 0.2; }
+  50% { opacity: 0.7; }
+  100% { transform: translateY(-40px); opacity: 0; }
+}
+
+/* 5. BILLBOARD: Concert Stage Lights Swaying & Laser Flash */
+@keyframes stageLightSwayLeft {
+  0%, 100% { transform: rotate(-18deg); opacity: 0.28; }
+  50% { transform: rotate(6deg); opacity: 0.55; }
+}
+@keyframes stageLightSwayRight {
+  0%, 100% { transform: rotate(18deg); opacity: 0.28; }
+  50% { transform: rotate(-6deg); opacity: 0.55; }
+}
+
+/* 6. NEWS: Vintage Newsprint Texture & Teletype Shimmer */
+@keyframes teletypeLineSweep {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+/* 7. CINEMA: Film Projector Dust Motes & Phosphor Screen Flicker */
+@keyframes projectorDustMote {
+  0% { transform: translateY(0) translateX(0); opacity: 0.2; }
+  50% { opacity: 0.7; transform: translateY(-20px) translateX(10px); }
+  100% { transform: translateY(-40px) translateX(-5px); opacity: 0; }
+}
+
+/* 8. STATS: CRT Oscilloscope Grid Pulse & Heartbeat Scanline */
+@keyframes radarSweepCirc {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 9. SUMMARY: VIP Holographic Rainbow Sheen Sweep */
+@keyframes holoRainbowSweep {
+  0% { transform: translateX(-120%) rotate(25deg); opacity: 0; }
+  30% { opacity: 0.35; }
+  70% { opacity: 0.35; }
+  100% { transform: translateX(220%) rotate(25deg); opacity: 0; }
+}
+

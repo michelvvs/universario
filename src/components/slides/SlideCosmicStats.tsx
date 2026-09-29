@@ -17,11 +17,29 @@ export default function SlideCosmicStats({ data }: SlideProps) {
 
   return (
     <div className="slide-vhs-canvas slide-theme-stats" style={{ position: 'relative' }}>
+      {/* CRT Telemetry Oscilloscope Animated Background */}
+      <div className="bg-anim-stats">
+        {/* Soft Green Phosphor Glow in Center */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '20%',
+            left: '50%',
+            width: '260px',
+            height: '260px',
+            transform: 'translate(-50%, -50%)',
+            background: 'radial-gradient(circle, rgba(0, 255, 204, 0.12) 0%, transparent 70%)',
+            filter: 'blur(30px)',
+            pointerEvents: 'none',
+          }}
+        />
+      </div>
+
       {/* Integrated Retro VCR Header (Safe Story OSD) */}
       <StoryHeader data={data} />
 
-      {/* Cosmic Stats Main Header: Left-aligned with clearance for Chibi Caricature */}
-      <div style={{ textAlign: 'left', zIndex: 2, marginBottom: '6px', paddingRight: 'clamp(118px, 32cqw, 138px)' }}>
+      {/* Cosmic Stats Main Header: Centered */}
+      <div className="story-anim-header" style={{ textAlign: 'center', zIndex: 2, marginBottom: '4px' }}>
         <h2
           style={{
             fontSize: 'clamp(1.15rem, 3.8vw, 1.45rem)',
@@ -52,8 +70,14 @@ export default function SlideCosmicStats({ data }: SlideProps) {
         </div>
       </div>
 
+      {/* Centered Themed 1:1 Square Polaroid Mascot */}
+      <div className="story-anim-polaroid" style={{ display: 'flex', justifyContent: 'center', margin: '2px auto', zIndex: 6 }}>
+        <StoryCharacter theme="stats" gender={data.gender} userPhotoUrl={data.userPhotoUrl} year={data.year} name={data.name} />
+      </div>
+
       {/* VCR Diagnostic Panel - Glowing Vacuum Fluorescent Display (Aligned to Bottom) */}
       <div
+        className="story-anim-card-1"
         style={{
           marginTop: 'auto',
           position: 'relative',
@@ -64,10 +88,6 @@ export default function SlideCosmicStats({ data }: SlideProps) {
           zIndex: 5,
         }}
       >
-        {/* Themed 1:1 Square Polaroid Mascot pinned above the stats panel with subtle depth overlap */}
-        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '10px', zIndex: 15, pointerEvents: 'none' }}>
-          <StoryCharacter theme="stats" gender={data.gender} userPhotoUrl={data.userPhotoUrl} year={data.year} name={data.name} />
-        </div>
         {/* Heartbeats Counter */}
         <div
           style={{

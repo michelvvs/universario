@@ -14,81 +14,107 @@ interface SlideProps {
 export default function SlideMoonAstronomy({ data }: SlideProps) {
   const { astronomy } = data;
 
-  const renderMoonSvg = () => {
+  const renderRealisticMoon = () => {
     const illum = astronomy.moonIlluminationPercent;
     const isWaxing = astronomy.moonPhaseIndex <= 4;
 
     return (
-      <div style={{ position: 'relative', width: 'clamp(68px, 16vw, 90px)', height: 'clamp(68px, 16vw, 90px)', margin: '0 auto' }}>
-        {/* Glowing Halo / Atmosphere */}
+      <div style={{ position: 'relative', width: 'clamp(82px, 20vw, 102px)', height: 'clamp(82px, 20vw, 102px)', margin: '0 auto' }}>
+        {/* Glowing Halo / Cyan Atmosphere */}
         <div
           style={{
             position: 'absolute',
-            inset: '-8px',
+            inset: '-10px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(0, 229, 255, 0.3) 0%, transparent 70%)',
-            filter: 'blur(5px)',
+            background: 'radial-gradient(circle, rgba(0, 229, 255, 0.45) 0%, rgba(0, 150, 255, 0.15) 55%, transparent 75%)',
+            filter: 'blur(8px)',
             pointerEvents: 'none',
           }}
         />
 
-        {/* Moon Sphere with Realistic Analog Shading */}
-        <svg
-          viewBox="0 0 100 100"
+        {/* High-Resolution Photorealistic Moon Image */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/assets/realistic_moon.jpg"
+          alt="Lua realista"
           style={{
             width: '100%',
             height: '100%',
             borderRadius: '50%',
-            border: '2px solid rgba(255, 255, 255, 0.8)',
-            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.95), 0 0 14px rgba(0, 229, 255, 0.5)',
-            backgroundColor: '#070912',
+            objectFit: 'cover',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.95), 0 0 16px rgba(0, 229, 255, 0.45)',
+            display: 'block',
           }}
-        >
-          <defs>
-            <radialGradient id="moonGlowGradVhs" cx="45%" cy="45%" r="55%">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
-              <stop offset="60%" stopColor="#e2e8f0" stopOpacity="0.95" />
-              <stop offset="100%" stopColor="#94a3b8" stopOpacity="0.85" />
-            </radialGradient>
-            <mask id="moonPhaseMaskVhs">
-              <rect x="0" y="0" width="100" height="100" fill="white" />
-              {illum < 98 && (
-                <path
-                  d={
-                    isWaxing
-                      ? `M 50 0 A 50 50 0 0 0 50 100 A ${Math.abs(50 - (illum / 100) * 100)} 50 0 0 ${
-                          illum < 50 ? '0' : '1'
-                        } 50 0`
-                      : `M 50 0 A 50 50 0 0 1 50 100 A ${Math.abs(50 - (illum / 100) * 100)} 50 0 0 ${
-                          illum < 50 ? '1' : '0'
-                        } 50 0`
-                  }
-                  fill="black"
-                />
-              )}
-            </mask>
-          </defs>
+        />
 
-          {/* Base illuminated moon */}
-          <circle cx="50" cy="50" r="49" fill="url(#moonGlowGradVhs)" mask="url(#moonPhaseMaskVhs)" />
-
-          {/* Craters detail */}
-          <circle cx="35" cy="40" r="7" fill="rgba(30, 41, 59, 0.35)" mask="url(#moonPhaseMaskVhs)" />
-          <circle cx="62" cy="35" r="9" fill="rgba(30, 41, 59, 0.3)" mask="url(#moonPhaseMaskVhs)" />
-          <circle cx="50" cy="68" r="11" fill="rgba(30, 41, 59, 0.3)" mask="url(#moonPhaseMaskVhs)" />
-          <circle cx="70" cy="65" r="5" fill="rgba(30, 41, 59, 0.25)" mask="url(#moonPhaseMaskVhs)" />
-        </svg>
+        {/* Dynamic Lunar Terminator Phase Shadow */}
+        {illum < 98 && (
+          <svg
+            viewBox="0 0 100 100"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              borderRadius: '50%',
+              pointerEvents: 'none',
+              mixBlendMode: 'multiply',
+            }}
+          >
+            <path
+              d={
+                isWaxing
+                  ? `M 50 0 A 50 50 0 0 0 50 100 A ${Math.abs(50 - (illum / 100) * 100)} 50 0 0 ${illum < 50 ? '0' : '1'} 50 0`
+                  : `M 50 0 A 50 50 0 0 1 50 100 A ${Math.abs(50 - (illum / 100) * 100)} 50 0 0 ${illum < 50 ? '1' : '0'} 50 0`
+              }
+              fill="#04060c"
+              opacity="0.95"
+            />
+          </svg>
+        )}
       </div>
     );
   };
 
   return (
     <div className="slide-vhs-canvas slide-theme-moon" style={{ position: 'relative' }}>
+      {/* Galactic Animated Background Layer */}
+      <div className="bg-anim-moon-layer">
+        {/* Cosmic Nebula Breathing Glow */}
+        <div
+          style={{
+            position: 'absolute',
+            width: '280px',
+            height: '280px',
+            top: '20%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            background: 'radial-gradient(circle, rgba(0, 120, 255, 0.25) 0%, rgba(138, 43, 226, 0.18) 50%, transparent 70%)',
+            filter: 'blur(35px)',
+            animation: 'nebulaBreathe 6s ease-in-out infinite',
+          }}
+        />
+        {/* Twinkling Stars Cluster */}
+        <svg viewBox="0 0 360 640" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
+          <circle cx="45" cy="80" r="1.5" fill="#ffffff" style={{ animation: 'starTwinkleFast 2s ease-in-out infinite' }} />
+          <circle cx="120" cy="40" r="1" fill="#00e5ff" style={{ animation: 'starTwinkleSlow 3.5s ease-in-out infinite' }} />
+          <circle cx="280" cy="95" r="1.8" fill="#ffd700" style={{ animation: 'starTwinkleFast 2.4s ease-in-out infinite 0.5s' }} />
+          <circle cx="320" cy="180" r="1.2" fill="#ffffff" style={{ animation: 'starTwinkleSlow 4s ease-in-out infinite 1s' }} />
+          <circle cx="60" cy="220" r="1.4" fill="#ffffff" style={{ animation: 'starTwinkleFast 3s ease-in-out infinite 0.8s' }} />
+          <circle cx="310" cy="310" r="1.6" fill="#00e5ff" style={{ animation: 'starTwinkleSlow 3s ease-in-out infinite 1.5s' }} />
+          <circle cx="50" cy="380" r="1" fill="#ffffff" style={{ animation: 'starTwinkleFast 2.2s ease-in-out infinite 0.3s' }} />
+          <circle cx="95" cy="510" r="1.5" fill="#ffd700" style={{ animation: 'starTwinkleSlow 4.5s ease-in-out infinite' }} />
+          <circle cx="270" cy="540" r="1.3" fill="#ffffff" style={{ animation: 'starTwinkleFast 2.8s ease-in-out infinite 1.2s' }} />
+          {/* Shooting Star Streak */}
+          <line x1="320" y1="40" x2="260" y2="85" stroke="#ffffff" strokeWidth="1.6" strokeLinecap="round" style={{ animation: 'shootingStarStreak 7s ease-out infinite 2s' }} />
+        </svg>
+      </div>
+
       {/* Integrated Retro VCR Header (Safe Story OSD) */}
       <StoryHeader data={data} />
 
-      {/* Moon Phase Main Header: Left-aligned */}
-      <div style={{ textAlign: 'left', zIndex: 2, marginBottom: '4px', paddingRight: '16px' }}>
+      {/* Moon Phase Main Header: Centered */}
+      <div className="story-anim-header" style={{ textAlign: 'center', zIndex: 2, marginBottom: '4px' }}>
         <h2
           style={{
             fontSize: 'clamp(1.15rem, 4vw, 1.55rem)',
@@ -139,21 +165,19 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
         </div>
       </div>
 
-      {/* Center Section: Glowing Moon Sphere */}
-      <div style={{ margin: 'auto 0', textAlign: 'center', zIndex: 2 }}>
-        {renderMoonSvg()}
-      </div>
-
-      {/* Torn Paper Photo-Collage Cards: Aligned to bottom with Polaroid Mascot resting on top edge */}
-      <div style={{ marginTop: 'auto', position: 'relative', display: 'flex', flexDirection: 'column', gap: 'clamp(5px, 1.2vh, 7px)', zIndex: 5 }}>
-        {/* Themed 1:1 Square Polaroid Mascot pinned above the observation card with light depth overlap */}
-        <div style={{ position: 'absolute', bottom: 'calc(100% - 14px)', right: '10px', zIndex: 15, pointerEvents: 'none' }}>
+      {/* Center Section: Realistic Glowing Moon + Centered Mascot */}
+      <div style={{ margin: 'auto 0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', zIndex: 4 }}>
+        <div className="story-anim-polaroid" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '14px', width: '100%' }}>
+          {renderRealisticMoon()}
           <StoryCharacter theme="moon" gender={data.gender} userPhotoUrl={data.userPhotoUrl} year={data.year} name={data.name} />
         </div>
+      </div>
 
+      {/* Torn Paper Photo-Collage Cards: Aligned to bottom */}
+      <div style={{ marginTop: 'auto', position: 'relative', display: 'flex', flexDirection: 'column', gap: 'clamp(5px, 1.2vh, 7px)', zIndex: 5 }}>
         {/* NASA Sky Observation Torn Card */}
         <div
-          className="torn-photo-card"
+          className="torn-photo-card story-anim-card-1"
           style={{
             padding: 'clamp(6px, 1.6vw, 9px) clamp(8px, 2vw, 12px)',
             background: '#fffdf5',
@@ -174,7 +198,7 @@ export default function SlideMoonAstronomy({ data }: SlideProps) {
 
         {/* Astrological Cosmic Message Dark Sleeve Card */}
         <div
-          className="torn-photo-card-dark"
+          className="torn-photo-card-dark story-anim-card-2"
           style={{
             padding: 'clamp(6px, 1.6vw, 9px) clamp(8px, 2vw, 12px)',
             transform: 'rotate(-0.5deg)',

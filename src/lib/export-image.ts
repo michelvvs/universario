@@ -95,10 +95,15 @@ export async function captureElementAsBlob(
   element: HTMLElement,
   quality: number = 0.95
 ): Promise<Blob> {
-  await ensureImagesLoaded(element);
-  const blob = await toBlob(element, getExportOptions(element, quality));
-  if (!blob) throw new Error('Não foi possível gerar a imagem em alta resolução.');
-  return blob;
+  element.classList.add('is-exporting');
+  try {
+    await ensureImagesLoaded(element);
+    const blob = await toBlob(element, getExportOptions(element, quality));
+    if (!blob) throw new Error('Não foi possível gerar a imagem em alta resolução.');
+    return blob;
+  } finally {
+    element.classList.remove('is-exporting');
+  }
 }
 
 /**
@@ -108,6 +113,7 @@ export async function captureElementAsPng(
   element: HTMLElement,
   fileName: string = 'story-universario.png'
 ): Promise<string> {
+  element.classList.add('is-exporting');
   try {
     await ensureImagesLoaded(element);
     const dataUrl = await toPng(element, getExportOptions(element, 0.95));
@@ -115,6 +121,8 @@ export async function captureElementAsPng(
   } catch (error) {
     console.error('Erro ao gerar PNG:', error);
     throw error;
+  } finally {
+    element.classList.remove('is-exporting');
   }
 }
 
